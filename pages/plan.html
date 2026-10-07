@@ -1,0 +1,1430 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="طرح جامع اطلس شهدا — سند مرجع طراحی، داده، تجربه کاربری و نقشه راه">
+<meta name="color-scheme" content="light">
+<title>طرح جامع اطلس شهدا | سند مرجع طراحی و داده</title>
+<link rel="stylesheet" href="../assets/css/plan.css">
+</head>
+<body>
+
+<!-- ======================= نوار بالا ======================= -->
+<header class="topbar">
+  <div class="in">
+    <a class="tb-brand" href="#top">
+      <span class="tb-mark">✦</span>
+      <span>اطلس شهدا<small>سند طرح جامع</small></span>
+    </a>
+    <nav class="tb-links" aria-label="دسترسی سریع">
+      <a href="#s1">چکیده</a>
+      <a href="#s8">مدل مفهومی</a>
+      <a href="#s11">لایه‌ها</a>
+      <a href="#s15">نقشه</a>
+      <a href="#s22">مدل داده</a>
+      <a href="#s29">نقشه راه</a>
+    </nav>
+  </div>
+  <div class="tb-progress" id="bar"></div>
+</header>
+
+<div class="shell" id="top">
+
+  <!-- ======================= فهرست ======================= -->
+  <nav class="toc" id="toc" aria-label="فهرست سند">
+    <button class="toc-toggle" type="button" id="tocBtn">فهرست سند <span>▾</span></button>
+    <div class="toc-inner" id="tocInner">
+      <p class="toc-title">فهرست مطالب</p>
+
+      <div class="toc-group"><b>مبانی</b>
+        <a href="#s1"><span class="n">۱</span>چکیده مدیریتی</a>
+        <a href="#s2"><span class="n">۲</span>معرفی طرح و دامنه</a>
+        <a href="#s3"><span class="n">۳</span>جایگاه در اکوسیستم</a>
+        <a href="#s4"><span class="n">۴</span>مسئله و ضرورت</a>
+        <a href="#s5"><span class="n">۵</span>مأموریت و چشم‌انداز</a>
+        <a href="#s6"><span class="n">۶</span>اهداف و شاخص‌ها</a>
+        <a href="#s7"><span class="n">۷</span>اصول بنیادین</a>
+      </div>
+
+      <div class="toc-group"><b>مدل مفهومی</b>
+        <a href="#s8"><span class="n">۸</span>مکان × زمان × لایه</a>
+        <a href="#s9"><span class="n">۹</span>هویت پایدار مکان</a>
+        <a href="#s10"><span class="n">۱۰</span>زمان؛ بعد چهارم</a>
+        <a href="#s11"><span class="n">۱۱</span>لایه‌های اطلاعاتی</a>
+        <a href="#s12"><span class="n">۱۲</span>روابط و گراف دانش</a>
+      </div>
+
+      <div class="toc-group"><b>تجربه و محصول</b>
+        <a href="#s13"><span class="n">۱۳</span>پرونده مکان</a>
+        <a href="#s14"><span class="n">۱۴</span>پرونده شهید</a>
+        <a href="#s15"><span class="n">۱۵</span>نقشه و تجربه مکانی</a>
+        <a href="#s16"><span class="n">۱۶</span>جست‌وجو و کشف</a>
+        <a href="#s17"><span class="n">۱۷</span>مسیرها و محدوده‌ها</a>
+      </div>
+
+      <div class="toc-group"><b>داده و اعتبار</b>
+        <a href="#s18"><span class="n">۱۸</span>منابع و استناد</a>
+        <a href="#s19"><span class="n">۱۹</span>کیفیت و عدم‌قطعیت</a>
+        <a href="#s20"><span class="n">۲۰</span>مشارکت و گردش بررسی</a>
+        <a href="#s21"><span class="n">۲۱</span>حاکمیت و حریم خصوصی</a>
+        <a href="#s22"><span class="n">۲۲</span>مدل داده کامل</a>
+      </div>
+
+      <div class="toc-group"><b>فنی و طراحی</b>
+        <a href="#s23"><span class="n">۲۳</span>معماری فنی</a>
+        <a href="#s24"><span class="n">۲۴</span>قرارداد API</a>
+        <a href="#s25"><span class="n">۲۵</span>سیستم طراحی</a>
+        <a href="#s26"><span class="n">۲۶</span>تجربه کاربری و نقش‌ها</a>
+        <a href="#s27"><span class="n">۲۷</span>محتوا و روایت</a>
+        <a href="#s28"><span class="n">۲۸</span>دسترس‌پذیری و عملکرد</a>
+      </div>
+
+      <div class="toc-group"><b>اجرا</b>
+        <a href="#s29"><span class="n">۲۹</span>نقشه راه و فازبندی</a>
+        <a href="#s30"><span class="n">۳۰</span>سازمان و مدل اجرا</a>
+        <a href="#s31"><span class="n">۳۱</span>ریسک‌ها</a>
+        <a href="#s32"><span class="n">۳۲</span>سنجه‌ها و پایش</a>
+        <a href="#s33"><span class="n">۳۳</span>جمع‌بندی</a>
+        <a href="#s34"><span class="n">۳۴</span>واژه‌نامه و مراجع</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================= محتوا ======================= -->
+  <main class="content">
+
+    <!-- سربرگ -->
+    <header class="doc-hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">✦ سند مرجع طراحی، داده و تجربه</span>
+          <h1>طرح جامع <em>اطلس شهدا</em></h1>
+          <p class="lead">
+            اطلس شهدا یک محصول مستقل و تخصصی برای ثبت، پیوند و روایت <strong style="color:#fff">جغرافیای مرتبط با شهدا</strong> است.
+            نقطه شروع آن «مکان» است؛ اما هر مکان یک موجودیت زنده است که در طول زمان نقش‌ها، رویدادها، اشخاص، اسناد و روایت‌های متفاوتی می‌پذیرد.
+            این سند، مدل مفهومی، مدل داده، هویت بصری، تجربه کاربری، معماری فنی و نقشه راه اجرای آن را تثبیت می‌کند.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#s8">شروع از مدل مفهومی</a>
+            <a class="btn btn-ghost" href="#s22">مدل داده کامل</a>
+            <a class="btn btn-ghost" href="#s29">نقشه راه</a>
+          </div>
+        </div>
+        <div class="seal" aria-hidden="true">
+          <span class="ring r1"></span>
+          <span class="ring r2"></span>
+          <span class="ring r3"></span>
+          <span class="star" style="top:6%;inset-inline-start:50%">✦</span>
+          <span class="star" style="bottom:8%;inset-inline-start:16%">✦</span>
+          <span class="star" style="bottom:8%;inset-inline-end:16%">✦</span>
+          <div class="core">
+            <div class="t">اطلس شهدا</div>
+            <span class="s">انسان • مکان • زمان</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- نوار آمار -->
+    <div class="stat-strip">
+      <div><b>۳۴</b><span>فصل سند</span></div>
+      <div><b>۱۰</b><span>لایه اطلاعاتی</span></div>
+      <div><b>۱۴</b><span>موجودیت داده</span></div>
+      <div><b>۵</b><span>فاز اجرا</span></div>
+      <div><b>۴</b><span>سطح دسترسی</span></div>
+    </div>
+
+    <!-- ۱ -->
+    <section class="sec" id="s1">
+      <div class="sec-head">
+        <div class="sec-num">۱</div>
+        <div class="sec-title"><h2>چکیده مدیریتی</h2><div class="sub">این سند چه چیزی را تثبیت می‌کند و چه تصمیم‌هایی گرفته شده است</div></div>
+      </div>
+      <p class="lead">
+        اطلس شهدا قرار نیست مجموعه‌ای از نقاط پراکنده روی نقشه باشد. هدف، ساختن یک <strong>مرجع مکانی یکپارچه</strong> است که در آن هر مکان یک هویت پایدار دارد
+        و اطلاعات گوناگون — اشخاص، رویدادها، اسناد، مسیرها و روایت‌ها — در قالب «وضعیت‌های زمانی» و «لایه‌های اطلاعاتی» روی همان هویت سوار می‌شوند.
+        این سند چهار تصمیم بنیادین را قطعی می‌کند: مدل هویت مکان، مدل زمان و عدم‌قطعیت، ساختار لایه‌ای اطلاعات، و مدل منبع‌مندی و اعتبار داده.
+      </p>
+
+      <div class="grid4">
+        <div class="mini"><h4><span class="ico">◉</span>هویت مکان</h4><p>یک شناسه پایدار، مستقل از نام، آدرس، هندسه و تغییرات تاریخی؛ تغییر نام هرگز مکان تازه نمی‌سازد.</p></div>
+        <div class="mini"><h4><span class="ico">◔</span>مدل زمانی</h4><p>هر ادعا یک بازه اعتبار دارد؛ تاریخ نامعلوم با «بازه + سطح اطمینان» ثبت می‌شود، نه با تاریخ ساختگی.</p></div>
+        <div class="mini"><h4><span class="ico">▦</span>ساختار لایه‌ای</h4><p>لایه‌ها روش سازمان‌دهی و نمایش‌اند، نه موجودیت مستقل؛ هیچ لایه‌ای مکان تکراری نمی‌سازد.</p></div>
+        <div class="mini"><h4><span class="ico">⚖</span>حاکمیت داده</h4><p>هر داده مهم به منبع، سطح اطمینان، سطح دسترسی و تاریخچه تغییر گره می‌خورد؛ انتشار بدون منبع ممنوع است.</p></div>
+      </div>
+
+      <h3>تصمیم‌های کلیدی سند</h3>
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>موضوع</th><th>تصمیم تثبیت‌شده</th><th>اثر بر اجرا</th></tr></thead>
+          <tbody>
+            <tr><td>موجودیت پایه</td><td><code>Location</code> به‌عنوان هسته؛ وضعیت‌های تاریخی فرزند آن هستند.</td><td>جلوگیری از تکرار مکان و حفظ یکپارچگی ارجاع‌ها.</td></tr>
+            <tr><td>عدم‌قطعیت</td><td>چهار سطح: <b>دقیق، تقریبی، محدوده، نامعلوم</b> — بخشی از داده است، نه توضیح.</td><td>نمایش صادقانه نقشه و امکان فیلتر بر پایه اطمینان.</td></tr>
+            <tr><td>نام‌ها</td><td>نام رسمی، رایج، محلی و تاریخی همه روی یک مکان ثبت می‌شوند.</td><td>جست‌وجو با هر نامی به همان مکان می‌رسد.</td></tr>
+            <tr><td>منبع</td><td>منبع، موجودیت درجه‌یک است؛ اختلاف منابع پنهان نمی‌شود.</td><td>قابلیت استناد پژوهشی و ردیابی.</td></tr>
+            <tr><td>دسترسی</td><td>چهار سطح: عمومی، محدود، حساس، غیرقابل انتشار.</td><td>حفاظت از اطلاعات خصوصی و ملاحظات امنیتی.</td></tr>
+            <tr><td>مشارکت</td><td>پیشنهاد کاربر از داده تأییدشده جدا است و گردش بررسی دارد.</td><td>رشد داده بدون کاهش اعتبار.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="quote gold">
+        <strong>جمله محوری سند:</strong> «یک مکان، یک هویت؛ وضعیت‌ها، روایت‌ها و روابط متعدد در طول زمان.»
+      </div>
+    </section>
+
+    <!-- ۲ -->
+    <section class="sec" id="s2">
+      <div class="sec-head">
+        <div class="sec-num">۲</div>
+        <div class="sec-title"><h2>معرفی طرح و دامنه</h2><div class="sub">تعریف دقیق، مرزها و آنچه در دامنه نیست</div></div>
+      </div>
+      <p class="lead">
+        <strong>اطلس شهدا</strong> سامانه‌ای تخصصی برای شناخت و نمایش جغرافیای مرتبط با شهداست. در این سامانه، «مکان» فقط یک نشانی یا یک نقطه روی نقشه نیست؛
+        هر مکان می‌تواند در دوره‌های مختلف، نقش‌ها، رویدادها، اشخاص، اسناد و روایت‌های متفاوتی داشته باشد. مأموریت اطلس، نگه‌داشتن این تنوع روی یک هویت واحد است.
+      </p>
+
+      <div class="split">
+        <div class="mini" style="border-inline-start:4px solid var(--ok)">
+          <h4>داخل دامنه</h4>
+          <ul class="clean small">
+            <li>◂ مدل‌سازی مکان و هویت پایدار آن</li>
+            <li>◂ مدل زمان، بازه اعتبار و عدم‌قطعیت</li>
+            <li>◂ لایه‌های اطلاعاتی و روابط میان موجودیت‌ها</li>
+            <li>◂ پرونده مکان به‌عنوان واحد اصلی تجربه</li>
+            <li>◂ نقشه، محدوده، مسیر و جست‌وجوی مکانی</li>
+            <li>◂ منبع‌مندی، اعتبارسنجی و گردش بررسی</li>
+            <li>◂ سرویس مکانی استاندارد برای سایر پروژه‌ها</li>
+          </ul>
+        </div>
+        <div class="mini" style="border-inline-start:4px solid var(--muted)">
+          <h4>خارج از دامنه</h4>
+          <ul class="clean small">
+            <li>◂ جایگزینی سامانه‌های تخصصی دیگر مجموعه</li>
+            <li>◂ مالکیت کامل داده‌های زیستی و پرونده‌ای شهدا</li>
+            <li>◂ انتشار محتوای بدون منبع و بدون بررسی</li>
+            <li>◂ ارائه مختصات ساختگی برای مکان نامعلوم</li>
+            <li>◂ تصویربرداری ماهواره‌ای یا زیرساخت نقشه پایه</li>
+            <li>◂ تصمیم‌های حقوقی و قضایی درباره اسناد</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote">
+        <strong>تعریف محوری:</strong> یک <strong>موقعیت مکانی مشخص</strong> به‌عنوان یک موجودیت پایدار شناخته می‌شود و اطلاعات مرتبط با آن در <strong>زمان و لایه‌های مختلف</strong> روی همان موجودیت قرار می‌گیرد.
+      </div>
+
+      <h3>سه گزاره هویتی</h3>
+      <div class="grid3">
+        <div class="mini"><h4>اطلس چیست؟</h4><p>مرجع مکانی مجموعه؛ سیستمی که مکان را به انسان، رویداد، سند و زمان پیوند می‌زند.</p></div>
+        <div class="mini"><h4>اطلس چه نیست؟</h4><p>فهرست ساده مختصات، آرشیو تصویر، یا نسخه تکراری سامانه‌های دیگر نیست.</p></div>
+        <div class="mini"><h4>اطلس چه می‌دهد؟</h4><p>پرونده مکانی قابل استناد، نقشه لایه‌ای، جست‌وجوی چندوجهی و سرویس مکانی استاندارد.</p></div>
+      </div>
+    </section>
+
+    <!-- ۳ -->
+    <section class="sec" id="s3">
+      <div class="sec-head">
+        <div class="sec-num">۳</div>
+        <div class="sec-title"><h2>جایگاه در اکوسیستم شهیدپورتال</h2><div class="sub">اطلس، لایه مکانی مجموعه است؛ مستقل اما متصل</div></div>
+      </div>
+
+      <div class="graph">
+        <div class="node"><b>ودجا</b><small>WDJA</small></div>
+        <div class="node core"><b>اطلس شهدا</b><small>SPATIAL LAYER</small></div>
+        <div class="node"><b>تقویم شهدا</b><small>CALENDAR</small></div>
+        <div class="node"><b>پاتوق شهدا</b><small>PATOGH</small></div>
+        <div class="node"><b>شهیدپورتال</b><small>PORTAL / HUB</small></div>
+        <div class="node"><b>پروژه‌های آینده</b><small>FUTURE</small></div>
+      </div>
+
+      <p>ارتباط میان پروژه‌ها بر پایه <strong>شناسه پایدار و API</strong> برقرار می‌شود؛ نه با کپی‌کردن مداوم داده. اطلس صاحب «لایه مکانی» است و سایر پروژه‌ها همچنان مستقل طراحی و توسعه می‌یابند.</p>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>پروژه</th><th>نوع ارتباط</th><th>جهت داده</th></tr></thead>
+          <tbody>
+            <tr><td>شهیدپورتال</td><td>ارجاع به پرونده‌های مکانی و نمایش لایه مکانی</td><td>اطلس ← پورتال</td></tr>
+            <tr><td>تقویم شهدا</td><td>اتصال رویداد زمانی به مکان و برعکس</td><td>دوطرفه</td></tr>
+            <tr><td>ودجا و پاتوق شهدا</td><td>مصرف مکان‌های مرتبط و ارائه پیوند به پرونده</td><td>اطلس ← پروژه</td></tr>
+            <tr><td>پروژه‌های آینده</td><td>مصرف سرویس مکانی و افزودن روابط جدید</td><td>اطلس ← پروژه</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout rule"><span class="ci">⇄</span><div><strong>اصل مالکیت:</strong> اطلس صاحب هویت مکان است. پروژه‌های دیگر می‌توانند به مکان ارجاع دهند، رویداد یا شخص متصل کنند، اما حق بازتعریف هویت مکان را ندارند. هر تغییر هویتی فقط از مسیر حاکمیت داده اطلس انجام می‌شود.</div></div>
+    </section>
+
+    <!-- ۴ -->
+    <section class="sec" id="s4">
+      <div class="sec-head">
+        <div class="sec-num">۴</div>
+        <div class="sec-title"><h2>مسئله و ضرورت</h2><div class="sub">چرا اکنون؟ چه چیزی گم شده است؟</div></div>
+      </div>
+      <p class="lead">
+        بخش مهمی از تاریخ و هویت شهدا در مکان‌هایی شکل گرفته است که امروز ممکن است پراکنده، تغییرنام‌یافته، تخریب‌شده، فراموش‌شده یا فاقد ثبت جغرافیایی دقیق باشند.
+        بدون یک مرجع مکانی، این اطلاعات در سامانه‌های گوناگون تکرار، ناسازگار یا گم می‌شود.
+      </p>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>مسئله</th><th>اثر منفی</th><th>راهکار اطلس</th></tr></thead>
+          <tbody>
+            <tr><td>پراکندگی داده مکانی</td><td>جست‌وجوی مکان ناقص، ارجاع‌های شکسته</td><td>مرجع مکانی یکپارچه با شناسه پایدار</td></tr>
+            <tr><td>چند نقش بودن یک مکان در دوره‌ها</td><td>حذف تاریخچه یا دوگانه‌سازی داده</td><td>ثبت وضعیت‌های زمانی روی یک هویت</td></tr>
+            <tr><td>تغییر نام یا شکل مکان</td><td>ساخت مکان‌های جعلی و تکراری</td><td>نام‌ها و هندسه‌های تاریخی بدون شکستن هویت</td></tr>
+            <tr><td>پراکندگی منابع یک مکان</td><td>عدم امکان استناد و ارزیابی اعتبار</td><td>پرونده مکان و اتصال منبع به هر ادعا</td></tr>
+            <tr><td>جدایی رابطه مکان از نقشه</td><td>نقشه‌ای بدون معنا و دانشی بدون جغرافیا</td><td>روابط ساختاریافته میان مکان، شخص، رویداد و زمان</td></tr>
+            <tr><td>مکان‌های نامعلوم یا تقریبی</td><td>نمایش دقت جعلی و از دست رفتن اعتماد</td><td>مدل عدم‌قطعیت چهارسطحی و نمایش شفاف</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn"><span class="ci">⚠</span><div><strong>خطر اصلی:</strong> اگر «مکان» به‌عنوان موجودیت پایدار مدل نشود، هر پروژه نسخه خودش را می‌سازد و در چند سال آینده با چند مرجع متناقض مکانی روبه‌رو خواهیم شد. تثبیت مدل داده، پیش‌نیاز رشد بلندمدت است.</div></div>
+    </section>
+
+<!-- ۵ -->
+    <section class="sec gold" id="s5">
+      <div class="sec-head">
+        <div class="sec-num">۵</div>
+        <div class="sec-title"><h2>مأموریت، چشم‌انداز و ارزش‌ها</h2><div class="sub">چرا وجود داریم و به کجا می‌رویم</div></div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini" style="border-top:3px solid var(--teal)">
+          <h4>مأموریت</h4>
+          <p>ایجاد یک مرجع معتبر، توسعه‌پذیر و قابل استناد برای شناخت جغرافیای <b>زندگی، حضور، فعالیت، حوادث، شهادت، دفن و میراث</b> مرتبط با شهدا؛ به‌گونه‌ای که هر مکان در بستر زمان و با لایه‌های اطلاعاتی مختلف مطالعه شود.</p>
+        </div>
+        <div class="mini" style="border-top:3px solid var(--gold)">
+          <h4>چشم‌انداز</h4>
+          <p>تبدیل شدن به مرجع تخصصی جغرافیایی مجموعه شهیدپورتال؛ مرجعی که کاربر با یک مکان شروع می‌کند و به تاریخ، اشخاص، رویدادها، اسناد و مسیرهای مرتبط می‌رسد — و هر پروژه دیگر برای «مکان» به آن ارجاع دهد.</p>
+        </div>
+      </div>
+
+      <div class="quote gold">
+        <strong>ستاره شمالی (North Star):</strong> «هر مکان مرتبط با شهید، یک پرونده زنده و قابل استناد داشته باشد.»
+      </div>
+
+      <h3>ارزش‌های عملیاتی</h3>
+      <div class="chips">
+        <span class="chip"><i style="background:var(--teal)"></i>صداقت جغرافیایی</span>
+        <span class="chip"><i style="background:var(--gold)"></i>احترام به روایت</span>
+        <span class="chip"><i style="background:var(--l-shahadat)"></i>حفاظت از حرمت</span>
+        <span class="chip"><i style="background:var(--l-tavallod)"></i>شفافیت منبع</span>
+        <span class="chip"><i style="background:var(--l-tarikhi)"></i>پایداری بلندمدت</span>
+        <span class="chip"><i style="background:var(--l-golzar)"></i>مشارکت مسئولانه</span>
+        <span class="chip"><i style="background:var(--l-farhang)"></i>دسترس‌پذیری همگانی</span>
+      </div>
+    </section>
+
+    <!-- ۶ -->
+    <section class="sec" id="s6">
+      <div class="sec-head">
+        <div class="sec-num">۶</div>
+        <div class="sec-title"><h2>اهداف و شاخص‌های کلیدی</h2><div class="sub">از نیت تا سنجه قابل اندازه‌گیری</div></div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="v">≥ ۹۰٪</div><b>پوشش پرونده مکانی</b><p>سهم مکان‌های ثبت‌شده‌ای که حداقل یک منبع، یک هندسه و یک وضعیت زمانی دارند.</p></div>
+        <div class="kpi"><div class="v">≤ ۵٪</div><b>نرخ تعارض حل‌نشده</b><p>سهم رکوردهایی با تعارض منبعی باقی‌مانده پس از بررسی کارشناسی.</p></div>
+        <div class="kpi"><div class="v">≥ ۸۰٪</div><b>رضایت کشف</b><p>سهم کاربرانی که در آزمون کاربردپذیری، مکان موردنظر را در کمتر از سه گام یافتند.</p></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>هدف</th><th>شاخص سنجش</th><th>افق</th></tr></thead>
+          <tbody>
+            <tr><td>تثبیت هویت مکان</td><td>صفر بودن رکورد مکانی تکراری با شناسه متفاوت</td><td>فاز ۲</td></tr>
+            <tr><td>صحت جغرافیایی</td><td>سهم مکان‌های با سطح اطمینان «دقیق» و مدرک موقعیت</td><td>فاز ۳</td></tr>
+            <tr><td>استنادپذیری</td><td>سهم ادعاهای دارای منبع قابل ردیابی</td><td>فاز ۲</td></tr>
+            <tr><td>کشف‌پذیری</td><td>زمان رسیدن کاربر به مکان هدف از ورود</td><td>فاز ۳</td></tr>
+            <tr><td>اتصال اکوسیستم</td><td>تعداد پروژه‌های متصل از طریق API</td><td>فاز ۵</td></tr>
+            <tr><td>پایداری داده</td><td>نرخ بازبینی دوره‌ای رکوردهای قدیمی</td><td>پیوسته</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ۷ -->
+    <section class="sec" id="s7">
+      <div class="sec-head">
+        <div class="sec-num">۷</div>
+        <div class="sec-title"><h2>اصول بنیادین</h2><div class="sub">قواعدی که همه تصمیم‌های طراحی و داده را می‌سنجند</div></div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini"><h4>۱. مکان‌محوری</h4><p>مکان هسته مدل است؛ همه چیز به آن گره می‌خورد.</p></div>
+        <div class="mini"><h4>۲. زمان‌مندی</h4><p>هر اطلاعات مکانی می‌تواند بازه اعتبار و سطح اطمینان زمانی داشته باشد.</p></div>
+        <div class="mini"><h4>۳. لایه‌مندی</h4><p>اطلاعات روی یک مکان قابل تفکیک، روشن‌وخاموش‌کردن و فیلترشدن است.</p></div>
+        <div class="mini"><h4>۴. هویت پایدار</h4><p>تغییر نام یا وضعیت، مکان تازه نمی‌سازد.</p></div>
+        <div class="mini"><h4>۵. منبع‌مندی</h4><p>داده مهم بدون منشأ و وضعیت اعتبار منتشر نمی‌شود.</p></div>
+        <div class="mini"><h4>۶. تفکیک واقعیت و روایت</h4><p>داده مستند، روایت شفاهی و تحلیل پژوهشی متمایز و برچسب‌دار می‌شوند.</p></div>
+        <div class="mini"><h4>۷. عدم جعل دقت</h4><p>مکان نامعلوم با مختصات ساختگی دقیق نمایش داده نمی‌شود.</p></div>
+        <div class="mini"><h4>۸. استقلال محصول</h4><p>توسعه مستقل، اتصال استاندارد و بدون وابستگی اجرایی.</p></div>
+        <div class="mini"><h4>۹. کمترین افشا</h4><p>اطلاعات خصوصی و حساس فقط در حد نیاز نمایش داده می‌شود.</p></div>
+        <div class="mini"><h4>۱۰. بازبودن داده</h4><p>خروجی استاندارد، قابل انتقال و مستند برای پژوهش.</p></div>
+        <div class="mini"><h4>۱۱. بازخوردپذیری</h4><p>هر رکورد می‌تواند اصلاح شود؛ اصلاح، رد داده نیست بلکه رشد آن است.</p></div>
+        <div class="mini"><h4>۱۲. دسترس‌پذیری</h4><p>تجربه برای همه، روی همه دستگاه‌ها و با هر سطح توانایی.</p></div>
+      </div>
+    </section>
+
+    <!-- ۸ -->
+    <section class="sec gold" id="s8">
+      <div class="sec-head">
+        <div class="sec-num">۸</div>
+        <div class="sec-title"><h2>مدل مفهومی: مکان × زمان × لایه</h2><div class="sub">هسته فکری اطلس در یک زنجیره</div></div>
+      </div>
+
+      <p class="lead">اطلس یک معادله ساده دارد که تمام قابلیت‌های آن از آن بیرون می‌آید:</p>
+
+      <div class="flow arrow">
+        <div class="step hi"><span class="fn">۰۱</span><b>موقعیت مکانی</b><span>نقطه، خط یا محدوده</span></div>
+        <div class="step"><span class="fn">۰۲</span><b>هویت واحد</b><span>شناسه پایدار</span></div>
+        <div class="step"><span class="fn">۰۳</span><b>دوره زمانی</b><span>بازه اعتبار</span></div>
+        <div class="step"><span class="fn">۰۴</span><b>لایه اطلاعاتی</b><span>نوع و نقش</span></div>
+        <div class="step"><span class="fn">۰۵</span><b>روابط</b><span>شخص، رویداد، سند</span></div>
+        <div class="step"><span class="fn">۰۶</span><b>منبع و شواهد</b><span>اعتبار و ردیابی</span></div>
+      </div>
+
+      <p>
+        برای مثال، یک نقطه مشخص می‌تواند در یک دوره «محل زندگی»، در دوره‌ای دیگر «محل فعالیت»، در مقطعی «محل وقوع یک رویداد» و امروز «یادمان یا مکان فرهنگی» باشد.
+        اطلس این وضعیت‌ها را به‌صورت <strong>وضعیت‌های زمانی (LocationState)</strong> روی یک موجودیت مکانی واحد نگه می‌دارد.
+      </p>
+
+      <div class="callout"><span class="ci">✕</span><div>
+        <strong>الگوی نادرست:</strong> ساخت سه رکورد مجزا برای «خانه شهید»، «مدرسه شهید» و «یادمان شهید» در یک نشانی واحد.<br>
+        <strong>الگوی درست:</strong> یک <code>Location</code> با سه <code>LocationState</code> در سه بازه زمانی، همراه با لایه متفاوت و منبع مستقل برای هر وضعیت.
+      </div></div>
+
+      <div class="quote gold"><strong>قاعده کلیدی:</strong> «یک مکان، یک هویت؛ وضعیت‌ها و روابط متعدد در طول زمان.»</div>
+    </section>
+
+    <!-- ۹ -->
+    <section class="sec" id="s9">
+      <div class="sec-head">
+        <div class="sec-num">۹</div>
+        <div class="sec-title"><h2>موجودیت مکان و هویت پایدار</h2><div class="sub">مؤلفه‌های سازنده یک مکان و مدل عدم‌قطعیت</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>مؤلفه</th><th>کارکرد</th><th>نمونه</th></tr></thead>
+          <tbody>
+            <tr><td>شناسه یکتا</td><td>شناسایی پایدار مکان در کل سامانه و در ارجاع‌های بیرونی</td><td><code>PL-KERMAN-BEHSHT</code></td></tr>
+            <tr><td>نام‌ها</td><td>نام رسمی، رایج، محلی، تاریخی و نام‌های جایگزین</td><td>«گلزار شهدا» / «وادی رحمت»</td></tr>
+            <tr><td>نوع مکان</td><td>خانه، مدرسه، محل کار، پادگان، مسجد، گلزار، مزار، یادمان، محدوده عملیات…</td><td>خانه مسکونی</td></tr>
+            <tr><td>هندسه</td><td>نقطه، خط، محدوده یا چندضلعی متناسب با ماهیت مکان</td><td>نقطه / Polygon</td></tr>
+            <tr><td>وضعیت</td><td>موجود، تغییرکرده، تخریب‌شده، جابه‌جاشده، تاریخی یا نامعلوم</td><td>تخریب‌شده</td></tr>
+            <tr><td>دقت مکانی</td><td>سطح اطمینان جغرافیایی و روش تعیین موقعیت</td><td>دقیق / تقریبی</td></tr>
+            <tr><td>سطح دسترسی</td><td>عمومی، محدود، حساس، غیرقابل انتشار</td><td>عمومی</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>مقیاس عدم‌قطعیت جغرافیایی</h3>
+      <div class="grid4">
+        <div class="mini" style="border-top:3px solid var(--ok)"><h4>دقیق</h4><p>موقعیت با مدرک معتبر و بازدید میدانی یا سند رسمی تأیید شده است.</p></div>
+        <div class="mini" style="border-top:3px solid var(--l-tavallod)"><h4>تقریبی</h4><p>موقعیت نزدیک به واقعیت با حاشیه خطای مشخص و ثبت‌شده.</p></div>
+        <div class="mini" style="border-top:3px solid var(--warn)"><h4>محدوده</h4><p>فقط محدوده کلی مشخص است و نقطه دقیق آن قابل تعیین نیست.</p></div>
+        <div class="mini" style="border-top:3px solid var(--danger)"><h4>نامعلوم</h4><p>موقعیت دانسته نشده است؛ مکان بدون هندسه ساختگی ثبت و علامت‌گذاری می‌شود.</p></div>
+      </div>
+
+      <div class="callout warn"><span class="ci">⚠</span><div>مکان «نامعلوم» هرگز با مختصات ساختگی نمایش داده نمی‌شود. چنین رکوردهایی در فهرست پژوهش، صف تکمیل و نمای «کارهای باز» ظاهر می‌شوند، نه روی نقشه به‌عنوان نقطه دقیق.</div></div>
+    </section>
+
+    <!-- ۱۰ -->
+    <section class="sec" id="s10">
+      <div class="sec-head">
+        <div class="sec-num">۱۰</div>
+        <div class="sec-title"><h2>زمان؛ بعد چهارم اطلس</h2><div class="sub">هر رابطه، یک بازه اعتبار دارد</div></div>
+      </div>
+
+      <p class="lead">زمان فقط یک فیلد تاریخ نیست. اطلس باید بتواند نشان دهد یک مکان <strong>در چه زمانی، چه وضعیتی داشته و چه رابطه‌ای با چه شخص یا رویدادی پیدا کرده است.</strong></p>
+
+      <div class="grid4">
+        <div class="mini"><h4>زمان ایجاد</h4><p>چه زمانی مکان شکل گرفته یا ساخته شده است.</p></div>
+        <div class="mini"><h4>بازه اعتبار</h4><p>نام یا وضعیت مکان در چه بازه‌ای معتبر بوده است.</p></div>
+        <div class="mini"><h4>رویداد زمانی</h4><p>چه رخدادی در چه تاریخ یا بازه‌ای در این مکان اتفاق افتاده است.</p></div>
+        <div class="mini"><h4>تغییرات</h4><p>تغییر کاربری، نام، محدوده یا وضعیت در چه زمانی رخ داده است.</p></div>
+      </div>
+
+      <h3>الگوی ثبت زمان</h3>
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>حالت</th><th>ثبت داده</th><th>نمایش</th></tr></thead>
+          <tbody>
+            <tr><td>تاریخ دقیق</td><td>روز، ماه و سال مشخص با تقویم مبنا</td><td>نمایش کامل تاریخ</td></tr>
+            <tr><td>بازه مشخص</td><td>از تاریخ … تا تاریخ …</td><td>نمایش بازه</td></tr>
+            <tr><td>بازه تقریبی</td><td>حد پایین، حد بالا و سطح اطمینان</td><td>نمایش «حدوداً» با نشان عدم‌قطعیت</td></tr>
+            <tr><td>دهه یا دوره</td><td>انتساب به یک دهه یا دوره تاریخی</td><td>نمایش دوره</td></tr>
+            <tr><td>نامعلوم</td><td>بدون تاریخ، با علامت نیازمند پژوهش</td><td>قرارگیری در صف پژوهش</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout rule"><span class="ci">◷</span><div><strong>قاعده پایداری:</strong> ذخیره‌سازی زمان مستقل از تقویم نمایش انجام می‌شود تا امکان نمایش شمسی، قمری و میلادی و محاسبات زمانی بدون ابهام فراهم باشد.</div></div>
+    </section>
+
+    <!-- ۱۱ -->
+    <section class="sec gold" id="s11">
+      <div class="sec-head">
+        <div class="sec-num">۱۱</div>
+        <div class="sec-title"><h2>لایه‌های اطلاعاتی</h2><div class="sub">ده لایه برای سازمان‌دهی معنا روی مکان</div></div>
+      </div>
+      <p class="lead">لایه‌ها روش سازمان‌دهی و نمایش اطلاعات پیرامون مکان هستند، نه موجودیت‌های مستقل و پراکنده. هر لایه یک رنگ، یک نماد و یک قاعده نمایش دارد.</p>
+
+      <div class="layers">
+        <div class="layer" style="--lc:#2a6b8f"><span class="dot">⌂</span><div><b>لایه تولد و زندگی</b><span>زادگاه، محل سکونت، خانه کودکی، مهاجرت و دوره‌های زندگی.</span><em>zendegi</em></div></div>
+        <div class="layer" style="--lc:#197d72"><span class="dot">✎</span><div><b>لایه تحصیل و تربیت</b><span>دبستان، دبیرستان، حوزه، دانشگاه، کلاس و مربیان.</span><em>tahsil</em></div></div>
+        <div class="layer" style="--lc:#8a6d3b"><span class="dot">⚒</span><div><b>لایه کار و فعالیت</b><span>محل اشتغال، کارگاه، اداره، فعالیت اجتماعی و جهادی.</span><em>kargah</em></div></div>
+        <div class="layer" style="--lc:#b8893c"><span class="dot">➤</span><div><b>لایه مسیر و اعزام</b><span>مسیر حرکت، اعزام، بازگشت، زیارت و نقاط میانی.</span><em>masir</em></div></div>
+        <div class="layer" style="--lc:#a8323f"><span class="dot">✚</span><div><b>لایه شهادت و رویداد</b><span>محل شهادت، جراحت، حادثه و محدوده رخداد.</span><em>shahadat</em></div></div>
+        <div class="layer" style="--lc:#4a7d3f"><span class="dot">◫</span><div><b>لایه محدوده عملیات</b><span>منطقه، محور و محدوده جغرافیایی یک عملیات یا رخداد.</span><em>amaliyat</em></div></div>
+        <div class="layer" style="--lc:#2f7a55"><span class="dot">❁</span><div><b>لایه گلزار و مزار</b><span>گلزار، مزار، مقبره، سنگ‌نوشته و محل دفن.</span><em>golzar</em></div></div>
+        <div class="layer" style="--lc:#0f7f8c"><span class="dot">◈</span><div><b>لایه یادمان و موزه</b><span>یادمان، موزه، مرکز اسناد، تندیس و نشانه‌های شهری.</span><em>yadman</em></div></div>
+        <div class="layer" style="--lc:#6b4f9e"><span class="dot">✧</span><div><b>لایه فرهنگی و اجتماعی</b><span>مراسم، یادواره، فعالیت فرهنگی و اجتماعات محلی.</span><em>farhang</em></div></div>
+        <div class="layer" style="--lc:#7a5c2e"><span class="dot">◷</span><div><b>لایه تاریخی و نامگذاری</b><span>وضعیت‌های پیشین مکان، بافت تاریخی و نام‌گذاری‌ها.</span><em>tarikhi</em></div></div>
+      </div>
+
+      <div class="chips">
+        <span class="chip"><i style="background:#2a6b8f"></i>تولد و زندگی</span>
+        <span class="chip"><i style="background:#197d72"></i>تحصیل</span>
+        <span class="chip"><i style="background:#8a6d3b"></i>کار</span>
+        <span class="chip"><i style="background:#b8893c"></i>مسیر و اعزام</span>
+        <span class="chip"><i style="background:#a8323f"></i>شهادت</span>
+        <span class="chip"><i style="background:#4a7d3f"></i>عملیات</span>
+        <span class="chip"><i style="background:#2f7a55"></i>گلزار</span>
+        <span class="chip"><i style="background:#0f7f8c"></i>یادمان</span>
+        <span class="chip"><i style="background:#6b4f9e"></i>فرهنگی</span>
+        <span class="chip"><i style="background:#7a5c2e"></i>تاریخی</span>
+      </div>
+    </section>
+
+    <!-- ۱۲ -->
+    <section class="sec" id="s12">
+      <div class="sec-head">
+        <div class="sec-num">۱۲</div>
+        <div class="sec-title"><h2>روابط و گراف دانش</h2><div class="sub">قدرت اطلس در پیوندها است، نه فقط در نقاط</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>رابطه</th><th>معنا</th><th>ویژگی‌های رابطه</th></tr></thead>
+          <tbody>
+            <tr><td>مکان ← شخص</td><td>زادگاه، سکونت، تحصیل، فعالیت یا شهادت یک شخص در این مکان</td><td>نوع رابطه + بازه زمانی + منبع + اطمینان</td></tr>
+            <tr><td>مکان ← رویداد</td><td>وقوع یک رویداد در این مکان یا محدوده</td><td>زمان + دامنه اثر + منبع</td></tr>
+            <tr><td>مکان ← مکان</td><td>مجاورت، زیرمجموعه، جانشینی، تغییر نام یا جابه‌جایی</td><td>نوع + بازه + توضیح</td></tr>
+            <tr><td>مکان ← سند</td><td>سند یا تصویری که درباره این مکان اطلاعات می‌دهد</td><td>نوع سند + آرشیو + سطح دسترسی</td></tr>
+            <tr><td>مکان ← مسیر</td><td>عضویت مکان در یک مسیر تاریخی، عملیاتی یا زیارتی</td><td>ترتیب + نقش در مسیر</td></tr>
+            <tr><td>مکان ← پروژه</td><td>مصرف داده مکانی توسط یک محصول دیگر</td><td>شناسه پروژه + نوع مصرف</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>گراف دانش (نمای مفهومی)</h3>
+      <div class="graph">
+        <div class="node"><b>شخص</b><small>Person</small></div>
+        <div class="node core"><b>مکان</b><small>Location</small></div>
+        <div class="node"><b>رویداد</b><small>Event</small></div>
+        <div class="node"><b>منبع</b><small>Source</small></div>
+        <div class="node"><b>رسانه</b><small>Media</small></div>
+        <div class="node"><b>مسیر</b><small>Route</small></div>
+        <div class="node"><b>دوره زمانی</b><small>Period</small></div>
+        <div class="node"><b>پروژه</b><small>Project</small></div>
+      </div>
+
+      <div class="callout"><span class="ci">◎</span><div><strong>هر رابطه یک رکورد است، نه یک فیلد.</strong> رابطه‌ها شناسه، نوع، بازه اعتبار، سطح اطمینان و منبع مستقل دارند؛ همین ویژگی امکان پرسش‌هایی مانند «همه مکان‌های مرتبط با یک عملیات در یک بازه زمانی مشخص» را فراهم می‌کند.</div></div>
+    </section>
+
+<!-- ۱۳ -->
+    <section class="sec" id="s13">
+      <div class="sec-head">
+        <div class="sec-num">۱۳</div>
+        <div class="sec-title"><h2>پرونده مکان</h2><div class="sub">واحد اصلی تجربه در اطلس</div></div>
+      </div>
+      <p class="lead">هر مکان یک پرونده دارد که اطلاعات پراکنده را در یک نمای منسجم جمع می‌کند. پرونده مکان، پاسخ نهایی به پرسش «درباره این مکان چه می‌دانیم؟» است.</p>
+
+      <div class="wire">
+        <div class="wire-bar"><i></i><i></i><i></i><span>place-dossier</span></div>
+        <div class="wire-body">
+          <div class="wb solid"><b>سربرگ مکان</b> — نام اصلی، نام‌های دیگر، نوع، وضعیت، سطح اطمینان، دسترسی <span class="tag grey">عمومی</span> <span class="tag green">دقیق</span></div>
+          <div class="wb-side">
+            <div class="wb map" style="min-height:170px"></div>
+            <div class="wb">موقعیت، مختصات، نشانی، روش تعیین موقعیت، مدرک موقعیت</div>
+          </div>
+          <div class="wb"><b>خط زمان مکان</b> — وضعیت‌ها از گذشته تا امروز با امکان پیمایش</div>
+          <div class="wb"><b>لایه‌ها</b> — اشخاص، رویدادها، اسناد، رسانه، مسیرها</div>
+          <div class="wb"><b>منابع و اختلاف‌ها</b> — فهرست منابع، وضعیت تعارض و نتیجه بررسی</div>
+          <div class="wb"><b>تاریخچه تغییرات</b> — چه کسی، چه زمانی، چه چیزی را تغییر داد</div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini"><h4>نمای فعلی</h4><p>موقعیت، نشانی، وضعیت امروز و اطلاعات عمومی مکان.</p></div>
+        <div class="mini"><h4>تاریخچه مکانی</h4><p>نام‌ها، تغییرات، وضعیت‌ها و رویدادهای ثبت‌شده در دوره‌ها.</p></div>
+        <div class="mini"><h4>اشخاص مرتبط</h4><p>شهدا و اشخاصی که رابطه مستند با مکان دارند.</p></div>
+        <div class="mini"><h4>رویدادهای مرتبط</h4><p>رخدادهای دارای ارتباط زمانی و مکانی با این مکان.</p></div>
+        <div class="mini"><h4>اسناد و رسانه</h4><p>تصویر، سند، صوت، ویدئو و منابع پژوهشی.</p></div>
+        <div class="mini"><h4>اعتماد و اعتبار</h4><p>سطح اعتبار داده، منابع، تاریخ بررسی و تاریخچه تغییر.</p></div>
+      </div>
+
+      <div class="callout rule"><span class="ci">◉</span><div><strong>اصل تجربه:</strong> هر نقطه روی نقشه باید به یک پرونده مکان برسد و هر پرونده مکان باید راهی به نقشه، به اشخاص و به منابع داشته باشد. هیچ‌کدام بن‌بست نیست.</div></div>
+    </section>
+
+    <!-- ۱۴ -->
+    <section class="sec" id="s14">
+      <div class="sec-head">
+        <div class="sec-num">۱۴</div>
+        <div class="sec-title"><h2>پرونده شهید و پیوند انسانی</h2><div class="sub">از مکان به انسان؛ از انسان به جغرافیا</div></div>
+      </div>
+      <p class="lead">اطلس مالک پرونده جامع شهید نیست، اما نقشه مکانی زندگی او را می‌سازد. پرونده شهید در اطلس، یک «مسیر جغرافیایی» است که از زادگاه شروع می‌شود و به مزار می‌رسد.</p>
+
+      <div class="flow arrow">
+        <div class="step hi"><b>زادگاه</b><span>تولد و کودکی</span></div>
+        <div class="step"><b>تحصیل</b><span>مدرسه و رشد</span></div>
+        <div class="step"><b>کار و زندگی</b><span>فعالیت و خانواده</span></div>
+        <div class="step"><b>اعزام و حضور</b><span>مسیر و جبهه</span></div>
+        <div class="step"><b>شهادت</b><span>مکان و زمان</span></div>
+        <div class="step"><b>مزار و یادمان</b><span>میراث و خاطره</span></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>پیوند</th><th>توضیح</th><th>نمایش در پرونده</th></tr></thead>
+          <tbody>
+            <tr><td>شخص ← مکان (زندگی)</td><td>مکان‌های زیسته با بازه زمانی</td><td>خط زمان جغرافیایی</td></tr>
+            <tr><td>شخص ← مکان (شهادت)</td><td>مکان و محدوده رخداد شهادت</td><td>نقطه برجسته روی نقشه</td></tr>
+            <tr><td>شخص ← مکان (مزار)</td><td>مزار، گلزار و یادمان</td><td>مسیر زیارت و پرونده مکان</td></tr>
+            <tr><td>شخص ← رویداد</td><td>عملیات، حادثه، اعزام</td><td>پیوند به پرونده رویداد</td></tr>
+            <tr><td>شخص ← شخص</td><td>خانواده، همرزم، مربی</td><td>شبکه انسانی مرتبط</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ۱۵ -->
+    <section class="sec gold" id="s15">
+      <div class="sec-head">
+        <div class="sec-num">۱۵</div>
+        <div class="sec-title"><h2>نقشه و تجربه مکانی</h2><div class="sub">دروازه ورود، نه تزئین</div></div>
+      </div>
+      <p class="lead">نقشه، دروازه ورود به داده‌های اطلس است. کاربر باید بتواند لایه‌ها را روشن و خاموش کند، یک مکان را انتخاب کند و از آن به پرونده و روابطش برسد.</p>
+
+      <div class="wire">
+        <div class="wire-bar"><i></i><i></i><i></i><span>atlas-map-experience</span></div>
+        <div class="wire-body">
+          <div class="wb">جست‌وجوی سریع + دسته‌بندی لایه‌ها + فیلتر سطح اطمینان</div>
+          <div class="wb-side">
+            <div class="wb map" style="min-height:230px"></div>
+            <div class="wb"><b>پنل کنترل</b><br>لایه‌ها · دوره زمانی · استان · نوع مکان · فقط موارد نیازمند پژوهش</div>
+          </div>
+          <div class="wb solid"><b>کارت مکان</b> — نام، نوع، سطح اطمینان، پیوند به پرونده کامل</div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini"><h4>نمای عمومی</h4><p>نمایش گسترده مکان‌های ثبت‌شده با دسته‌بندی لایه‌ای و خوشه‌بندی در سطوح بزرگ.</p></div>
+        <div class="mini"><h4>نمای لایه‌ای</h4><p>روشن و خاموش کردن لایه‌ها و مشاهده فقط اطلاعات مورد نیاز.</p></div>
+        <div class="mini"><h4>نمای زمانی</h4><p>پیمایش زمان و مشاهده وضعیت یک منطقه یا مکان در یک دوره مشخص.</p></div>
+        <div class="mini"><h4>نمای پرونده</h4><p>انتقال از نقطه روی نقشه به پرونده کامل مکان و روابط آن.</p></div>
+      </div>
+
+      <h3>قواعد نمایش جغرافیایی</h3>
+      <ul>
+        <li>هر نقطه دقیق، نماد توپر دارد؛ مکان‌های تقریبی با هاله یا دایره عدم‌قطعیت نمایش داده می‌شوند.</li>
+        <li>مکان‌های «محدوده» به‌صورت چندضلعی نیم‌شفاف با خط‌چین مرزی نمایش می‌یابند.</li>
+        <li>مکان‌های «نامعلوم» روی نقشه نقطه نمی‌گیرند و فقط در فهرست پژوهش حاضرند.</li>
+        <li>تراکم بالای نقاط در یک مقیاس، به خوشه تبدیل می‌شود؛ خوشه هرگز مکان را حذف نمی‌کند.</li>
+        <li>مسیرها به‌صورت خط با جهت و ترتیب مشخص و محدوده‌ها به‌صورت لایه سطحی نمایش داده می‌شوند.</li>
+      </ul>
+    </section>
+
+    <!-- ۱۶ -->
+    <section class="sec" id="s16">
+      <div class="sec-head">
+        <div class="sec-num">۱۶</div>
+        <div class="sec-title"><h2>جست‌وجو، کاوش و کشف</h2><div class="sub">جست‌وجو فقط متنی نیست</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>نوع جست‌وجو</th><th>نمونه پرسش</th><th>فیلترهای مکمل</th></tr></thead>
+          <tbody>
+            <tr><td>مکانی</td><td>مکان‌های مرتبط در یک شهر، استان یا شعاع مشخص</td><td>لایه، نوع، فاصله</td></tr>
+            <tr><td>زمانی</td><td>مکان‌های مرتبط با یک دوره یا رویداد مشخص</td><td>بازه، دقت زمانی</td></tr>
+            <tr><td>موضوعی</td><td>گلزارها، یادمان‌ها، مدارس، پادگان‌ها</td><td>نوع مکان، لایه</td></tr>
+            <tr><td>ارتباطی</td><td>همه مکان‌های مرتبط با یک شهید یا یک رویداد</td><td>شخص، رویداد</td></tr>
+            <tr><td>ترکیبی</td><td>مکان‌های مرتبط با یک عملیات در یک منطقه و بازه زمانی</td><td>چندوجهی</td></tr>
+            <tr><td>نام‌محور</td><td>جست‌وجو با نام تاریخی، محلی یا املای متفاوت</td><td>نام‌های جایگزین</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout"><span class="ci">⚲</span><div>موتور جست‌وجو باید <strong>نام‌های جایگزین، املای متفاوت و نویسه‌های عربی/فارسی</strong> را یکسان‌سازی کند تا کاربر با هیچ املایی به بن‌بست نرسد. جست‌وجوی «شهیدزاده» و «شهید زاده» باید یک نتیجه بدهد.</div></div>
+    </section>
+
+    <!-- ۱۷ -->
+    <section class="sec" id="s17">
+      <div class="sec-head">
+        <div class="sec-num">۱۷</div>
+        <div class="sec-title"><h2>مسیرها، خطوط و محدوده‌ها</h2><div class="sub">همه اطلاعات جغرافیایی، نقطه نیستند</div></div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini"><h4>مسیر زندگی</h4><p>پیوند مکان‌های مهم زندگی یک شهید به ترتیب زمانی.</p></div>
+        <div class="mini"><h4>مسیر اعزام</h4><p>مراحل و مکان‌های مرتبط با حرکت و اعزام.</p></div>
+        <div class="mini"><h4>مسیر عملیات</h4><p>محورها، مسیرها و نقاط مرتبط با یک عملیات.</p></div>
+        <div class="mini"><h4>محدوده عملیاتی</h4><p>منطقه عملیاتی یا محدوده‌ای که یک رویداد در آن رخ داده است.</p></div>
+        <div class="mini"><h4>مسیر زیارت</h4><p>اتصال مکان‌های زیارتی و یادمانی برای استفاده عمومی.</p></div>
+        <div class="mini"><h4>مسیر پژوهش</h4><p>سازمان‌دهی نقاطی که برای یک پرونده پژوهشی بررسی می‌شوند.</p></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>هندسه</th><th>کاربرد</th><th>ویژگی‌های الزامی</th></tr></thead>
+          <tbody>
+            <tr><td>نقطه (Point)</td><td>مکان مشخص و کوچک</td><td>سطح اطمینان، روش تعیین موقعیت</td></tr>
+            <tr><td>خط (LineString)</td><td>مسیر حرکت، اعزام، زیارت</td><td>ترتیب، جهت، منبع هر بخش</td></tr>
+            <tr><td>محدوده (Polygon)</td><td>گلزار، محوطه، منطقه عملیاتی</td><td>منبع مرز، دقت مرز</td></tr>
+            <tr><td>مجموعه (Multi)</td><td>مکان‌های پراکنده با هویت واحد</td><td>رابطه اجزا با کل</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ۱۸ -->
+    <section class="sec" id="s18">
+      <div class="sec-head">
+        <div class="sec-num">۱۸</div>
+        <div class="sec-title"><h2>منابع، شواهد و استناد</h2><div class="sub">منبع بخشی از داده است، نه توضیحی فرعی</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>نوع منبع</th><th>نمونه</th><th>وزن اعتبار</th></tr></thead>
+          <tbody>
+            <tr><td>اسناد رسمی</td><td>پرونده‌ها، اسناد سازمانی و تاریخی</td><td>بالا</td></tr>
+            <tr><td>کتاب و پژوهش</td><td>کتاب، مقاله، پایان‌نامه، پژوهش میدانی</td><td>بالا</td></tr>
+            <tr><td>رسانه</td><td>عکس، فیلم، مصاحبه، گزارش</td><td>متوسط تا بالا</td></tr>
+            <tr><td>منابع محلی</td><td>خانواده، معتمدان، مراکز فرهنگی، حافظه محلی</td><td>متوسط</td></tr>
+            <tr><td>بازدید میدانی</td><td>مشاهده و ثبت مستقیم همراه با تاریخ و روش</td><td>بالا برای موقعیت</td></tr>
+            <tr><td>روایت شفاهی</td><td>خاطره، نقل، مصاحبه بی‌سند</td><td>پایین؛ نیازمند تأیید</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn"><span class="ci">⚖</span><div><strong>سیاست تعارض:</strong> در تعارض منابع، اطلس اختلاف را پنهان نمی‌کند. هر ادعا با منبع خودش ثبت می‌شود، وضعیت اختلاف علامت می‌خورد و نتیجه بررسی کارشناسی — با ذکر دلیل — منتشر می‌گردد.</div></div>
+    </section>
+
+    <!-- ۱۹ -->
+    <section class="sec" id="s19">
+      <div class="sec-head">
+        <div class="sec-num">۱۹</div>
+        <div class="sec-title"><h2>کیفیت داده و عدم‌قطعیت</h2><div class="sub">اعتبار، چیزی است که باید قابل محاسبه باشد</div></div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini"><h4>کامل‌بودن</h4><p>آیا اطلاعات ضروری مکان تکمیل شده است؟</p></div>
+        <div class="mini"><h4>دقت مکانی</h4><p>آیا نقطه، خط یا محدوده با اطمینان کافی ثبت شده است؟</p></div>
+        <div class="mini"><h4>اعتبار منبع</h4><p>منشأ داده چقدر معتبر و قابل بررسی است؟</p></div>
+        <div class="mini"><h4>تازگی</h4><p>آخرین بررسی یا اصلاح داده چه زمانی بوده است؟</p></div>
+        <div class="mini"><h4>سازگاری</h4><p>آیا داده با سایر رکوردها تعارض غیرقابل توضیح دارد؟</p></div>
+        <div class="mini"><h4>قابلیت ردیابی</h4><p>آیا تاریخچه تغییرات و عامل هر تغییر مشخص است؟</p></div>
+      </div>
+
+      <h3>نمره اعتبار مکان</h3>
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>بُعد</th><th>وزن</th><th>سنجه</th></tr></thead>
+          <tbody>
+            <tr><td>دقت موقعیت</td><td>۲۵٪</td><td>سطح عدم‌قطعیت و وجود مدرک موقعیت</td></tr>
+            <tr><td>منبع</td><td>۲۵٪</td><td>نوع، تعداد و استقلال منابع</td></tr>
+            <tr><td>کامل‌بودن</td><td>۲۰٪</td><td>پرشدگی فیلدهای الزامی</td></tr>
+            <tr><td>سازگاری</td><td>۱۵٪</td><td>نرخ تعارض حل‌شده</td></tr>
+            <tr><td>تازگی</td><td>۱۵٪</td><td>فاصله آخرین بازبینی</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">نمره اعتبار در پرونده مکان نمایش داده می‌شود و در جست‌وجو قابل فیلتر است، اما هرگز جایگزین قضاوت پژوهشگر نمی‌شود.</p>
+    </section>
+
+    <!-- ۲۰ -->
+    <section class="sec gold" id="s20">
+      <div class="sec-head">
+        <div class="sec-num">۲۰</div>
+        <div class="sec-title"><h2>مشارکت عمومی و گردش بررسی</h2><div class="sub">پیشنهاد کاربر ≠ داده تأییدشده</div></div>
+      </div>
+      <p class="lead">مشارکت عمومی می‌تواند مکان‌های فراموش‌شده را کشف کند، تصاویر و اسناد را تکمیل کند و خطاها را اصلاح کند؛ به شرط آنکه گردش بررسی شفاف باشد.</p>
+
+      <div class="flow arrow">
+        <div class="step hi"><b>پیشنهاد</b><span>کاربر ثبت می‌کند</span></div>
+        <div class="step"><b>ثبت منبع</b><span>شاهد پیوست می‌شود</span></div>
+        <div class="step"><b>بررسی اولیه</b><span>صحت شکلی</span></div>
+        <div class="step"><b>اعتبارسنجی</b><span>کارشناس مکانی</span></div>
+        <div class="step"><b>تصمیم</b><span>تأیید/اصلاح/رد</span></div>
+        <div class="step"><b>انتشار</b><span>ثبت در تاریخچه</span></div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini"><h4>نقش مشارکت‌کننده</h4><p>ثبت پیشنهاد، بارگذاری شاهد، مشاهده وضعیت پیشنهاد.</p></div>
+        <div class="mini"><h4>نقش بررسی‌کننده</h4><p>اعتبارسنجی، درخواست شاهد بیشتر، رد یا تأیید.</p></div>
+        <div class="mini"><h4>نقش حاکمیت داده</h4><p>تصمیم نهایی در تعارض‌ها، سیاست انتشار و سطح دسترسی.</p></div>
+      </div>
+
+      <div class="callout"><span class="ci">↺</span><div>هر اصلاح مهم باید قابل ردیابی باشد: نسخه قبلی، دلیل تغییر و شواهد تصمیم حفظ می‌شود. هیچ داده‌ای بی‌ردپا حذف نمی‌شود.</div></div>
+    </section>
+
+    <!-- ۲۱ -->
+    <section class="sec" id="s21">
+      <div class="sec-head">
+        <div class="sec-num">۲۱</div>
+        <div class="sec-title"><h2>حاکمیت داده، امنیت و حریم خصوصی</h2><div class="sub">میان عمومی، محدود، حساس و غیرقابل انتشار تمایز می‌گذاریم</div></div>
+      </div>
+
+      <div class="grid4">
+        <div class="mini" style="border-top:3px solid var(--ok)"><h4>عمومی</h4><p>اطلاعات مناسب انتشار عمومی برای همه کاربران.</p></div>
+        <div class="mini" style="border-top:3px solid var(--l-tavallod)"><h4>محدود</h4><p>دسترسی برای نقش‌های مشخص مانند پژوهشگران تأییدشده.</p></div>
+        <div class="mini" style="border-top:3px solid var(--warn)"><h4>حساس</h4><p>انتشار دقیق نیازمند بررسی ویژه و تصمیم حاکمیت داده است.</p></div>
+        <div class="mini" style="border-top:3px solid var(--danger)"><h4>غیرقابل انتشار</h4><p>نگهداری فقط برای مدیریت و پژوهش داخلی.</p></div>
+      </div>
+
+      <h3>ملاحظات حفاظتی</h3>
+      <ul>
+        <li>نشانی‌های خصوصی خانواده‌ها بدون رضایت صریح منتشر نمی‌شود.</li>
+        <li>مکان‌های دارای ملاحظات امنیتی با دقت کاهش‌یافته یا محدوده تقریبی نمایش داده می‌شوند.</li>
+        <li>هر رکورد می‌تواند سیاست دسترسی مستقل و تاریخچه تغییر سطح داشته باشد.</li>
+        <li>دسترسی به داده حساس ثبت رویداد (Audit Log) دارد و قابل پیگیری است.</li>
+        <li>خروجی انبوه داده فقط از مسیر مجاز و با ثبت درخواست انجام می‌شود.</li>
+      </ul>
+
+      <div class="callout rule"><span class="ci">🛡</span><div><strong>اصل کمترین افشا:</strong> اگر انتشار دقیق یک موقعیت ریسک ایجاد کند، اطلس همان مکان را با دقت کاهش‌یافته نمایش می‌دهد — نه حذف کامل، و نه افشای کامل.</div></div>
+    </section>
+
+<!-- ۲۲ -->
+    <section class="sec gold" id="s22">
+      <div class="sec-head">
+        <div class="sec-num">۲۲</div>
+        <div class="sec-title"><h2>مدل داده کامل</h2><div class="sub">چهارده موجودیت، روابط و قرارداد ذخیره‌سازی</div></div>
+      </div>
+
+      <div class="erd">
+        <div class="ent">
+          <header>Location <small>مکان</small></header>
+          <ul>
+            <li class="pk">id <span>string PK</span></li>
+            <li>primaryName <span>string</span></li>
+            <li>placeType <span>enum</span></li>
+            <li>status <span>enum</span></li>
+            <li>geometryRef <span>uuid</span></li>
+            <li>uncertainty <span>enum</span></li>
+            <li>province / city <span>string</span></li>
+            <li>accessLevel <span>enum</span></li>
+            <li>researchState <span>enum</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>LocationName <small>نام‌ها</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>locationId <span>FK</span></li>
+            <li>name <span>string</span></li>
+            <li>nameType <span>رسمی/محلی/تاریخی</span></li>
+            <li>validFrom / validTo <span>date</span></li>
+            <li>sourceId <span>FK</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>LocationState <small>وضعیت زمانی</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>locationId <span>FK</span></li>
+            <li>layer <span>enum</span></li>
+            <li>role / description <span>string</span></li>
+            <li>periodStart / periodEnd <span>date</span></li>
+            <li>timeConfidence <span>enum</span></li>
+            <li>sourceId <span>FK</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Person <small>شخص</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>fullName <span>string</span></li>
+            <li>externalRef <span>شناسه پروژه‌ها</span></li>
+            <li>birthDate / martyrdomDate <span>date</span></li>
+            <li>accessLevel <span>enum</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Event <small>رویداد</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>title <span>string</span></li>
+            <li>eventType <span>enum</span></li>
+            <li>periodStart / periodEnd <span>date</span></li>
+            <li>geometryRef <span>uuid</span></li>
+            <li>sourceId <span>FK</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Route <small>مسیر</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>title <span>string</span></li>
+            <li>routeType <span>enum</span></li>
+            <li>geometryRef <span>uuid</span></li>
+            <li>personId / eventId <span>FK</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Relation <small>رابطه</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>fromType / fromId <span>polymorphic</span></li>
+            <li>toType / toId <span>polymorphic</span></li>
+            <li>relationType <span>enum</span></li>
+            <li>periodStart / periodEnd <span>date</span></li>
+            <li>confidence <span>۰..۱</span></li>
+            <li>sourceId <span>FK</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Source <small>منبع</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>title <span>string</span></li>
+            <li>sourceType <span>enum</span></li>
+            <li>authority <span>enum</span></li>
+            <li>reference / archive <span>string</span></li>
+            <li>accessLevel <span>enum</span></li>
+          </ul>
+        </div>
+        <div class="ent">
+          <header>Media <small>رسانه</small></header>
+          <ul>
+            <li class="pk">id <span>uuid PK</span></li>
+            <li>mediaType <span>enum</span></li>
+            <li>storagePath <span>string</span></li>
+            <li>capturedAt <span>date</span></li>
+            <li>locationId / eventId <span>FK</span></li>
+            <li>accessLevel <span>enum</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>فهرست کامل موجودیت‌ها</h3>
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>موجودیت</th><th>توضیح</th><th>کلید اصلی</th></tr></thead>
+          <tbody>
+            <tr><td><code>Location</code></td><td>هویت اصلی مکان، نوع، وضعیت، سطح دسترسی</td><td>شناسه خوانا</td></tr>
+            <tr><td><code>LocationName</code></td><td>نام‌های رسمی، محلی، تاریخی با بازه اعتبار</td><td>UUID</td></tr>
+            <tr><td><code>LocationState</code></td><td>وضعیت یا نقش مکان در یک بازه زمانی و لایه مشخص</td><td>UUID</td></tr>
+            <tr><td><code>Geometry</code></td><td>هندسه مکانی، سطح دقت و روش تعیین موقعیت</td><td>UUID</td></tr>
+            <tr><td><code>Person</code></td><td>شخص مرتبط با مکان با شناسه مستقل و ارجاع بیرونی</td><td>UUID</td></tr>
+            <tr><td><code>Event</code></td><td>رویداد دارای زمان، مکان و منبع</td><td>UUID</td></tr>
+            <tr><td><code>Period</code></td><td>دوره زمانی نام‌دار برای ارجاع و گروه‌بندی</td><td>UUID</td></tr>
+            <tr><td><code>Route</code></td><td>مسیر مکانی با ترتیب و جهت مشخص</td><td>UUID</td></tr>
+            <tr><td><code>RouteStop</code></td><td>نقاط تشکیل‌دهنده مسیر و ترتیب آن‌ها</td><td>UUID</td></tr>
+            <tr><td><code>Layer</code></td><td>تعریف لایه نمایشی، رنگ، نماد و قواعد</td><td>slug</td></tr>
+            <tr><td><code>Relation</code></td><td>رابطه میان دو موجودیت با زمان، اطمینان و منبع</td><td>UUID</td></tr>
+            <tr><td><code>Source</code></td><td>منبع یا شاهد هر ادعا با سطح اعتبار</td><td>UUID</td></tr>
+            <tr><td><code>Media</code></td><td>تصویر، سند، صوت، ویدئو با ارتباط مکانی</td><td>UUID</td></tr>
+            <tr><td><code>Change</code></td><td>تاریخچه اصلاح، عامل تغییر، دلیل و نسخه پیشین</td><td>UUID</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>نمونه رکورد مکان</h3>
+      <pre class="codeblock">{
+  "id": "PL-KERMAN-BEHSHT-VADI",
+  "primaryName": "گلزار شهدای وادی رحمت",
+  "altNames": ["گلزار شهدا", "آرامستان وادی رحمت"],
+  "placeType": "golzar",
+  "layers": ["golzar", "yadman", "farhang"],
+  "status": "active",
+  "province": "کرمان",
+  "city": "کرمان",
+  "geometry": { "type": "Polygon", "coordinates": [[...]] },
+  "uncertainty": "exact",
+  "accessLevel": "public",
+  "researchState": "verified",
+  "states": [
+    {
+      "layer": "golzar",
+      "role": "محل دفن شهدا",
+      "periodStart": "1360",
+      "periodEnd": null,
+      "timeConfidence": "exact",
+      "sourceId": "SRC-ORG-BONYAD-01"
+    }
+  ],
+  "validityScore": 0.86,
+  "updatedAt": "1405-07-15T00:00:00Z"
+}</pre>
+
+      <div class="quote gold"><strong>قاعده مدل:</strong> لایه‌ها برای سازمان‌دهی و نمایش‌اند؛ «مکان» موجودیت پایه است و وضعیت‌های زمانی آن هرگز به‌صورت مکان‌های تکراری ثبت نمی‌شوند.</div>
+    </section>
+
+    <!-- ۲۳ -->
+    <section class="sec" id="s23">
+      <div class="sec-head">
+        <div class="sec-num">۲۳</div>
+        <div class="sec-title"><h2>معماری فنی</h2><div class="sub">مستقل، لایه‌ای و قابل توسعه</div></div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini"><h4>هسته داده</h4><p>مکان، وضعیت‌های زمانی، نام‌ها، روابط، منابع و تاریخچه تغییرات.</p></div>
+        <div class="mini"><h4>هسته جغرافیا</h4><p>هندسه، نقشه، محدوده، مسیر و سرویس‌های مکانی.</p></div>
+        <div class="mini"><h4>موتور جست‌وجو</h4><p>جست‌وجوی متنی، مکانی، زمانی و رابطه‌ای با نمایه‌سازی چندوجهی.</p></div>
+        <div class="mini"><h4>پرونده مکان</h4><p>لایه نمایشی که تمام لایه‌ها و تاریخچه یک مکان را یکجا می‌سازد.</p></div>
+        <div class="mini"><h4>حاکمیت داده</h4><p>ثبت، بررسی، اعتبارسنجی، اصلاح، سطح دسترسی و انتشار.</p></div>
+        <div class="mini"><h4>آرشیو رسانه</h4><p>نگهداری تصویر و سند با اتصال مستقیم به مکان، رویداد و ادعا.</p></div>
+      </div>
+
+      <h3>لایه‌های معماری</h3>
+      <div class="flow">
+        <div class="step hi"><b>لایه نمایش</b><span>وب، موبایل، نمای تعبیه‌شده</span></div>
+        <div class="step"><b>لایه API</b><span>قرارداد استاندارد و نسخه‌بندی</span></div>
+        <div class="step"><b>لایه سرویس</b><span>مکان، جست‌وجو، اعتبارسنجی</span></div>
+        <div class="step"><b>لایه داده</b><span>پایگاه مکانی + رابطه‌ای</span></div>
+        <div class="step"><b>لایه آرشیو</b><span>رسانه و اسناد</span></div>
+      </div>
+
+      <h3>ملاحظات کلیدی</h3>
+      <ul>
+        <li><b>پایگاه داده مکانی:</b> ذخیره‌سازی هندسه و پرسش‌های مکانی در سطح پایگاه داده، نه در کد برنامه.</li>
+        <li><b>نسخه‌بندی داده:</b> هر رکورد نسخه دارد؛ بازگردانی به نسخه پیشین ممکن است.</li>
+        <li><b>کش مکانی:</b> لایه‌های پرترافیک نقشه با کش کاشی‌مانند و اعتبارسنجی زمانی سرو می‌شوند.</li>
+        <li><b>جداسازی نوشتن و خواندن:</b> بار سنگین خواندن نقشه، مسیر نوشتن داده را کند نمی‌کند.</li>
+        <li><b>پشتیبان‌گیری:</b> نسخه پشتیبان مکانی و فراداده‌ای به‌صورت مستقل و دوره‌ای.</li>
+        <li><b>کار بدون شبکه:</b> مرورگر می‌تواند آخرین لایه‌های دیده‌شده را برای نمایش محدود نگه دارد.</li>
+      </ul>
+    </section>
+
+    <!-- ۲۴ -->
+    <section class="sec" id="s24">
+      <div class="sec-head">
+        <div class="sec-num">۲۴</div>
+        <div class="sec-title"><h2>قرارداد API و اتصال‌ها</h2><div class="sub">شناسه پایدار، پاسخ استاندارد، نسخه‌بندی روشن</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>نقطه پایانی</th><th>کارکرد</th><th>خروجی</th></tr></thead>
+          <tbody>
+            <tr><td><code>GET /v1/locations</code></td><td>فهرست و پالایش مکان‌ها</td><td>GeoJSON + فراداده</td></tr>
+            <tr><td><code>GET /v1/locations/{id}</code></td><td>پرونده کامل یک مکان</td><td>JSON + لایه‌ها + منابع</td></tr>
+            <tr><td><code>GET /v1/locations/{id}/states</code></td><td>وضعیت‌های زمانی مکان</td><td>فهرست دوره‌ای</td></tr>
+            <tr><td><code>GET /v1/locations/{id}/relations</code></td><td>روابط مکان با اشخاص و رویدادها</td><td>گراف رابطه</td></tr>
+            <tr><td><code>GET /v1/search</code></td><td>جست‌وجوی مکانی، زمانی و موضوعی</td><td>نتایج رتبه‌بندی‌شده</td></tr>
+            <tr><td><code>GET /v1/tiles/{layer}</code></td><td>لایه برداری نقشه</td><td>Vector Tiles</td></tr>
+            <tr><td><code>POST /v1/suggestions</code></td><td>ثبت پیشنهاد مشارکت</td><td>شناسه پیگیری</td></tr>
+            <tr><td><code>GET /v1/schema</code></td><td>دریافت schema نسخه‌دار داده</td><td>JSON Schema</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout rule"><span class="ci">⇄</span><div><strong>قرارداد شناسه:</strong> هر مکان شناسه خوانا و پایدار دارد؛ پروژه‌های دیگر فقط به این شناسه ارجاع می‌دهند و داده مکانی خود را بازتولید نمی‌کنند. تغییر نام یا هندسه، شناسه را تغییر نمی‌دهد.</div></div>
+
+      <div class="chips">
+        <span class="tag blue">GeoJSON</span>
+        <span class="tag blue">WGS84</span>
+        <span class="tag blue">Vector Tiles</span>
+        <span class="tag blue">JSON Schema</span>
+        <span class="tag blue">REST + نسخه‌بندی</span>
+        <span class="tag blue">Webhook رویداد</span>
+      </div>
+    </section>
+
+    <!-- ۲۵ -->
+    <section class="sec gold" id="s25">
+      <div class="sec-head">
+        <div class="sec-num">۲۵</div>
+        <div class="sec-title"><h2>سیستم طراحی و هویت بصری</h2><div class="sub">زبان بصری اطلس: وقار، وضوح، خوانایی</div></div>
+      </div>
+
+      <h3>پالت رنگ</h3>
+      <div class="swatches">
+        <div class="sw"><div class="box" style="background:#0b2d2a"></div><div class="meta"><b>سبز شب</b><span>#0B2D2A</span></div></div>
+        <div class="sw"><div class="box" style="background:#197d72"></div><div class="meta"><b>فیروزه اطلس</b><span>#197D72</span></div></div>
+        <div class="sw"><div class="box" style="background:#b08a45"></div><div class="meta"><b>زر یادمان</b><span>#B08A45</span></div></div>
+        <div class="sw"><div class="box" style="background:#f7f4ec"></div><div class="meta"><b>کاغذ</b><span>#F7F4EC</span></div></div>
+        <div class="sw"><div class="box" style="background:#a8323f"></div><div class="meta"><b>سرخ شهادت</b><span>#A8323F</span></div></div>
+        <div class="sw"><div class="box" style="background:#2a6b8f"></div><div class="meta"><b>آبی زندگی</b><span>#2A6B8F</span></div></div>
+      </div>
+
+      <h3>مقیاس تایپوگرافی</h3>
+      <div class="typescale">
+        <div class="row"><span class="lbl">display / 900</span><span style="font-size:30px;font-weight:900">اطلس شهدا</span></div>
+        <div class="row"><span class="lbl">h1 / 800</span><span style="font-size:23px;font-weight:800">پرونده مکان</span></div>
+        <div class="row"><span class="lbl">h2 / 700</span><span style="font-size:18px;font-weight:700">لایه‌های اطلاعاتی</span></div>
+        <div class="row"><span class="lbl">body / 400</span><span style="font-size:15px">متن اصلی سند با فونت وزیرمتن و ارتفاع خط باز برای خوانایی فارسی.</span></div>
+        <div class="row"><span class="lbl">meta / 400</span><span style="font-size:12px;color:#71807a">فراداده، برچسب و توضیح تکمیلی</span></div>
+        <div class="row"><span class="lbl">decorative</span><span style="font-family:Shekasteh,serif;font-size:30px">اطلس شهدا</span></div>
+      </div>
+
+      <h3>قواعد بصری</h3>
+      <div class="grid3">
+        <div class="mini"><h4>رنگ معنادار</h4><p>هر لایه رنگ ثابت خود را دارد؛ رنگ هرگز تزئینی و تصادفی نیست.</p></div>
+        <div class="mini"><h4>سلسله‌مراتب روشن</h4><p>نام مکان، نوع، سطح اطمینان و منبع همیشه در یک ترتیب ثابت نمایش داده می‌شوند.</p></div>
+        <div class="mini"><h4>وقار و سادگی</h4><p>بدون افکت اضافه؛ فضا، سفید و نظم بصری، حامل حرمت محتواست.</p></div>
+        <div class="mini"><h4>خوانایی فارسی</h4><p>ارتفاع خط باز، فاصله مناسب و پرهیز از متن چسبیده.</p></div>
+        <div class="mini"><h4>RTL اصیل</h4><p>راست‌به‌چپ در همه اجزا، از نقشه تا فرم و جدول.</p></div>
+        <div class="mini"><h4>حالت چاپ</h4><p>پرونده مکان و برچسب‌ها قابل چاپ تمیز برای استفاده میدانی و آرشیو.</p></div>
+      </div>
+
+      <div class="chips">
+        <span class="chip"><i style="background:var(--l-golzar)"></i>golzar</span>
+        <span class="chip"><i style="background:var(--l-yadman)"></i>yadman</span>
+        <span class="chip"><i style="background:var(--l-shahadat)"></i>shahadat</span>
+        <span class="chip"><i style="background:var(--l-tavallod)"></i>zendegi</span>
+        <span class="chip"><i style="background:var(--l-tarikhi)"></i>tarikhi</span>
+        <span class="chip"><i style="background:var(--l-farhang)"></i>farhang</span>
+      </div>
+    </section>
+
+    <!-- ۲۶ -->
+    <section class="sec" id="s26">
+      <div class="sec-head">
+        <div class="sec-num">۲۶</div>
+        <div class="sec-title"><h2>تجربه کاربری و نقش‌ها</h2><div class="sub">هر مخاطب، مسیر خودش را دارد</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>مخاطب</th><th>نیاز اصلی</th><th>ارزش اطلس</th></tr></thead>
+          <tbody>
+            <tr><td>خانواده شهدا و ایثارگران</td><td>ثبت و مشاهده مکان‌های زندگی و یاد شهید</td><td>پرونده مکانی شخصی و قابل اصلاح</td></tr>
+            <tr><td>عموم مردم و زائران</td><td>یافتن مزار، یادمان و مسیر</td><td>نقشه ساده، مسیر زیارت و اطلاعات دسترسی</td></tr>
+            <tr><td>پژوهشگران</td><td>داده مستند و قابل استناد</td><td>منبع‌مندی، خروجی استاندارد و تاریخچه</td></tr>
+            <tr><td>مراکز فرهنگی و آموزشی</td><td>روایت مبتنی بر مکان</td><td>مسیرهای موضوعی و محتوای قابل بازنشر</td></tr>
+            <tr><td>نهادهای متولی</td><td>ثبت، تکمیل و پایش داده مکانی</td><td>داشبورد کیفیت و صف بازبینی</td></tr>
+            <tr><td>توسعه‌دهندگان</td><td>دسترسی برنامه‌ای به داده مکانی</td><td>API استاندارد و schema نسخه‌دار</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>مسیر نمونه کاربر</h3>
+      <div class="journey">
+        <div class="jstep"><b>۱. ورود</b><span>از نقشه یا موتور جست‌وجو</span></div>
+        <div class="jstep"><b>۲. پالایش</b><span>انتخاب لایه، دوره و منطقه</span></div>
+        <div class="jstep"><b>۳. انتخاب</b><span>کلیک روی مکان و مطالعه کارت</span></div>
+        <div class="jstep"><b>۴. پرونده</b><span>مشاهده تاریخچه و لایه‌ها</span></div>
+        <div class="jstep"><b>۵. پیوند</b><span>رفتن به شخص، رویداد یا سند</span></div>
+        <div class="jstep"><b>۶. اقدام</b><span>مشارکت، ثبت پیشنهاد یا اشتراک‌گذاری</span></div>
+      </div>
+    </section>
+
+    <!-- ۲۷ -->
+    <section class="sec" id="s27">
+      <div class="sec-head">
+        <div class="sec-num">۲۷</div>
+        <div class="sec-title"><h2>محتوا و روایت</h2><div class="sub">از داده خام به روایت قابل فهم</div></div>
+      </div>
+
+      <div class="grid2">
+        <div class="mini"><h4>سه سطح محتوا</h4><p><b>داده:</b> واقعیت ثبت‌شده و مستند. <b>روایت:</b> بازگویی انسانی و زمینه‌مند. <b>تحلیل:</b> تفسیر پژوهشی با برچسب جداگانه.</p></div>
+        <div class="mini"><h4>صداقت روایت</h4><p>روایت هرگز جای داده نمی‌نشیند و به‌عنوان داده نمایش داده نمی‌شود؛ مرز این دو در پرونده مکان روشن است.</p></div>
+        <div class="mini"><h4>زبان و لحن</h4><p>محترم، روشن، بدون اغراق؛ تمرکز بر دقت جغرافیایی و انسانی.</p></div>
+        <div class="mini"><h4>بازنشرپذیری</h4><p>هر پرونده می‌تواند به‌صورت متن، تصویر یا لینک کوتاه بازنشر شود، با حفظ منبع.</p></div>
+      </div>
+    </section>
+
+    <!-- ۲۸ -->
+    <section class="sec" id="s28">
+      <div class="sec-head">
+        <div class="sec-num">۲۸</div>
+        <div class="sec-title"><h2>دسترس‌پذیری، بومی‌سازی و عملکرد</h2><div class="sub">تجربه‌ای که برای همه کار می‌کند</div></div>
+      </div>
+
+      <div class="grid4">
+        <div class="mini"><h4>دسترس‌پذیری</h4><p>کنتراست کافی، پیمایش با صفحه‌کلید، برچسب‌های معنایی و متن جانشین برای نقشه.</p></div>
+        <div class="mini"><h4>بومی‌سازی</h4><p>فارسی RTL، ارقام فارسی، تقویم شمسی با امکان نمایش میلادی و قمری.</p></div>
+        <div class="mini"><h4>عملکرد</h4><p>بارگذاری تدریجی لایه‌ها، تصویربرداری ناحیه‌ای و کش هوشمند.</p></div>
+        <div class="mini"><h4>دستگاه‌ها</h4><p>از موبایل میدانی تا نمایشگر بزرگ مرکز فرهنگی، با تجربه یکپارچه.</p></div>
+      </div>
+
+      <h3>بودجه عملکرد</h3>
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>سنجه</th><th>هدف</th></tr></thead>
+          <tbody>
+            <tr><td>زمان نخستین ترسیم نقشه</td><td>کمتر از ۲.۵ ثانیه در شبکه متعارف</td></tr>
+            <tr><td>زمان پاسخ جست‌وجو</td><td>کمتر از ۵۰۰ میلی‌ثانیه برای پرسش متعارف</td></tr>
+            <tr><td>واکنش پنل لایه‌ها</td><td>کمتر از ۱۰۰ میلی‌ثانیه</td></tr>
+            <tr><td>حجم اولیه صفحه مکان</td><td>سبک، با بارگذاری تدریجی رسانه</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+<!-- ۲۹ -->
+    <section class="sec gold" id="s29">
+      <div class="sec-head">
+        <div class="sec-num">۲۹</div>
+        <div class="sec-title"><h2>نقشه راه و فازبندی</h2><div class="sub">پنج فاز با خروجی و معیار عبور مشخص</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <h4>فاز ۱ — تثبیت و مدل داده <span class="pill done">پایه</span></h4>
+          <p>تثبیت مدل مفهومی مکان، زمان، لایه و رابطه؛ تدوین schema نسخه‌دار و قرارداد شناسه پایدار.</p>
+          <div class="out"><b>خروجی:</b> سند مدل داده + JSON Schema + واژه‌نامه رسمی + قرارداد شناسه.</div>
+        </div>
+        <div class="tl-item">
+          <h4>فاز ۲ — هسته جغرافیایی و پرونده مکان <span class="pill next">جاری</span></h4>
+          <p>پیاده‌سازی هسته مکانی، نمایش نقطه/خط/محدوده، سطح عدم‌قطعیت و نخستین نسخه پرونده مکان.</p>
+          <div class="out"><b>خروجی:</b> نقشه پایه + پرونده مکان + بارگذاری کنترل‌شده داده نخست.</div>
+        </div>
+        <div class="tl-item">
+          <h4>فاز ۳ — جست‌وجو، منابع و کیفیت داده</h4>
+          <p>جست‌وجوی چندوجهی، اتصال منابع و شواهد، نمره اعتبار و داشبورد کیفیت داده.</p>
+          <div class="out"><b>خروجی:</b> موتور جست‌وجو + سیستم منابع + شاخص‌های کیفیت.</div>
+        </div>
+        <div class="tl-item">
+          <h4>فاز ۴ — مشارکت و حاکمیت داده</h4>
+          <p>گردش پیشنهاد و بررسی، نقش‌ها و سطوح دسترسی، تاریخچه تغییرات و سیاست حریم خصوصی.</p>
+          <div class="out"><b>خروجی:</b> سامانه مشارکت + پنل حاکمیت داده + سیاست دسترسی.</div>
+        </div>
+        <div class="tl-item">
+          <h4>فاز ۵ — API، اتصال اکوسیستم و گسترش <span class="pill future">آینده</span></h4>
+          <p>انتشار API عمومی، اتصال به شهیدپورتال و پروژه‌های مستقل، و گسترش پوشش جغرافیایی بر پایه منابع.</p>
+          <div class="out"><b>خروجی:</b> API نسخه‌دار + اتصال دوطرفه + برنامه پوشش سرزمینی.</div>
+        </div>
+      </div>
+
+      <div class="callout rule"><span class="ci">✓</span><div><strong>معیار عبور از هر فاز:</strong> هیچ فازی بدون تحقق کامل مدل داده و کیفیت پایه‌ی فاز پیشین آغاز نمی‌شود؛ رشد پوشش جغرافیایی تابع بلوغ مدل است، نه برعکس.</div></div>
+    </section>
+
+    <!-- ۳۰ -->
+    <section class="sec" id="s30">
+      <div class="sec-head">
+        <div class="sec-num">۳۰</div>
+        <div class="sec-title"><h2>سازمان، نقش‌ها و مدل اجرا</h2><div class="sub">چه کسی تصمیم می‌گیرد، چه کسی تأیید می‌کند</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>نقش</th><th>مسئولیت</th><th>مرز اختیار</th></tr></thead>
+          <tbody>
+            <tr><td>مالک محصول</td><td>اولویت‌ها، دامنه، تصمیم نهایی محصول</td><td>تصویب تغییرات بزرگ دامنه</td></tr>
+            <tr><td>حاکمیت داده</td><td>سیاست انتشار، سطح دسترسی، حل تعارض منابع</td><td>تصمیم نهایی درباره داده حساس</td></tr>
+            <tr><td>کارشناس مکانی</td><td>اعتبارسنجی موقعیت، رفع عدم‌قطعیت، بازدید میدانی</td><td>تأیید یا رد مختصات</td></tr>
+            <tr><td>پژوهشگر محتوا</td><td>گردآوری منابع، روایت و تحلیل زمینه</td><td>پیشنهاد روایت، بدون تغییر داده</td></tr>
+            <tr><td>تیم فنی</td><td>معماری، پیاده‌سازی، کیفیت فنی و انتشار</td><td>تصمیم‌های فنی در چارچوب قرارداد داده</td></tr>
+            <tr><td>تیم طراحی</td><td>تجربه کاربری، سیستم طراحی، دسترس‌پذیری</td><td>تصمیم‌های تجربه در چارچوب اصول</td></tr>
+            <tr><td>شبکه مشارکت</td><td>ثبت پیشنهاد، بارگذاری شاهد، بازخورد محلی</td><td>تنها ثبت پیشنهاد، بدون انتشار مستقیم</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="quote"><strong>اصل اجرا:</strong> تصمیم‌های محصول و داده باید مستند شوند و به این سند بازگردند؛ سند مرجع زنده است، نه بایگانی.</div>
+    </section>
+
+    <!-- ۳۱ -->
+    <section class="sec" id="s31">
+      <div class="sec-head">
+        <div class="sec-num">۳۱</div>
+        <div class="sec-title"><h2>ریسک‌ها و راهکارها</h2><div class="sub">شناخت خطرها پیش از وقوع</div></div>
+      </div>
+
+      <div class="matrix">
+        <div class="h"></div><div class="h">اثر کم</div><div class="h">اثر متوسط</div><div class="h">اثر بالا</div>
+
+        <div class="rh">احتمال بالا</div>
+        <div class="cell lv2"><b>کندی رشد داده</b><span>افزایش صف بازبینی</span></div>
+        <div class="cell lv2"><b>پراکندگی منابع</b><span>دشواری استناد</span></div>
+        <div class="cell lv3"><b>تعارض منابع مکانی</b><span>از دست رفتن اعتماد</span></div>
+
+        <div class="rh">احتمال متوسط</div>
+        <div class="cell lv1"><b>ناسازگاری تجربه</b><span>اختلاف با پروژه‌ها</span></div>
+        <div class="cell lv2"><b>افت دقت مکانی</b><span>ورود داده سستی‌ناپذیر</span></div>
+        <div class="cell lv3"><b>افشای اطلاعات حساس</b><span>ریسک حفاظتی</span></div>
+
+        <div class="rh">احتمال کم</div>
+        <div class="cell lv1"><b>هزینه آرشیو رسانه</b><span>رشد ذخیره‌سازی</span></div>
+        <div class="cell lv1"><b>تغییر اولویت‌ها</b><span>توقف موقت فاز</span></div>
+        <div class="cell lv2"><b>وابستگی به سرویس نقشه</b><span>قطعی یا تغییر سیاست</span></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>ریسک</th><th>راهکار کاهش</th></tr></thead>
+          <tbody>
+            <tr><td>تعارض منابع مکانی</td><td>ثبت هر ادعا با منبع مستقل، علامت‌گذاری تعارض و گردش تصمیم شفاف</td></tr>
+            <tr><td>ورود داده بی‌کیفیت</td><td>الزام فیلدهای کلیدی، نمره اعتبار و صف بازبینی پیش از انتشار</td></tr>
+            <tr><td>افشای اطلاعات حساس</td><td>چهار سطح دسترسی، کاهش دقت به‌جای حذف، ثبت رویداد دسترسی</td></tr>
+            <tr><td>کندی رشد پوشش</td><td>اولویت‌بندی جغرافیایی، شبکه مشارکت آموزش‌دیده و الگوهای تکرارشدنی</td></tr>
+            <tr><td>واگرایی با پروژه‌ها</td><td>قرارداد شناسه و API، مستندسازی و نسخه‌بندی قرارداد داده</td></tr>
+            <tr><td>وابستگی فنی</td><td>استفاده از استانداردهای باز و امکان جانشینی سرویس نقشه</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ۳۲ -->
+    <section class="sec" id="s32">
+      <div class="sec-head">
+        <div class="sec-num">۳۲</div>
+        <div class="sec-title"><h2>سنجه‌ها و پایش</h2><div class="sub">آنچه اندازه‌گیری نمی‌شود، بهبود نمی‌یابد</div></div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="v">۱۴</div><b>موجودیت فعال</b><p>تعداد موجودیت‌های مدل داده که در حال استفاده‌اند.</p></div>
+        <div class="kpi"><div class="v">۱۰</div><b>لایه عملیاتی</b><p>لایه‌های اطلاعاتی دارای داده و نماد نمایشی.</p></div>
+        <div class="kpi"><div class="v">۵</div><b>فاز قابل پایش</b><p>هر فاز با خروجی و معیار عبور مشخص.</p></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>حوزه</th><th>سنجه</th><th>دوره پایش</th></tr></thead>
+          <tbody>
+            <tr><td>پوشش</td><td>تعداد مکان ثبت‌شده به تفکیک استان و لایه</td><td>ماهانه</td></tr>
+            <tr><td>کیفیت</td><td>توزیع سطح عدم‌قطعیت و میانگین نمره اعتبار</td><td>ماهانه</td></tr>
+            <tr><td>منبع‌مندی</td><td>سهم رکوردهای دارای منبع درجه‌یک</td><td>ماهانه</td></tr>
+            <tr><td>مشارکت</td><td>تعداد پیشنهاد، نرخ تأیید و زمان چرخه بررسی</td><td>ماهانه</td></tr>
+            <tr><td>تجربه</td><td>نرخ یافتن مکان هدف و زمان رسیدن به پرونده</td><td>فصلی</td></tr>
+            <tr><td>اتصال</td><td>تعداد پروژه‌های متصل و فراخوانی API</td><td>فصلی</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ۳۳ -->
+    <section class="sec gold" id="s33">
+      <div class="sec-head">
+        <div class="sec-num">۳۳</div>
+        <div class="sec-title"><h2>جمع‌بندی و گام بعدی</h2><div class="sub">قاعده توسعه آینده</div></div>
+      </div>
+
+      <div class="quote gold">
+        <strong>اطلس شهدا چیست؟</strong> یک محصول مستقل و تخصصی برای مدل‌سازی، مستندسازی و نمایش جغرافیای مرتبط با شهدا؛ با این اصل که هر موقعیت مکانی هویت پایدار خود را دارد و اطلاعات آن در طول زمان و در لایه‌های مختلف روی همان مکان شکل می‌گیرد.
+      </div>
+
+      <p>اطلس از یک سو بخشی از پازل بزرگ مجموعه شهیدپورتال است و از سوی دیگر باید به‌عنوان یک سامانه کامل و مستقل قابل استفاده باشد. ارزش اصلی آن در تبدیل «مکان» به یک نقطه زنده از شبکه دانش است؛ نقطه‌ای که به زندگی یک شهید، یک رویداد، یک دوره تاریخی، یک مسیر، یک سند و یک روایت متصل می‌شود.</p>
+
+      <div class="callout rule"><span class="ci">→</span><div>
+        <strong>گام بعدی پیشنهادی:</strong>
+        <ol style="margin:8px 0 0">
+          <li>تصویب مدل داده و واژه‌نامه رسمی این سند به‌عنوان نسخه ۱.</li>
+          <li>ساخت هسته جغرافیایی و نمایش نخستین پرونده مکان.</li>
+          <li>ورود یک مجموعه کنترل‌شده و مستند از مکان‌ها به‌عنوان داده مرجع.</li>
+          <li>تدوین قرارداد API و آغاز اتصال با پروژه تقویم شهدا.</li>
+        </ol>
+      </div></div>
+
+      <div class="quote"><strong>قاعده توسعه آینده:</strong> هر قابلیت جدید باید جایگاه مشخصی در یکی از این شش محور داشته باشد — <b>مکان، زمان، لایه، رابطه، منبع، کیفیت داده</b>. قابلیتی که در هیچ‌کدام نگنجد، متعلق به اطلس نیست.</div>
+    </section>
+
+    <!-- ۳۴ -->
+    <section class="sec" id="s34">
+      <div class="sec-head">
+        <div class="sec-num">۳۴</div>
+        <div class="sec-title"><h2>واژه‌نامه و مراجع</h2><div class="sub">زبان مشترک پروژه</div></div>
+      </div>
+
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead><tr><th>واژه</th><th>تعریف</th></tr></thead>
+          <tbody>
+            <tr><td>مکان (Location)</td><td>موجودیت پایه و دارای هویت پایدار که اطلاعات روی آن سوار می‌شود.</td></tr>
+            <tr><td>هویت پایدار</td><td>شناسه‌ای که با تغییر نام، هندسه یا وضعیت تغییر نمی‌کند.</td></tr>
+            <tr><td>وضعیت زمانی (LocationState)</td><td>نقش یا وضعیت مکان در یک بازه زمانی و لایه مشخص.</td></tr>
+            <tr><td>لایه (Layer)</td><td>سازوکار سازمان‌دهی و نمایش اطلاعات روی مکان؛ نه موجودیت مستقل.</td></tr>
+            <tr><td>عدم‌قطعیت</td><td>سطح اطمینان جغرافیایی: دقیق، تقریبی، محدوده، نامعلوم.</td></tr>
+            <tr><td>پرونده مکان</td><td>نمای منسجم همه اطلاعات یک مکان شامل تاریخچه، لایه‌ها و منابع.</td></tr>
+            <tr><td>منبع (Source)</td><td>شاهد یا مستند پشتیبان یک ادعا، با سطح اعتبار مشخص.</td></tr>
+            <tr><td>گراف دانش</td><td>شبکه روابط میان مکان، شخص، رویداد، سند و زمان.</td></tr>
+            <tr><td>سطح دسترسی</td><td>یکی از چهار سطح: عمومی، محدود، حساس، غیرقابل انتشار.</td></tr>
+            <tr><td>نمره اعتبار</td><td>شاخص ترکیبی کیفیت داده مکان بر پایه پنج بُعد سنجش.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>مراجع و استانداردها</h3>
+      <ul class="small">
+        <li>GeoJSON — RFC 7946، استاندارد نمایش داده مکانی.</li>
+        <li>JSON Schema — Draft 2020-12، قرارداد اعتبارسنجی داده.</li>
+        <li>ISO 8601 — استاندارد نمایش تاریخ و زمان.</li>
+        <li>WCAG 2.2 — رهنمودهای دسترس‌پذیری محتوای وب.</li>
+        <li>Vector Tiles — استاندارد انتقال لایه‌های برداری نقشه.</li>
+        <li>سند طرح مادر مجموعه شهیدپورتال — مرجع جایگاه و دامنه محصولات.</li>
+      </ul>
+
+      <div class="callout"><span class="ci">✎</span><div><strong>یادداشت نگهداری سند:</strong> این سند مرجع زنده است. هر تغییر مهم در مدل داده، دامنه یا اصول باید با ذکر دلیل و تاریخ در همین سند ثبت شود تا فاصله میان «طرح» و «اجرا» بسته بماند.</div></div>
+    </section>
+
+    <!-- پاورقی -->
+    <footer class="footer">
+      <div class="fg">
+        <div>
+          <h4>اطلس شهدا</h4>
+          <p>سامانه تخصصی جغرافیای مرتبط با شهدا؛ پیوند انسان، مکان و زمان در یک مرجع قابل استناد.</p>
+        </div>
+        <div>
+          <h4>ساختار سند</h4>
+          <p><b>۳۴</b> فصل · <b>۱۰</b> لایه اطلاعاتی · <b>۱۴</b> موجودیت داده · <b>۵</b> فاز اجرا</p>
+        </div>
+        <div>
+          <h4>وضعیت</h4>
+          <p>نسخه ۱ — سند مرجع طراحی و داده<br>مستقل از پروژه‌های دیگر، متصل از طریق شناسه و API</p>
+        </div>
+      </div>
+      <div class="end">طرح جامع اطلس شهدا · سند مرجع طراحی، داده و تجربه · نسخه ۱</div>
+    </footer>
+
+  </main>
+</div>
+
+<a class="back-top" href="#top" title="بازگشت به بالا" aria-label="بازگشت به بالا">↑</a>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar');
+  var toc=document.getElementById('toc');
+  var inner=document.getElementById('tocInner');
+  var btn=document.getElementById('tocBtn');
+  if(btn){btn.addEventListener('click',function(){toc.classList.toggle('open');});}
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    if(bar){bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var map={};
+  links.forEach(function(a){var id=(a.getAttribute('href')||'').slice(1);if(id){map[id]=a;}});
+  var secs=[].slice.call(document.querySelectorAll('main section[id]'));
+  if('IntersectionObserver' in window){
+    var visible={};
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){visible[en.target.id]=true;}else{delete visible[en.target.id];}
+      });
+      var first=null;
+      for(var i=0;i<secs.length;i++){if(visible[secs[i].id]){first=secs[i].id;break;}}
+      if(first){
+        links.forEach(function(l){l.classList.remove('active');});
+        if(map[first]){
+          map[first].classList.add('active');
+          if(inner&&inner.scrollHeight>inner.clientHeight+20){
+            var a=map[first];
+            var top=a.offsetTop-inner.offsetTop;
+            if(top<inner.scrollTop||top>inner.scrollTop+inner.clientHeight-a.offsetHeight){
+              inner.scrollTop=top-40;
+            }
+          }
+        }
+      }
+    },{rootMargin:'-100px 0px -65% 0px',threshold:0});
+    secs.forEach(function(s){io.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>
+
