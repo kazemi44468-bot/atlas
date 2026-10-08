@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="سند طرح جامع اطلس شهدا — مرجع طراحی، داده و تجربه">
+<meta name="color-scheme" content="light dark">
+<title>سند طرح جامع | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+.plan-page { padding: 32px 0 64px; max-width: 900px; margin: 0 auto; }
+.plan-hero {
+  padding: 40px 0 48px;
+  border-bottom: 1px solid var(--line-2);
+  margin-bottom: 40px;
+  text-align: center;
+}
+.plan-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-d);
+  margin-bottom: 20px;
+}
+.plan-hero h1 { font-size: clamp(28px,4vw,42px); font-weight: 900; letter-spacing: -1.2px; margin-bottom: 14px; }
+.plan-hero p { color: var(--muted); font-size: 15.5px; line-height: 1.95; max-width: 680px; margin: 0 auto; }
+
+.plan-toc {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-sm);
+}
+.plan-toc h2 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--muted-2);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.plan-toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 24px;
+}
+.plan-toc-grid a {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plan-toc-grid a::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand);
+  flex-shrink: 0;
+}
+.plan-toc-grid a:hover { color: var(--brand-d); }
+
+.plan-section {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line-2);
+  scroll-margin-top: 100px;
+}
+.plan-section:last-child { border-bottom: 0; }
+.plan-section h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -.5px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.plan-section h2::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--brand), var(--saffron));
+}
+.plan-section h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 24px 0 12px;
+}
+.plan-section p { font-size: 14.5px; line-height: 1.95; color: var(--ink-2); margin-bottom: 12px; }
+.plan-section ul, .plan-section ol { padding-inline-start: 24px; margin-bottom: 16px; }
+.plan-section li { font-size: 14px; line-height: 1.9; color: var(--ink-2); margin-bottom: 6px; }
+.plan-section li::marker { color: var(--brand); font-weight: 700; }
+
+.plan-quote {
+  padding: 18px 22px;
+  border-inline-start: 4px solid var(--brand);
+  background: linear-gradient(90deg, var(--brand-soft), transparent);
+  border-radius: 0 var(--r) var(--r) 0;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--ink-2);
+  margin: 20px 0;
+}
+.plan-quote.gold {
+  border-inline-start-color: var(--saffron);
+  background: linear-gradient(90deg, var(--saffron-soft), transparent);
+}
+
+.plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  font-size: 13px;
+}
+.plan-table th {
+  background: var(--paper-2);
+  padding: 12px 14px;
+  text-align: right;
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.plan-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-2);
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+.plan-table tr:last-child td { border-bottom: 0; }
+
+.plan-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+.plan-flow-step {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 11px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.plan-flow-step.hi {
+  background: linear-gradient(145deg, var(--brand), var(--brand-d));
+  color: var(--surface);
+  border-color: transparent;
+}
+
+.plan-layers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.plan-layer {
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 11px;
+  border-inline-start: 4px solid var(--lc);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.plan-layer b { display: block; font-weight: 800; color: var(--ink); margin-bottom: 2px; font-size: 13px; }
+.plan-layer small { color: var(--muted); font-size: 10.5px; font-family: var(--ff-mono); direction: ltr; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container plan-page">
+
+    <header class="plan-hero">
+      <span class="eyebrow">✦ سند مرجع طراحی، داده و تجربه</span>
+      <h1>طرح جامع اطلس شهدا</h1>
+      <p>سند مرجعی که مدل مفهومی، مدل داده، هویت بصری، تجربه کاربری، معماری فنی و نقشه راه اطلس را تثبیت می‌کند.</p>
+    </header>
+
+    <nav class="plan-toc" aria-label="فهرست سند">
+      <h2>فهرست سند</h2>
+      <div class="plan-toc-grid">
+        <a href="#s-mission">مأموریت و چشم‌انداز</a>
+        <a href="#s-core">مکان × زمان × لایه</a>
+        <a href="#s-layers">لایه‌های اطلاعاتی</a>
+        <a href="#s-place">پرونده مکان</a>
+        <a href="#s-data">مدل داده</a>
+        <a href="#s-eco">جایگاه در اکوسیستم</a>
+        <a href="#s-governance">حاکمیت داده</a>
+        <a href="#s-roadmap">نقشه راه</a>
+      </div>
+    </nav>
+
+    <section class="plan-section" id="s-mission">
+      <h2>مأموریت و چشم‌انداز</h2>
+      <p>اطلس شهدا سامانه‌ای تخصصی برای شناخت و نمایش جغرافیای مرتبط با شهداست. مأموریت آن ایجاد یک <strong>مرجع معتبر، توسعه‌پذیر و قابل استناد</strong> برای شناخت جغرافیای زندگی، حضور، فعالیت، حوادث، شهادت، دفن و میراث مرتبط با شهداست.</p>
+      <div class="plan-quote">
+        <strong>ستاره شمالی:</strong> «هر مکان مرتبط با شهید، یک پرونده زنده و قابل استناد داشته باشد.»
+      </div>
+      <p>چشم‌انداز: تبدیل شدن به مرجع تخصصی جغرافیایی مجموعه، جایی که کاربر با یک مکان شروع می‌کند و به تاریخ، اشخاص، رویدادها، اسناد و مسیرهای مرتبط می‌رسد.</p>
+    </section>
+
+    <section class="plan-section" id="s-core">
+      <h2>مدل مفهومی: مکان × زمان × لایه</h2>
+      <p>اطلس یک معادله ساده دارد که تمام قابلیت‌های آن از آن بیرون می‌آید:</p>
+      <div class="plan-flow">
+        <div class="plan-flow-step hi">موقعیت مکانی</div>
+        <div class="plan-flow-step">هویت واحد</div>
+        <div class="plan-flow-step">دوره زمانی</div>
+        <div class="plan-flow-step">لایه اطلاعاتی</div>
+        <div class="plan-flow-step">روابط</div>
+        <div class="plan-flow-step">منبع و شواهد</div>
+      </div>
+      <p>یک نقطه مشخص می‌تواند در دوره‌ای «محل زندگی»، در دوره‌ای «محل فعالیت»، در مقطعی «محل وقوع رویداد» و امروز «یادمان» باشد. اطلس این وضعیت‌ها را به‌صورت <strong>وضعیت‌های زمانی (LocationState)</strong> روی یک موجودیت مکانی واحد نگه می‌دارد.</p>
+      <div class="plan-quote gold"><strong>قاعده کلیدی:</strong> «یک مکان، یک هویت؛ وضعیت‌ها و روابط متعدد در طول زمان.»</div>
+    </section>
+
+    <section class="plan-section" id="s-layers">
+      <h2>ده لایه اطلاعاتی</h2>
+      <p>لایه‌ها روش سازمان‌دهی و نمایش معنا روی مکان هستند، نه موجودیت‌های مستقل. هر لایه یک رنگ، یک نماد و یک قاعده نمایش دارد.</p>
+      <div class="plan-layers" id="plan-layers-grid"></div>
+    </section>
+
+    <section class="plan-section" id="s-place">
+      <h2>پرونده مکان</h2>
+      <p>هر مکان یک پرونده دارد که اطلاعات پراکنده را در یک نمای منسجم جمع می‌کند. پرونده مکان پاسخ نهایی به پرسش «درباره این مکان چه می‌دانیم؟» است.</p>
+      <h3>بخش‌های پرونده</h3>
+      <ul>
+        <li><strong>سربرگ:</strong> نام اصلی، نام‌های دیگر، نوع، وضعیت، سطح اطمینان، دسترسی</li>
+        <li><strong>نقشه:</strong> موقعیت، مختصات، مدرک موقعیت</li>
+        <li><strong>خط زمان:</strong> وضعیت‌ها از گذشته تا امروز</li>
+        <li><strong>لایه‌ها:</strong> اشخاص، رویدادها، اسناد، رسانه</li>
+        <li><strong>منابع:</strong> فهرست منابع و وضعیت تعارض</li>
+        <li><strong>تاریخچه:</strong> چه کسی، چه زمانی، چه چیزی را تغییر داد</li>
+      </ul>
+    </section>
+
+    <section class="plan-section" id="s-data">
+      <h2>مدل داده</h2>
+      <p>هسته اطلس از چهارده موجودیت تشکیل شده است که مهم‌ترین‌ها:</p>
+      <table class="plan-table">
+        <thead><tr><th>موجودیت</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td><code>Location</code></td><td>هویت اصلی مکان، نوع، وضعیت، سطح دسترسی</td></tr>
+          <tr><td><code>LocationName</code></td><td>نام‌های رسمی، محلی، تاریخی با بازه اعتبار</td></tr>
+          <tr><td><code>LocationState</code></td><td>وضعیت یا نقش مکان در یک بازه زمانی و لایه</td></tr>
+          <tr><td><code>Geometry</code></td><td>هندسه، سطح دقت و روش تعیین موقعیت</td></tr>
+          <tr><td><code>Person</code></td><td>شخص مرتبط با مکان با شناسه مستقل</td></tr>
+          <tr><td><code>Event</code></td><td>رویداد دارای زمان، مکان و منبع</td></tr>
+          <tr><td><code>Route</code></td><td>مسیر مکانی با ترتیب و جهت مشخص</td></tr>
+          <tr><td><code>Relation</code></td><td>رابطه میان دو موجودیت با زمان و اطمینان</td></tr>
+          <tr><td><code>Source</code></td><td>منبع یا شاهد هر ادعا با سطح اعتبار</td></tr>
+          <tr><td><code>Media</code></td><td>تصویر، سند، صوت، ویدئو با ارتباط مکانی</td></tr>
+          <tr><td><code>Change</code></td><td>تاریخچه اصلاح، عامل تغییر، دلیل، نسخه پیشین</td></tr>
+        </tbody>
+      </table>
+      <div class="plan-quote"><strong>قاعده مدل:</strong> لایه‌ها برای سازمان‌دهی و نمایش‌اند؛ «مکان» موجودیت پایه است و وضعیت‌های زمانی هرگز به‌صورت مکان‌های تکراری ثبت نمی‌شوند.</div>
+    </section>
+
+    <section class="plan-section" id="s-eco">
+      <h2>جایگاه در اکوسیستم</h2>
+      <p>اطلس شهدا صاحب «لایه مکانی» است. سایر نقش‌های اکوسیستم — لایه هویتی، لایه زمانی و لایه خدمت — به‌تدریج و به‌صورت مستقل شکل می‌گیرند و از طریق <strong>شناسه پایدار و API</strong> به اطلس متصل می‌شوند.</p>
+      <div class="plan-quote gold"><strong>اصل:</strong> «مستقل در اجرا، یکپارچه در معماری، هماهنگ در راهبری، هم‌افزایی در اکوسیستم.»</div>
+      <h3>قواعد اتصال</h3>
+      <ul>
+        <li>هر مکان یک شناسه خوانا و پایدار دارد؛ پروژه‌های دیگر فقط به این شناسه ارجاع می‌دهند.</li>
+        <li>تغییر نام یا هندسه، شناسه را تغییر نمی‌دهد.</li>
+        <li>هر پروژه مستقل داده‌ی خودش را نگه می‌دارد و از طریق API اتصال برقرار می‌شود.</li>
+        <li>هر داده مهم به منبع، سطح اطمینان، سطح دسترسی و تاریخچه تغییر گره می‌خورد.</li>
+      </ul>
+    </section>
+
+    <section class="plan-section" id="s-governance">
+      <h2>حاکمیت داده</h2>
+      <p>هر داده مهم در اطلس به چهار چیز گره می‌خورد:</p>
+      <div class="plan-flow">
+        <div class="plan-flow-step">منبع</div>
+        <div class="plan-flow-step">سطح اطمینان</div>
+        <div class="plan-flow-step">سطح دسترسی</div>
+        <div class="plan-flow-step">تاریخچه تغییر</div>
+      </div>
+      <h3>چهار سطح دسترسی</h3>
+      <ul>
+        <li><strong>عمومی:</strong> اطلاعات مناسب انتشار عمومی</li>
+        <li><strong>محدود:</strong> دسترسی برای نقش‌های مشخص</li>
+        <li><strong>حساس:</strong> انتشار دقیق نیازمند بررسی ویژه</li>
+        <li><strong>غیرقابل انتشار:</strong> فقط برای مدیریت و پژوهش داخلی</li>
+      </ul>
+    </section>
+
+    <section class="plan-section" id="s-roadmap">
+      <h2>نقشه راه</h2>
+      <table class="plan-table">
+        <thead><tr><th>فاز</th><th>تمرکز</th><th>خروجی</th></tr></thead>
+        <tbody>
+          <tr><td>۱</td><td>تثبیت و مدل داده</td><td>سند مدل داده + JSON Schema</td></tr>
+          <tr><td>۲</td><td>هسته جغرافیایی و پرونده مکان</td><td>نقشه پایه + پرونده مکان</td></tr>
+          <tr><td>۳</td><td>جست‌وجو، منابع و کیفیت</td><td>موتور جست‌وجو + سیستم منابع</td></tr>
+          <tr><td>۴</td><td>مشارکت و حاکمیت داده</td><td>سامانه مشارکت + پنل حاکمیت</td></tr>
+          <tr><td>۵</td><td>API و اتصال اکوسیستم</td><td>API نسخه‌دار + اتصال دوطرفه</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="plan-section">
+      <h2>جمع‌بندی</h2>
+      <div class="plan-quote gold">
+        <strong>اطلس شهدا چیست؟</strong> یک محصول مستقل و تخصصی برای مدل‌سازی، مستندسازی و نمایش جغرافیای مرتبط با شهدا؛ با این اصل که هر موقعیت مکانی هویت پایدار خود را دارد و اطلاعات آن در طول زمان و در لایه‌های مختلف روی همان مکان شکل می‌گیرد.
+      </div>
+      <p>هر قابلیت جدید باید جایگاه مشخصی در یکی از این شش محور داشته باشد: <strong>مکان، زمان، لایه، رابطه، منبع، کیفیت داده</strong>.</p>
+    </section>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+  var layers = D.layers || [];
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  var grid = document.getElementById('plan-layers-grid');
+  if (grid) {
+    grid.innerHTML = layers.map(function (l) {
+      return '<div class="plan-layer" style="--lc:' + l.color + '">'
+        + '<b>' + esc(l.name) + '</b>'
+        + '<small>' + esc(l.slug) + '</small>'
+        + '</div>';
+    }).join('');
+  }
+})();
+</script>
+
+</body>
+</html>

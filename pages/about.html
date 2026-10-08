@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="درباره اطلس شهدا — مأموریت، جایگاه در اکوسیستم و اصول بنیادین">
+<meta name="color-scheme" content="light dark">
+<title>درباره اطلس | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+.about-page { padding: 32px 0 64px; max-width: 900px; margin: 0 auto; }
+.about-hero { text-align: center; padding: 32px 0 56px; border-bottom: 1px solid var(--line-2); margin-bottom: 48px; }
+.about-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-d);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-xs);
+}
+.about-hero h1 { font-size: clamp(28px,4vw,42px); font-weight: 900; letter-spacing: -1.2px; margin-bottom: 16px; }
+.about-hero p { color: var(--muted); font-size: 15.5px; line-height: 1.95; max-width: 640px; margin: 0 auto; }
+
+.about-section { margin-bottom: 48px; }
+.about-section h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -.5px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.about-section h2::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--brand), var(--saffron));
+}
+.about-section p { font-size: 14.5px; line-height: 1.95; color: var(--ink-2); margin-bottom: 14px; }
+
+.about-quote {
+  padding: 20px 24px;
+  border-inline-start: 4px solid var(--saffron);
+  background: linear-gradient(90deg, var(--saffron-soft), transparent);
+  border-radius: 0 var(--r) var(--r) 0;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--ink-2);
+  margin: 20px 0;
+}
+.about-quote strong { color: var(--ink); }
+
+.about-eco {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.about-eco-card {
+  padding: 20px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: all var(--dur) var(--ease);
+}
+.about-eco-card:hover { border-color: var(--brand); transform: translateY(-2px); }
+.about-eco-card h4 { font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.about-eco-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+.about-principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.about-principle {
+  padding: 20px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--dur) var(--ease);
+}
+.about-principle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--brand);
+}
+.about-principle:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.about-principle h4 { font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.about-principle p { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 0; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container about-page">
+
+    <header class="about-hero">
+      <span class="eyebrow">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)"></span>
+        سند مرجع زنده · نسخه ۱
+      </span>
+      <h1>درباره اطلس شهدا</h1>
+      <p>مرجع مکانی جغرافیای مرتبط با شهدا. محصولی مستقل که هویت پایدار مکان را نگه می‌دارد و اطلاعات را در طول زمان و در لایه‌های مختلف روی همان هویت سازمان می‌دهد.</p>
+    </header>
+
+    <section class="about-section">
+      <h2>مأموریت</h2>
+      <p>
+        اطلس شهدا سامانه‌ای تخصصی برای شناخت و نمایش جغرافیای مرتبط با شهداست.
+        در این سامانه، «مکان» فقط یک نشانی یا یک نقطه روی نقشه نیست؛
+        هر مکان می‌تواند در دوره‌های مختلف، نقش‌ها، رویدادها، اشخاص، اسناد و روایت‌های متفاوتی داشته باشد.
+        مأموریت اطلس، نگه‌داشتن این تنوع روی یک هویت واحد است.
+      </p>
+
+      <div class="about-quote">
+        <strong>جمله محوری:</strong> «یک مکان، یک هویت؛ وضعیت‌ها، روایت‌ها و روابط متعدد در طول زمان.»
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>سه گزاره هویتی</h2>
+      <div class="about-eco">
+        <div class="about-eco-card">
+          <h4>اطلس چیست؟</h4>
+          <p>مرجع مکانی مجموعه؛ سیستمی که مکان را به انسان، رویداد، سند و زمان پیوند می‌زند.</p>
+        </div>
+        <div class="about-eco-card">
+          <h4>اطلس چه نیست؟</h4>
+          <p>فهرست ساده مختصات، آرشیو تصویر، یا نسخه تکراری سامانه‌های دیگر نیست.</p>
+        </div>
+        <div class="about-eco-card">
+          <h4>اطلس چه می‌دهد؟</h4>
+          <p>پرونده مکانی قابل استناد، نقشه لایه‌ای، جست‌وجوی چندوجهی و سرویس مکانی استاندارد.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>جایگاه در اکوسیستم</h2>
+      <p>
+        اطلس شهدا صاحب «لایه مکانی» است و هویت پایدار هر مکان را نگه می‌دارد.
+        سایر نقش‌های اکوسیستم — لایه هویتی، لایه زمانی و لایه خدمت — به‌تدریج و به‌صورت مستقل شکل می‌گیرند
+        و از طریق شناسه پایدار به اطلس متصل می‌شوند.
+      </p>
+      <div class="about-quote">
+        <strong>قاعده:</strong> «مستقل در اجرا، یکپارچه در معماری، هماهنگ در راهبری، هم‌افزایی در اکوسیستم.»
+      </div>
+      <p>
+        هر پروژه‌ی اکوسیستم هویت، داده و مسیر توسعه‌ی خودش را دارد.
+        اطلس از طریق <strong>شناسه و API</strong> با آن‌ها یکپارچه می‌شود، نه با تکثیر داده.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <h2>اصول بنیادین</h2>
+      <div class="about-principles">
+        <div class="about-principle">
+          <h4>۱. مکان‌محوری</h4>
+          <p>مکان هسته مدل است؛ همه چیز به آن گره می‌خورد.</p>
+        </div>
+        <div class="about-principle">
+          <h4>۲. زمان‌مندی</h4>
+          <p>هر اطلاعات مکانی می‌تواند بازه اعتبار و سطح اطمینان زمانی داشته باشد.</p>
+        </div>
+        <div class="about-principle">
+          <h4>۳. لایه‌مندی</h4>
+          <p>اطلاعات روی یک مکان قابل تفکیک، روشن‌وخاموش‌کردن و فیلترشدن است.</p>
+        </div>
+        <div class="about-principle">
+          <h4>۴. هویت پایدار</h4>
+          <p>تغییر نام یا وضعیت، مکان تازه نمی‌سازد.</p>
+        </div>
+        <div class="about-principle">
+          <h4>۵. منبع‌مندی</h4>
+          <p>داده مهم بدون منشأ و وضعیت اعتبار منتشر نمی‌شود.</p>
+        </div>
+        <div class="about-principle">
+          <h4>۶. عدم جعل دقت</h4>
+          <p>مکان نامعلوم با مختصات ساختگی دقیق نمایش داده نمی‌شود.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>مشارکت</h2>
+      <p>
+        مشارکت عمومی می‌تواند مکان‌های فراموش‌شده را کشف کند، تصاویر و اسناد را تکمیل کند و خطاها را اصلاح کند؛
+        به شرط آنکه گردش بررسی شفاف باشد و «پیشنهاد کاربر» از «داده تأییدشده» جدا بماند.
+      </p>
+      <div style="margin-top:24px">
+        <a href="contribute.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg>
+          مشارکت در اطلس
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+</body>
+</html>

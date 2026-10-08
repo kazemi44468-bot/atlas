@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="اطلس شهدا — مرجع مکانی جغرافیای مرتبط با شهدا. هر مکان، یک هویت پایدار؛ وضعیت‌ها و روابط متعدد در طول زمان.">
+<meta name="color-scheme" content="light dark">
+<title>اطلس شهدا | مرجع مکانی جغرافیای شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+
+<!-- ═══════ HEADER (از components.js) ═══════ -->
+<div id="site-header"></div>
+
+<!-- ═══════ MAIN ═══════ -->
+<main id="main">
+
+  <!-- ══════════ HERO با نقشه تمام‌عرض ══════════ -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="home-hero-inner">
+
+        <!-- نقشه -->
+        <div class="home-hero-map" aria-hidden="true">
+          <div id="map"></div>
+        </div>
+
+        <!-- محتوای روی نقشه -->
+        <div class="home-hero-content">
+          <span class="home-hero-eyebrow">
+            <span class="home-hero-eyebrow-dot" aria-hidden="true"></span>
+            مرجع مکانی · سند مرجع زنده · نسخه ۱
+          </span>
+
+          <h1>
+            جغرافیای شهدا،<br>
+            در بستر <span class="accent">زمان و مکان</span>
+          </h1>
+
+          <p class="home-hero-lede">
+            اطلس شهدا یک <strong>مرجع مکانی یکپارچه</strong> است. هر مکان یک هویت پایدار دارد و اطلاعات — اشخاص، رویدادها، اسناد، مسیرها و روایت‌ها — در طول زمان روی همان هویت شکل می‌گیرند.
+          </p>
+
+          <div class="home-hero-actions">
+            <a href="pages/map.html" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/>
+                <path d="M9 7v13M15 4v13"/>
+              </svg>
+              کاوش در نقشه
+            </a>
+            <a href="pages/locations.html" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              فهرست مکان‌ها
+            </a>
+          </div>
+        </div>
+
+        <!-- کارت‌های شناور روی نقشه -->
+        <div class="home-map-cards" aria-hidden="true">
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#2F6B4A"></span>
+              <span class="home-map-card-title">گلزار شهدای وادی رحمت</span>
+            </div>
+            <div class="home-map-card-meta">کرمان · ۵ شهید مرتبط</div>
+          </div>
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#C4903A"></span>
+              <span class="home-map-card-title">محدوده فتح‌المبین</span>
+            </div>
+            <div class="home-map-card-meta">خوزستان · عملیاتی</div>
+          </div>
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#1E6B72"></span>
+              <span class="home-map-card-title">یادمان هفت تیر</span>
+            </div>
+            <div class="home-map-card-meta">تهران · ۷ شهید</div>
+          </div>
+        </div>
+
+        <!-- نوار جست‌وجو -->
+        <div class="home-search" role="search">
+          <label class="home-search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input type="search" placeholder="جست‌وجوی مکان، شهید، رویداد یا مسیر…" aria-label="جست‌وجو">
+          </label>
+
+          <div class="home-search-filters" role="group" aria-label="فیلتر سریع">
+            <button class="home-filter-chip on" type="button"><i style="background:#2F6B4A" aria-hidden="true"></i>گلزار</button>
+            <button class="home-filter-chip" type="button"><i style="background:#9C4A2E" aria-hidden="true"></i>شهادت</button>
+            <button class="home-filter-chip" type="button"><i style="background:#2C3E5C" aria-hidden="true"></i>زندگی</button>
+            <button class="home-filter-chip" type="button"><i style="background:#1E6B72" aria-hidden="true"></i>یادمان</button>
+          </div>
+
+          <button class="home-search-submit" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span>جست‌وجو</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <section class="home-stats">
+    <div class="container">
+      <div class="home-stats-inner">
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="locations" data-count="0">۰</div>
+          <div class="home-stat-label">مکان ثبت‌شده</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="persons" data-count="0">۰</div>
+          <div class="home-stat-label">شهید مرتبط</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="layers" data-count="0">۰</div>
+          <div class="home-stat-label">لایه اطلاعاتی</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="provinces" data-count="0">۰</div>
+          <div class="home-stat-label">استان پوشش‌داده‌شده</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ LAYERS ══════════ -->
+  <section class="section section-alt" id="layers">
+    <div class="container">
+      <header class="section-head">
+        <div class="section-head-text">
+          <span class="section-eyebrow">لایه‌های اطلاعاتی</span>
+          <h2>ده لایه برای سازمان‌دهی معنا روی مکان</h2>
+          <p>هر لایه یک رنگ، یک نماد و یک قاعده نمایش دارد. لایه‌ها موجودیت مستقل نیستند؛ روش سازمان‌دهی و نمایش‌اند.</p>
+        </div>
+        <a href="pages/layers.html" class="section-link">
+          همه لایه‌ها
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5M11 6l-6 6 6 6"/>
+          </svg>
+        </a>
+      </header>
+
+      <div class="home-layers-grid" id="layers-grid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ PLACES ══════════ -->
+  <section class="section" id="places">
+    <div class="container">
+      <header class="section-head">
+        <div class="section-head-text">
+          <span class="section-eyebrow">مکان‌های برگزیده</span>
+          <h2>هر مکان، یک پرونده زنده و قابل استناد</h2>
+          <p>هویت پایدار، وضعیت‌های زمانی، لایه‌ها و منابع — همه در یک نمای منسجم.</p>
+        </div>
+        <a href="pages/locations.html" class="section-link">
+          همه مکان‌ها
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5M11 6l-6 6 6 6"/>
+          </svg>
+        </a>
+      </header>
+
+      <div class="home-places-grid" id="places-grid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ ECOSYSTEM ══════════ -->
+  <section class="home-eco" id="ecosystem">
+    <div class="container">
+      <div class="home-eco-head">
+        <span class="section-eyebrow" style="justify-content:center;display:inline-flex">جایگاه اطلس</span>
+        <h2>مستقل در اجرا، یکپارچه در معماری</h2>
+        <p>اطلس شهدا صاحب «لایه مکانی» است و هویت پایدار هر مکان را نگه می‌دارد. بقیه‌ی نقش‌های اکوسیستم به‌تدریج و به‌صورت مستقل شکل می‌گیرند و از طریق شناسه‌ی پایدار به اطلس متصل می‌شوند.</p>
+      </div>
+
+      <div class="home-eco-grid" id="eco-grid"></div>
+
+      <p class="home-eco-note">
+        هر پروژه‌ی اکوسیستم هویت، داده و مسیر توسعه‌ی خودش را دارد.
+        <strong>اطلس از طریق شناسه و API با آن‌ها یکپارچه می‌شود، نه با تکثیر داده.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ EVENTS + PERSONS (دو ستون) ══════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="home-two-col">
+
+        <!-- رویدادها (مکمل) -->
+        <div>
+          <header class="section-head" style="margin-bottom:20px">
+            <div class="section-head-text">
+              <span class="section-eyebrow">گاه‌شمار</span>
+              <h2 style="font-size:24px">رویدادهای مرتبط با مکان</h2>
+            </div>
+          </header>
+
+          <div class="guest-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span>این بخش موقتاً در اطلس میزبانی می‌شود. مرجع اصلی: <strong>لایه‌ی زمانی</strong> (به‌زودی).</span>
+          </div>
+
+          <div class="home-events-list" id="events-list"></div>
+        </div>
+
+        <!-- شهدا (مکمل) -->
+        <div>
+          <header class="section-head" style="margin-bottom:20px">
+            <div class="section-head-text">
+              <span class="section-eyebrow">چهره‌ها</span>
+              <h2 style="font-size:24px">شهدای مرتبط با مکان</h2>
+            </div>
+          </header>
+
+          <div class="guest-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span>این بخش موقتاً در اطلس میزبانی می‌شود. مرجع اصلی: <strong>لایه‌ی هویتی</strong> (به‌زودی).</span>
+          </div>
+
+          <div class="home-persons-list" id="persons-list"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ROUTES ══════════ -->
+  <section class="section section-alt">
+    <div class="container">
+      <header class="section-head">
+        <div class="section-head-text">
+          <span class="section-eyebrow">مسیرها</span>
+          <h2>همه اطلاعات جغرافیایی، نقطه نیستند</h2>
+          <p>مسیرهای زندگی، اعزام، عملیات و زیارت — با ترتیب و جهت مشخص.</p>
+        </div>
+        <a href="pages/routes.html" class="section-link">همه مسیرها</a>
+      </header>
+
+      <div class="home-routes-grid" id="routes-grid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="home-cta">
+        <div class="home-cta-content">
+          <h2>هر مکان، یک پرونده زنده و قابل استناد</h2>
+          <p>اگر پژوهشگر، خانواده شهید یا علاقه‌مند به جغرافیای شهدا هستید، به اطلس بپیوندید و در ساختن این مرجع سهیم شوید.</p>
+          <div class="home-cta-actions">
+            <a href="pages/contribute.html" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              مشارکت در اطلس
+            </a>
+            <a href="pages/plan.html" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
+              </svg>
+              مطالعه سند جامع
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════ FOOTER (از components.js) ═══════ -->
+<div id="site-footer"></div>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/app.js"></script>
+
+<!-- ═══════ RENDERING ═══════ -->
+<script>
+/* رندر کردن بخش‌های داینامیک صفحه‌ی نخست با داده‌ی data.js */
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  /* ─────── کارت‌های لایه ─────── */
+  function renderLayers() {
+    var root = document.getElementById('layers-grid');
+    if (!root || !D.layers) return;
+    root.innerHTML = D.layers.map(function (l) {
+      return ''
+        + '<article class="home-layer-card" style="--lc:' + l.color + '">'
+        +   '<div class="home-layer-icon">' + l.icon + '</div>'
+        +   '<h3>' + esc(l.name) + '</h3>'
+        +   '<p>' + esc(l.desc) + '</p>'
+        +   '<div class="home-layer-meta">'
+        +     '<code>' + esc(l.slug) + '</code>'
+        +     '<span>' + toFa(l.count) + ' مکان</span>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── کارت‌های مکان ─────── */
+  function renderPlaces() {
+    var root = document.getElementById('places-grid');
+    if (!root || !D.locations) return;
+    var picks = D.locations.slice(0, 4);
+    root.innerHTML = picks.map(function (p) {
+      var layer = (D.layers || []).find(function (x) { return x.slug === p.layer; }) || {};
+      var color = layer.color || '#3D5A3D';
+      var layerName = layer.name || p.layer;
+      var badgeClass = 'badge-' + (p.confidence === 'exact' ? 'exact' :
+                                    p.confidence === 'approx' ? 'approx' :
+                                    p.confidence === 'area' ? 'area' : 'unknown');
+      var confText = p.confidence === 'exact' ? 'دقیق' :
+                     p.confidence === 'approx' ? 'تقریبی' :
+                     p.confidence === 'area' ? 'محدوده' : 'نامعلوم';
+      return ''
+        + '<article class="home-place-card" style="--lc:' + color + '">'
+        +   '<div class="home-place-thumb">'
+        +     '<span class="home-place-badge ' + badgeClass + '"><i aria-hidden="true"></i>' + confText + '</span>'
+        +     '<span class="pin" aria-hidden="true"></span>'
+        +   '</div>'
+        +   '<div class="home-place-body">'
+        +     '<div class="home-place-tags">'
+        +       '<span class="tag brand">' + esc(layerName) + '</span>'
+        +       '<span class="tag">' + esc(p.province) + '</span>'
+        +     '</div>'
+        +     '<h3>' + esc(p.name) + '</h3>'
+        +     '<p class="desc">' + esc(p.desc) + '</p>'
+        +     '<div class="home-place-foot">'
+        +       '<span class="stat-item">'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'
+        +         toFa(p.persons) + ' شهید'
+        +       '</span>'
+        +       '<span>' + toFa(p.sources) + ' منبع</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── اکوسیستم ─────── */
+  var ECO_ICONS = {
+    map: '<path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>',
+    users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>'
+  };
+
+  function renderEco() {
+    var root = document.getElementById('eco-grid');
+    if (!root || !D.ecosystem) return;
+    root.innerHTML = D.ecosystem.map(function (n) {
+      var classes = 'home-eco-node' + (n.isCurrent ? ' active' : '') + (n.status === 'future' ? ' future' : '');
+      var iconPath = ECO_ICONS[n.icon] || ECO_ICONS.map;
+      return ''
+        + '<article class="' + classes + '">'
+        +   '<div class="home-eco-node-icon">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px">' + iconPath + '</svg>'
+        +   '</div>'
+        +   '<h3>' + esc(n.role) + '</h3>'
+        +   '<p>' + esc(n.desc) + '</p>'
+        +   '<span class="status"><i></i>' + esc(n.statusText) + '</span>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── رویدادها (مکمل) ─────── */
+  function renderEvents() {
+    var root = document.getElementById('events-list');
+    if (!root || !D.events) return;
+    root.innerHTML = D.events.map(function (e) {
+      return ''
+        + '<article class="home-event-item">'
+        +   '<span class="guest-badge">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a10 10 0 0 0 0-20"/></svg>'
+        +     'مکمل'
+        +   '</span>'
+        +   '<div class="home-event-date">'
+        +     '<div class="day">' + esc(e.day) + '</div>'
+        +     '<div class="mon">' + esc(e.month) + '</div>'
+        +   '</div>'
+        +   '<div class="home-event-body">'
+        +     '<h4>' + esc(e.title) + '</h4>'
+        +     '<p>' + esc(e.desc) + '</p>'
+        +     '<div class="home-event-meta">'
+        +       '<span>'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+        +         esc(e.province)
+        +       '</span>'
+        +       '<span>' + esc(e.type) + '</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── شهدا (مکمل) ─────── */
+  function renderPersons() {
+    var root = document.getElementById('persons-list');
+    if (!root || !D.persons) return;
+    root.innerHTML = D.persons.map(function (p) {
+      return ''
+        + '<a href="#" class="home-person-item" aria-disabled="true">'
+        +   '<span class="guest-badge">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a10 10 0 0 0 0-20"/></svg>'
+        +     'مکمل'
+        +   '</span>'
+        +   '<div class="home-person-avatar">' + esc(p.initial) + '</div>'
+        +   '<div class="home-person-info">'
+        +     '<h4>' + esc(p.name) + '</h4>'
+        +     '<p>' + esc(p.desc) + '</p>'
+        +   '</div>'
+        +   '<div class="home-person-arrow">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>'
+        +   '</div>'
+        + '</a>';
+    }).join('');
+  }
+
+  /* ─────── مسیرها ─────── */
+  function renderRoutes() {
+    var root = document.getElementById('routes-grid');
+    if (!root || !D.routes) return;
+    root.innerHTML = D.routes.map(function (r) {
+      var stops = r.stops.map(function (s) { return '<div class="home-route-stop">' + esc(s) + '</div>'; }).join('');
+      return ''
+        + '<article class="home-route-card">'
+        +   '<div class="home-route-pattern" aria-hidden="true"></div>'
+        +   '<div class="home-route-content">'
+        +     '<span class="home-route-tag ' + (r.typeClass || '') + '">' + esc(r.type) + '</span>'
+        +     '<h3>' + esc(r.title) + '</h3>'
+        +     '<p>' + esc(r.desc) + '</p>'
+        +     '<div class="home-route-stops">' + stops + '</div>'
+        +     '<div class="home-route-foot">'
+        +       '<span>' + toFa(r.points) + ' نقطه · ' + toFa(r.sources) + ' منبع</span>'
+        +       '<span>' + esc(r.updated) + '</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── اعداد فارسی ─────── */
+  function toFa(n) {
+    return String(n)
+      .replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; })
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+
+  /* ─────── اجرا ─────── */
+  function run() {
+    renderLayers();
+    renderPlaces();
+    renderEco();
+    renderEvents();
+    renderPersons();
+    renderRoutes();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+</body>
+</html>

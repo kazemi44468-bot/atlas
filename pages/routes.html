@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="مسیرهای زندگی، اعزام، عملیات و زیارت در اطلس شهدا">
+<meta name="color-scheme" content="light dark">
+<title>مسیرها | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+.routes-page { padding: 32px 0 64px; }
+.routes-head { margin-bottom: 36px; }
+.routes-head h1 { font-size: clamp(26px,3.4vw,38px); font-weight: 900; letter-spacing: -1px; margin-bottom: 10px; }
+.routes-head p { color: var(--muted); font-size: 15px; line-height: 1.85; max-width: 720px; }
+
+.routes-types {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.routes-type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: var(--r-full);
+  background: var(--surface-2);
+  border: 1.5px solid var(--line-2);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--dur-sm) var(--ease);
+  font-family: inherit;
+}
+.routes-type-chip:hover { border-color: var(--brand); color: var(--brand-d); }
+.routes-type-chip.on { background: var(--brand); border-color: var(--brand); color: var(--surface); }
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+/* کارت مسیر بزرگ */
+.route-card-lg {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--dur) var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.route-card-lg:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+.route-card-visual {
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #E4DBC6, #D9CEB4);
+  border-bottom: 1px solid var(--line-2);
+}
+.route-card-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(42,36,25,.05) 0, rgba(42,36,25,.05) 1px, transparent 1px, transparent 22px),
+    repeating-linear-gradient(90deg, rgba(42,36,25,.05) 0, rgba(42,36,25,.05) 1px, transparent 1px, transparent 22px);
+}
+.route-line {
+  position: absolute;
+  inset: 20% 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.route-node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 4px rgba(61,90,61,.2), 0 0 0 1.5px var(--surface);
+  flex-shrink: 0;
+  position: relative;
+}
+.route-node.start { background: var(--saffron); box-shadow: 0 0 0 4px rgba(196,144,58,.25), 0 0 0 1.5px var(--surface); }
+.route-node.end { background: var(--clay); box-shadow: 0 0 0 4px rgba(156,74,46,.25), 0 0 0 1.5px var(--surface); }
+.route-path {
+  position: absolute;
+  top: 50%;
+  inset-inline: 7px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--brand) 0, var(--brand) 4px, transparent 4px, transparent 8px);
+  transform: translateY(-50%);
+}
+
+.route-card-body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+
+.route-card-lg h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -.3px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.route-card-lg .desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.route-stops-lg {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  background: var(--surface-2);
+  border-radius: 11px;
+  border: 1px solid var(--line-2);
+  margin-bottom: 16px;
+}
+.route-stop-lg {
+  flex: 1;
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 700;
+  position: relative;
+  padding-top: 12px;
+}
+.route-stop-lg::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+.route-stop-lg:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 5.5px;
+  inset-inline-start: 50%;
+  width: calc(100% - 8px);
+  height: 1.5px;
+  background: repeating-linear-gradient(90deg, var(--brand) 0, var(--brand) 3px, transparent 3px, transparent 6px);
+}
+
+.route-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-2);
+  font-size: 11.5px;
+  color: var(--muted-2);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container routes-page">
+
+    <header class="routes-head">
+      <nav class="place-breadcrumb" aria-label="مسیر">
+        <a href="../index.html">خانه</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="current">مسیرها</span>
+      </nav>
+      <h1>مسیرها و محدوده‌ها</h1>
+      <p>همه اطلاعات جغرافیایی، نقطه نیستند. مسیر زندگی، اعزام، عملیات و زیارت با ترتیب و جهت مشخص ثبت می‌شوند.</p>
+    </header>
+
+    <div class="routes-types" id="routes-types" role="group" aria-label="فیلتر نوع مسیر"></div>
+
+    <div class="routes-grid" id="routes-grid"></div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+  var routes = D.routes || [];
+  var state = { type: '' };
+
+  function toFa(n) {
+    return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function renderTypes() {
+    var types = ['زندگی', 'اعزام', 'عملیات', 'زیارت'];
+    var html = '<button class="routes-type-chip on" data-type="" type="button">همه مسیرها</button>';
+    types.forEach(function (t) {
+      html += '<button class="routes-type-chip" data-type="' + t + '" type="button">' + t + '</button>';
+    });
+    var root = document.getElementById('routes-types');
+    root.innerHTML = html;
+    root.querySelectorAll('.routes-type-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        root.querySelectorAll('.routes-type-chip').forEach(function (c) { c.classList.remove('on'); });
+        chip.classList.add('on');
+        state.type = chip.getAttribute('data-type');
+        render();
+      });
+    });
+  }
+
+  function renderCard(r) {
+    var stops = (r.stops || []).map(function (s) { return '<div class="route-stop-lg">' + esc(s) + '</div>'; }).join('');
+    var nodes = (r.stops || []).map(function (_, i) {
+      var cls = i === 0 ? 'start' : (i === r.stops.length - 1 ? 'end' : '');
+      return '<span class="route-node ' + cls + '"></span>';
+    }).join('');
+
+    return ''
+      + '<article class="route-card-lg">'
+      +   '<div class="route-card-visual">'
+      +     '<div class="route-line">'
+      +       '<span class="route-path"></span>'
+      +       nodes
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="route-card-body">'
+      +     '<h3>' + esc(r.title) + '</h3>'
+      +     '<p class="desc">' + esc(r.desc) + '</p>'
+      +     '<div class="route-stops-lg">' + stops + '</div>'
+      +     '<div class="route-card-foot">'
+      +       '<span>' + esc(r.type) + ' · ' + toFa(r.points) + ' نقطه · ' + toFa(r.sources) + ' منبع</span>'
+      +       '<span>' + esc(r.updated) + '</span>'
+      +     '</div>'
+      +   '</div>'
+      + '</article>';
+  }
+
+  function render() {
+    var filtered = routes.filter(function (r) {
+      return !state.type || r.type === state.type;
+    });
+    var grid = document.getElementById('routes-grid');
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="loc-empty" style="grid-column:1/-1"><h3>مسیری یافت نشد</h3><p>با فیلتر دیگری امتحان کنید.</p></div>';
+      return;
+    }
+    grid.innerHTML = filtered.map(renderCard).join('');
+  }
+
+  function run() { renderTypes(); render(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
+
+</body>
+</html>

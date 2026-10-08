@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ده لایه اطلاعاتی اطلس شهدا — سازمان‌دهی معنا روی مکان">
+<meta name="color-scheme" content="light dark">
+<title>لایه‌های اطلاعاتی | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+/* استایل اختصاصی این صفحه — کوچک، در خود صفحه */
+.layers-hero {
+  padding: 48px 0 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--line-2);
+  margin-bottom: 40px;
+}
+.layers-hero h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  margin-bottom: 14px;
+}
+.layers-hero p {
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.9;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.layers-detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 32px 0 64px;
+}
+
+.layer-detail {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--dur) var(--ease);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.layer-detail:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--lc);
+}
+
+.layer-detail-head {
+  padding: 24px 24px 20px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--lc) 8%, var(--surface)) 0%, var(--surface) 100%);
+  border-bottom: 1px solid var(--line-2);
+  position: relative;
+}
+.layer-detail-head::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--lc);
+}
+
+.layer-detail-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--lc) 15%, var(--surface));
+  color: var(--lc);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  border: 1.5px solid color-mix(in srgb, var(--lc) 25%, transparent);
+  transition: transform var(--dur) var(--ease);
+}
+.layer-detail:hover .layer-detail-icon { transform: scale(1.05) rotate(-4deg); }
+
+.layer-detail-head h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -.3px;
+  margin-bottom: 6px;
+}
+.layer-detail-head .slug {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--lc);
+  background: color-mix(in srgb, var(--lc) 12%, transparent);
+  padding: 3px 9px;
+  border-radius: 6px;
+  direction: ltr;
+  font-weight: 700;
+  letter-spacing: .3px;
+  border: 1px solid color-mix(in srgb, var(--lc) 20%, transparent);
+}
+
+.layer-detail-body {
+  padding: 20px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.layer-detail-body > p {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.layer-detail-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-2);
+  margin-bottom: 18px;
+}
+.layer-detail-stat {
+  text-align: center;
+  padding: 10px 8px;
+  background: var(--paper-2);
+  border-radius: 10px;
+}
+.layer-detail-stat b {
+  display: block;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--lc);
+  line-height: 1.1;
+  letter-spacing: -.5px;
+}
+.layer-detail-stat span {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 3px;
+  display: block;
+}
+
+.layer-detail-examples {
+  margin-bottom: 16px;
+}
+.layer-detail-examples .label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--muted-2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.layer-detail-examples .tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.layer-example-tag {
+  padding: 4px 10px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--lc) 8%, var(--paper-2));
+  color: var(--lc);
+  font-size: 10.5px;
+  font-weight: 700;
+  border: 1px solid color-mix(in srgb, var(--lc) 15%, transparent);
+}
+
+.layer-detail-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+}
+.layer-detail-actions .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container">
+
+    <header class="layers-hero">
+      <nav class="place-breadcrumb" style="justify-content:center" aria-label="مسیر">
+        <a href="../index.html">خانه</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="current">لایه‌های اطلاعاتی</span>
+      </nav>
+      <h1>ده لایه، یک ساختار</h1>
+      <p>لایه‌ها روش سازمان‌دهی و نمایش معنا روی مکان هستند، نه موجودیت‌های مستقل و پراکنده. هر لایه یک رنگ، یک نماد و یک قاعده نمایش دارد.</p>
+    </header>
+
+    <div class="layers-detail" id="layers-detail"></div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+  var layers = D.layers || [];
+
+  function toFa(n) {
+    return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  var EXAMPLES = {
+    zendegi: ['خانه کودکی', 'زادگاه', 'محل سکونت', 'مهاجرت'],
+    tahsil: ['دبستان', 'دبیرستان', 'حوزه', 'دانشگاه'],
+    kargah: ['اداره', 'کارگاه', 'فعالیت جهادی', 'محل کار'],
+    masir: ['مسیر اعزام', 'مسیر زیارت', 'بازگشت', 'مسیر عملیات'],
+    shahadat: ['محل شهادت', 'جراحت', 'حادثه', 'محدوده رخداد'],
+    amaliyat: ['فتح‌المبین', 'بیت‌المقدس', 'رمضان', 'والفجر'],
+    golzar: ['بهشت زهرا', 'وادی رحمت', 'دارالسلام', 'علی بن جعفر'],
+    yadman: ['هفت تیر', 'موزه', 'مرکز اسناد', 'تندیس'],
+    farhang: ['یادواره', 'مراسم', 'حسینیه', 'اجتماع'],
+    tarikhi: ['وضعیت پیشین', 'تغییر نام', 'بافت تاریخی', 'نامگذاری']
+  };
+
+  function render() {
+    var html = layers.map(function (l) {
+      var ex = EXAMPLES[l.slug] || [];
+      var exTags = ex.map(function (e) {
+        return '<span class="layer-example-tag">' + esc(e) + '</span>';
+      }).join('');
+
+      return ''
+        + '<article class="layer-detail" style="--lc:' + l.color + '">'
+        +   '<div class="layer-detail-head">'
+        +     '<div class="layer-detail-icon">' + l.icon + '</div>'
+        +     '<h2>' + esc(l.name) + '</h2>'
+        +     '<span class="slug">' + esc(l.slug) + '</span>'
+        +   '</div>'
+        +   '<div class="layer-detail-body">'
+        +     '<p>' + esc(l.desc) + '</p>'
+        +     '<div class="layer-detail-stats">'
+        +       '<div class="layer-detail-stat"><b>' + toFa(l.count) + '</b><span>مکان ثبت‌شده</span></div>'
+        +       '<div class="layer-detail-stat"><b>' + toFa(Math.round(l.count * 0.7)) + '</b><span>دارای منبع</span></div>'
+        +     '</div>'
+        +     '<div class="layer-detail-examples">'
+        +       '<div class="label">نمونه‌ها</div>'
+        +       '<div class="tags">' + exTags + '</div>'
+        +     '</div>'
+        +     '<div class="layer-detail-actions">'
+        +       '<a href="locations.html" class="btn btn-secondary">'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>'
+        +         'مشاهده مکان‌ها'
+        +       '</a>'
+        +       '<a href="map.html" class="btn btn-primary">'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/></svg>'
+        +         'روی نقشه'
+        +       '</a>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+
+    document.getElementById('layers-detail').innerHTML = html;
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+  else render();
+})();
+</script>
+
+</body>
+</html>

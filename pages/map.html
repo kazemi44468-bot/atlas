@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="نقشه تعاملی اطلس شهدا — کاوش مکانی با فیلتر لایه، استان و اطمینان">
+<meta name="color-scheme" content="light dark">
+<title>نقشه تعاملی | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+.map-page {
+  position: relative;
+  height: calc(100vh - var(--header-h) - 24px);
+  min-height: 600px;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin: 12px 0 24px;
+  border: 1.5px solid var(--line);
+  box-shadow: var(--shadow-lg);
+  background: var(--paper-2);
+}
+#map-full { position: absolute; inset: 0; }
+
+.map-panel {
+  position: absolute;
+  top: 20px;
+  inset-inline-start: 20px;
+  z-index: 10;
+  width: 320px;
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+}
+.map-panel h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -.2px;
+}
+.map-panel h3 svg { width: 16px; height: 16px; color: var(--brand); }
+.map-panel-section {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line-2);
+}
+.map-panel-section:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
+.map-panel-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--muted-2);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.map-panel-count {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--brand-d);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.map-panel-count span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-inline-start: 4px;
+}
+
+.map-layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background var(--dur-sm) var(--ease);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  user-select: none;
+}
+.map-layer-toggle:hover { background: var(--surface-2); }
+.map-layer-toggle input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 32px;
+  height: 18px;
+  border-radius: 10px;
+  background: var(--line-3);
+  position: relative;
+  cursor: pointer;
+  transition: background var(--dur-sm) var(--ease);
+  flex-shrink: 0;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+}
+.map-layer-toggle input::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  inset-inline-start: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  transition: transform var(--dur-sm) var(--ease);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.map-layer-toggle input:checked {
+  background: var(--brand);
+}
+.map-layer-toggle input:checked::after {
+  transform: translateX(14px);
+}
+html[dir="rtl"] .map-layer-toggle input:checked::after {
+  transform: translateX(-14px);
+}
+.map-layer-toggle i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  .map-panel { position: static; width: auto; max-height: none; margin-bottom: 12px; }
+  .map-page { height: 70vh; min-height: 500px; }
+  .map-panel { width: 100%; }
+}
+
+/* مارکر روی نقشه */
+.maplibregl-popup-content {
+  background: var(--surface) !important;
+  border: 1.5px solid var(--line) !important;
+  border-radius: var(--r) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 0 !important;
+  font-family: var(--ff) !important;
+}
+.maplibregl-popup-close-button {
+  color: var(--muted) !important;
+  font-size: 20px !important;
+  padding: 4px 10px !important;
+}
+.map-popup {
+  padding: 14px 16px;
+  min-width: 220px;
+  direction: rtl;
+  text-align: right;
+}
+.map-popup h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -.2px;
+}
+.map-popup p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.map-popup a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand);
+}
+.map-popup-id {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  color: var(--muted-2);
+  background: var(--paper-2);
+  padding: 2px 7px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 8px;
+  direction: ltr;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container">
+
+    <div class="map-page">
+      <div id="map-full"></div>
+
+      <aside class="map-panel" aria-label="کنترل نقشه">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>
+          </svg>
+          کنترل نقشه
+        </h3>
+
+        <div class="map-panel-section">
+          <div class="map-panel-label">مکان‌های نمایش‌داده‌شده</div>
+          <div class="map-panel-count" id="map-count">۰<span>مکان</span></div>
+        </div>
+
+        <div class="map-panel-section">
+          <div class="map-panel-label">لایه‌های اطلاعاتی</div>
+          <div id="map-layers-toggles"></div>
+        </div>
+
+        <div class="map-panel-section">
+          <div class="map-panel-label">پیوند</div>
+          <a href="locations.html" class="btn btn-secondary btn-sm" style="width:100%;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            فهرست کامل مکان‌ها
+          </a>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+  var locations = D.locations || [];
+  var layers = D.layers || [];
+
+  function toFa(n) {
+    return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  /* ─── توگل لایه‌ها ─── */
+  function renderLayerToggles() {
+    var root = document.getElementById('map-layers-toggles');
+    root.innerHTML = layers.map(function (l) {
+      return ''
+        + '<label class="map-layer-toggle">'
+        +   '<input type="checkbox" checked data-layer="' + l.slug + '">'
+        +   '<i style="background:' + l.color + '"></i>'
+        +   esc(l.name)
+        + '</label>';
+    }).join('');
+
+    root.querySelectorAll('input').forEach(function (input) {
+      input.addEventListener('change', function () {
+        updateMap();
+      });
+    });
+  }
+
+  function getActiveLayers() {
+    var active = [];
+    document.querySelectorAll('#map-layers-toggles input:checked').forEach(function (i) {
+      active.push(i.getAttribute('data-layer'));
+    });
+    return active;
+  }
+
+  /* ─── نقشه ─── */
+  var map = null;
+  var markers = [];
+
+  function initMap() {
+    var el = document.getElementById('map-full');
+    if (!el || typeof maplibregl === 'undefined') {
+      if (el) {
+        el.innerHTML = '<div style="position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:14px">نقشه در دسترس نیست</div>';
+      }
+      return;
+    }
+
+    try {
+      map = new maplibregl.Map({
+        container: el,
+        style: 'https://tiles.openfreemap.org/styles/positron',
+        center: [54.0, 32.5],
+        zoom: 4,
+        attributionControl: false,
+        dragRotate: false,
+        pitchWithRotate: false
+      });
+
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+      map.on('load', function () {
+        updateMap();
+      });
+
+      map.on('error', function () {});
+    } catch (err) {}
+  }
+
+  function updateMap() {
+    if (!map) return;
+    markers.forEach(function (m) { m.remove(); });
+    markers = [];
+
+    var active = getActiveLayers();
+    var visible = locations.filter(function (l) {
+      return l.layers.some(function (sl) { return active.indexOf(sl) !== -1; });
+    });
+
+    document.getElementById('map-count').innerHTML = toFa(visible.length) + '<span>مکان</span>';
+
+    visible.forEach(function (loc) {
+      var layer = layers.find(function (x) { return x.slug === loc.layer; }) || {};
+      var color = layer.color || '#3D5A3D';
+
+      var node = document.createElement('div');
+      node.style.cssText =
+        'width:16px;height:16px;border-radius:50%;background:' + color + ';' +
+        'box-shadow:0 0 0 6px ' + color + '33, 0 0 0 2px #F5EFE2, 0 2px 6px rgba(42,36,25,.3);' +
+        'cursor:pointer;transition:transform .2s;';
+      node.addEventListener('mouseenter', function () { node.style.transform = 'scale(1.5)'; });
+      node.addEventListener('mouseleave', function () { node.style.transform = 'scale(1)'; });
+
+      var popupHtml = ''
+        + '<div class="map-popup">'
+        +   '<span class="map-popup-id">' + esc(loc.id) + '</span>'
+        +   '<h4>' + esc(loc.name) + '</h4>'
+        +   '<p>' + esc(loc.desc.slice(0, 100)) + '…</p>'
+        +   '<a href="place.html?id=' + encodeURIComponent(loc.id) + '">'
+        +     'مشاهده پرونده'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:12px;height:12px"><path d="M15 18l-6-6 6-6"/></svg>'
+        +   '</a>'
+        + '</div>';
+
+      var popup = new maplibregl.Popup({ offset: 20, closeButton: true, maxWidth: '280px' })
+        .setHTML(popupHtml);
+
+      var marker = new maplibregl.Marker({ element: node })
+        .setLngLat(loc.coord)
+        .setPopup(popup)
+        .addTo(map);
+
+      markers.push(marker);
+    });
+  }
+
+  function run() {
+    renderLayerToggles();
+    initMap();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
+
+</body>
+</html>

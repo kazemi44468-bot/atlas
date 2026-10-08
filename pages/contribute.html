@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="جست‌وجوی چندوجهی در اطلس شهدا">
+<meta name="color-scheme" content="light dark">
+<title>جست‌وجو | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+
+<style>
+.search-page { padding: 40px 0 64px; max-width: 900px; margin: 0 auto; }
+.search-head { text-align: center; margin-bottom: 40px; }
+.search-head h1 { font-size: clamp(26px,3.6vw,40px); font-weight: 900; letter-spacing: -1.2px; margin-bottom: 12px; }
+.search-head p { color: var(--muted); font-size: 15px; line-height: 1.9; }
+
+.search-box {
+  position: relative;
+  margin-bottom: 28px;
+}
+.search-box svg.search-icon {
+  position: absolute;
+  inset-inline-start: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  color: var(--muted-2);
+  pointer-events: none;
+}
+.search-box input {
+  width: 100%;
+  padding: 20px 60px 20px 20px;
+  font-size: 17px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  min-height: auto;
+}
+.search-box input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--brand-soft), var(--shadow-md);
+}
+
+.search-facets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.search-facet {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 18px;
+}
+.search-facet h4 {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--muted-2);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.search-facet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.search-facet-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background var(--dur-sm) var(--ease);
+}
+.search-facet-options label:hover { background: var(--surface-2); }
+.search-facet-options input {
+  width: 16px;
+  height: 16px;
+  min-height: auto;
+  margin: 0;
+  accent-color: var(--brand);
+}
+
+.search-results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-2);
+}
+.search-results-head h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.search-results-head span {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.search-result {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--dur-sm) var(--ease);
+}
+.search-result:hover {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: inherit;
+}
+.search-result-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+  background: color-mix(in srgb, var(--lc) 14%, var(--surface));
+  color: var(--lc);
+  border: 1px solid color-mix(in srgb, var(--lc) 20%, transparent);
+}
+.search-result-info { flex: 1; min-width: 0; }
+.search-result-info h4 {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 3px;
+  letter-spacing: -.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-result-info p {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.search-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+.search-empty svg {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 16px;
+  color: var(--muted-3);
+}
+.search-empty h3 { font-size: 17px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+.search-empty p { font-size: 13.5px; line-height: 1.8; max-width: 380px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container search-page">
+
+    <header class="search-head">
+      <nav class="place-breadcrumb" style="justify-content:center" aria-label="مسیر">
+        <a href="../index.html">خانه</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="current">جست‌وجو</span>
+      </nav>
+      <h1>جست‌وجوی چندوجهی</h1>
+      <p>مکان، شخص، رویداد یا مسیر — با فیلتر لایه و استان.</p>
+    </header>
+
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+      </svg>
+      <input type="search" id="search-input" placeholder="جست‌وجو…" autofocus>
+    </div>
+
+    <div class="search-facets">
+      <div class="search-facet">
+        <h4>نوع</h4>
+        <div class="search-facet-options">
+          <label><input type="checkbox" data-type="location" checked>مکان‌ها</label>
+          <label><input type="checkbox" data-type="person" checked>اشخاص (مکمل)</label>
+          <label><input type="checkbox" data-type="event" checked>رویدادها (مکمل)</label>
+        </div>
+      </div>
+      <div class="search-facet">
+        <h4>لایه</h4>
+        <div class="search-facet-options" id="search-layer-facet"></div>
+      </div>
+    </div>
+
+    <div class="search-results-head">
+      <h3>نتایج</h3>
+      <span id="search-count">—</span>
+    </div>
+
+    <div class="search-results" id="search-results"></div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var D = window.ATLAS || {};
+  var locations = D.locations || [];
+  var persons = D.persons || [];
+  var events = D.events || [];
+  var layers = D.layers || [];
+
+  function toFa(n) {
+    return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  var state = {
+    query: '',
+    types: ['location', 'person', 'event'],
+    layers: []
+  };
+
+  function renderLayerFacet() {
+    var root = document.getElementById('search-layer-facet');
+    root.innerHTML = layers.map(function (l) {
+      return '<label><input type="checkbox" data-layer="' + l.slug + '">'
+        + '<i style="width:9px;height:9px;border-radius:50%;background:' + l.color + ';display:block"></i>'
+        + esc(l.name) + '</label>';
+    }).join('');
+    root.querySelectorAll('input[data-layer]').forEach(function (i) {
+      i.addEventListener('change', function () {
+        if (i.checked) state.layers.push(i.getAttribute('data-layer'));
+        else state.layers = state.layers.filter(function (x) { return x !== i.getAttribute('data-layer'); });
+        render();
+      });
+    });
+  }
+
+  function bindTypes() {
+    document.querySelectorAll('[data-type]').forEach(function (i) {
+      i.addEventListener('change', function () {
+        if (i.checked) state.types.push(i.getAttribute('data-type'));
+        else state.types = state.types.filter(function (x) { return x !== i.getAttribute('data-type'); });
+        render();
+      });
+    });
+  }
+
+  function search() {
+    var q = state.query.toLowerCase();
+    var results = [];
+
+    if (state.types.indexOf('location') !== -1) {
+      locations.forEach(function (l) {
+        if (state.layers.length && !l.layers.some(function (sl) { return state.layers.indexOf(sl) !== -1; })) return;
+        var hay = (l.name + ' ' + l.desc + ' ' + l.province + ' ' + l.city + ' ' + l.id).toLowerCase();
+        if (!q || hay.indexOf(q) !== -1) {
+          var layer = layers.find(function (x) { return x.slug === l.layer; }) || {};
+          results.push({
+            type: 'location',
+            href: 'place.html?id=' + encodeURIComponent(l.id),
+            title: l.name,
+            desc: l.province + ' · ' + l.city,
+            icon: '◉',
+            color: layer.color || '#3D5A3D'
+          });
+        }
+      });
+    }
+
+    if (state.types.indexOf('person') !== -1) {
+      persons.forEach(function (p) {
+        var hay = (p.name + ' ' + p.desc).toLowerCase();
+        if (!q || hay.indexOf(q) !== -1) {
+          results.push({
+            type: 'person',
+            href: '#',
+            title: p.name,
+            desc: p.desc + ' · مکمل',
+            icon: p.initial,
+            color: '#8A6A2E'
+          });
+        }
+      });
+    }
+
+    if (state.types.indexOf('event') !== -1) {
+      events.forEach(function (e) {
+        var hay = (e.title + ' ' + e.desc).toLowerCase();
+        if (!q || hay.indexOf(q) !== -1) {
+          results.push({
+            type: 'event',
+            href: '#',
+            title: e.title,
+            desc: e.month + ' · ' + e.province + ' · مکمل',
+            icon: e.day,
+            color: '#8A5A2E'
+          });
+        }
+      });
+    }
+
+    return results;
+  }
+
+  function render() {
+    var results = search();
+    var grid = document.getElementById('search-results');
+    var countEl = document.getElementById('search-count');
+
+    countEl.textContent = toFa(results.length) + ' نتیجه';
+
+    if (!results.length) {
+      grid.innerHTML = ''
+        + '<div class="search-empty" style="grid-column:1/-1">'
+        +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>'
+        +   '<h3>نتیجه‌ای یافت نشد</h3>'
+        +   '<p>با عبارت دیگری امتحان کنید یا فیلترها را تغییر دهید.</p>'
+        + '</div>';
+      return;
+    }
+
+    grid.innerHTML = results.map(function (r) {
+      return ''
+        + '<a href="' + r.href + '" class="search-result" style="--lc:' + r.color + '">'
+        +   '<div class="search-result-icon">' + esc(r.icon) + '</div>'
+        +   '<div class="search-result-info">'
+        +     '<h4>' + esc(r.title) + '</h4>'
+        +     '<p>' + esc(r.desc) + '</p>'
+        +   '</div>'
+        + '</a>';
+    }).join('');
+  }
+
+  function bindSearch() {
+    var input = document.getElementById('search-input');
+    var t;
+    input.addEventListener('input', function () {
+      clearTimeout(t);
+      t = setTimeout(function () {
+        state.query = input.value.trim();
+        render();
+      }, 150);
+    });
+  }
+
+  function run() {
+    renderLayerFacet();
+    bindTypes();
+    bindSearch();
+    render();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
+
+</body>
+</html>
