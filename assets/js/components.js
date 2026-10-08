@@ -80,7 +80,7 @@
     return '<header class="header"><div class="container"><div class="header-in">'
       +'<a href="'+ROOT+'" class="brand" aria-label="اطلس شهدا"><span class="brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"><span class="brand-glow"></span></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع جغرافیایی و مکانی شهدا</small></span></a>'
       +'<nav class="nav" aria-label="ناوبری اصلی">'+desktop+'</nav>'
-      +'<div class="header-actions"><a href="'+ROOT+'pages/search.html" class="icon-btn" aria-label="جست‌وجو">'+svg('search',18)+'</a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
+      +'<div class="header-search" role="search"><form id="headerSearchForm" action="'+ROOT+'pages/search.html" method="get"><span class="header-search-icon">'+svg('search',16)+'</span><input id="headerSearchInput" name="q" type="search" placeholder="جست‌وجو در اطلس..." aria-label="جست‌وجو در اطلس" autocomplete="off"><button type="submit" aria-label="اجرای جست‌وجو">'+svg('arrow',15)+'</button></form></div>'+'<div class="header-actions"><a href="'+ROOT+'pages/search.html" class="icon-btn header-search-mobile" aria-label="جست‌وجو">'+svg('search',18)+'</a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
       +'</div></div></header>'
       +'<div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-in"><div class="mobile-menu-header"><a href="'+ROOT+'" class="brand brand-sm"><span class="brand-mark"><img src="'+LOGO+'" alt=""></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی</small></span></a><button class="mobile-menu-close" id="menuClose" aria-label="بستن">'+svg('close',18)+'</button></div><nav class="mobile-menu-nav">'+mobile+'</nav></div></div>'
       +'<nav class="mobile-bottom-nav" aria-label="ناوبری سریع موبایل">'
@@ -120,7 +120,7 @@
       });
     });
     document.addEventListener('click',function(e){if(!e.target.closest('.nav-group'))document.querySelectorAll('.nav-group.open').forEach(function(x){x.classList.remove('open');});});
-    var top=document.getElementById('footerTopBtn');if(top)top.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+    var hs=document.getElementById('headerSearchInput');if(hs){var q=new URLSearchParams(window.location.search).get('q');if(q)hs.value=q;}var top=document.getElementById('footerTopBtn');if(top)top.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
     var backTop=document.getElementById('atlasBackTop');
     if(!backTop){backTop=document.createElement('button');backTop.id='atlasBackTop';backTop.type='button';backTop.className='atlas-back-top';backTop.setAttribute('aria-label','بازگشت به بالای صفحه');backTop.innerHTML=svg('up',18)+'<span>بازگشت به بالا</span>';document.body.appendChild(backTop);}
     function updateBackTop(){backTop.classList.toggle('show',window.scrollY>420);}
