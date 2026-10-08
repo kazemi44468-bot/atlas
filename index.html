@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="اطلس شهدا — مرجع مکانی جغرافیای مرتبط با شهدا">
-<meta name="color-scheme" content="light">
+<meta name="description" content="اطلس شهدا — مرجع مکانی جغرافیای مرتبط با شهدا. هر مکان، یک هویت پایدار؛ وضعیت‌ها و روابط متعدد در طول زمان.">
+<meta name="color-scheme" content="light dark">
 <title>اطلس شهدا | مرجع مکانی جغرافیای شهدا</title>
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -12,2220 +12,35 @@
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
 
-<style>
-/* ═══════════════════════════════════════════════════════════════
-   ATLAS — Design Tokens
-   ═══════════════════════════════════════════════════════════════ */
-:root {
-  --paper: #EDE6D6;
-  --paper-2: #E4DBC6;
-  --paper-3: #D9CEB4;
-  --surface: #F5EFE2;
-  --surface-2: #FAF6EC;
-  --surface-hi: #FFFFFF;
-
-  --ink: #2A2419;
-  --ink-2: #3D3629;
-  --muted: #6B6250;
-  --muted-2: #918978;
-  --muted-3: #B8AF9C;
-
-  --brand: #3D5A3D;
-  --brand-d: #2A4029;
-  --brand-l: #5A7A5A;
-  --brand-soft: #E1E8DC;
-
-  --clay: #9C4A2E;
-  --clay-d: #7A3620;
-  --clay-soft: #F2E0D8;
-
-  --indigo: #2C3E5C;
-  --indigo-d: #1A2740;
-  --indigo-soft: #DDE3EC;
-
-  --saffron: #C4903A;
-  --saffron-d: #9A6E22;
-  --saffron-soft: #F5E6C8;
-
-  --ok: #3D6B3D;
-  --ok-soft: #E1EBDC;
-  --warn: #B07820;
-  --warn-soft: #F5E8CC;
-  --danger: #9C3428;
-  --danger-soft: #F2DDD8;
-
-  --line: #D4C8B0;
-  --line-2: #E0D6C2;
-  --line-3: #C4B79A;
-  --line-strong: #A89A7C;
-
-  --glass: rgba(245, 239, 226, .88);
-
-  --r-xs: 6px;
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 20px;
-  --r-xl: 28px;
-  --r-2xl: 36px;
-  --r-full: 999px;
-
-  --shadow-xs: 0 1px 2px rgba(42,36,25,.04);
-  --shadow-sm: 0 1px 3px rgba(42,36,25,.05), 0 1px 2px rgba(42,36,25,.04);
-  --shadow: 0 2px 6px rgba(42,36,25,.06), 0 4px 14px rgba(42,36,25,.05);
-  --shadow-md: 0 4px 12px rgba(42,36,25,.08), 0 12px 32px rgba(42,36,25,.06);
-  --shadow-lg: 0 8px 24px rgba(42,36,25,.10), 0 24px 56px rgba(42,36,25,.08);
-  --shadow-xl: 0 16px 48px rgba(42,36,25,.14), 0 40px 80px rgba(42,36,25,.10);
-  --shadow-in: inset 0 1px 0 rgba(255,255,255,.55);
-
-  --ease: cubic-bezier(.2, .8, .2, 1);
-  --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --dur-xs: .12s;
-  --dur-sm: .2s;
-  --dur: .3s;
-  --dur-lg: .5s;
-
-  --ff: "Vazirmatn", "Vazir", "Segoe UI", Tahoma, sans-serif;
-  --ff-head: "Vazirmatn", "Vazir", "Segoe UI", sans-serif;
-  --ff-mono: "SF Mono", "Fira Code", monospace;
-
-  --container: 1320px;
-  --header-h: 76px;
-
-  --texture-paper:
-    radial-gradient(circle at 20% 30%, rgba(196,144,58,.05), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(61,90,61,.05), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(156,74,46,.03), transparent 60%);
-
-  --texture-lines:
-    repeating-linear-gradient(0deg, transparent 0px, transparent 39px, rgba(42,36,25,.035) 39px, rgba(42,36,25,.035) 40px),
-    repeating-linear-gradient(90deg, transparent 0px, transparent 39px, rgba(42,36,25,.035) 39px, rgba(42,36,25,.035) 40px);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   BASE
-   ═══════════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 20px);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  font-family: var(--ff);
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--ink);
-  background-color: var(--paper);
-  background-image: var(--texture-paper);
-  background-attachment: fixed;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--ff-head);
-  font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -.5px;
-  color: var(--ink);
-  text-wrap: balance;
-}
-
-h1 { font-size: clamp(32px, 5vw, 58px); font-weight: 900; letter-spacing: -1.4px; }
-h2 { font-size: clamp(26px, 3.4vw, 40px); letter-spacing: -.9px; }
-h3 { font-size: clamp(19px, 2.2vw, 24px); letter-spacing: -.4px; }
-h4 { font-size: 18px; }
-
-p { line-height: 1.85; color: var(--ink-2); }
-p + p { margin-top: .6em; }
-
-strong, b { font-weight: 700; color: var(--ink); }
-small { font-size: 12px; color: var(--muted); }
-
-a {
-  color: var(--brand);
-  text-decoration: none;
-  transition: color var(--dur-sm) var(--ease), background-color var(--dur-sm) var(--ease);
-}
-a:hover { color: var(--brand-d); }
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 3px;
-  border-radius: var(--r-xs);
-}
-
-button {
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: inherit;
-}
-
-input { font-family: inherit; }
-
-::selection { background: var(--brand); color: var(--surface); }
-
-img, svg { display: block; max-width: 100%; }
-
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: 28px;
-}
-
-@media (max-width: 640px) { .container { padding-inline: 18px; } }
-
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0;
-  margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   HEADER — منوی طرح‌دار شیشه‌ای
-   ═══════════════════════════════════════════════════════════════ */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 300;
-  padding: 12px 0;
-  background: linear-gradient(180deg, var(--paper) 0%, rgba(237,230,214,.92) 100%);
-  border-bottom: 1px solid var(--line-2);
-  transition: all var(--dur) var(--ease);
-}
-
-.header-in {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 10px 12px 10px 20px;
-  background: var(--glass);
-  backdrop-filter: blur(20px) saturate(1.3);
-  -webkit-backdrop-filter: blur(20px) saturate(1.3);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow), var(--shadow-in);
-  position: relative;
-}
-
-/* خط تزئینی نقشه‌ای زیر منو */
-.header-in::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  inset-inline: 20px;
-  height: 6px;
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--line-3) 0px, var(--line-3) 3px,
-    transparent 3px, transparent 8px
-  );
-  opacity: .5;
-  border-radius: var(--r-full);
-  pointer-events: none;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  color: var(--ink);
-  padding-inline-end: 16px;
-  border-inline-end: 1px solid var(--line-2);
-}
-.brand:hover { color: var(--ink); }
-
-.brand-mark {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: linear-gradient(145deg, var(--brand), var(--brand-d));
-  color: var(--surface);
-  display: grid;
-  place-items: center;
-  box-shadow:
-    0 6px 16px rgba(61,90,61,.28),
-    inset 0 1px 0 rgba(255,255,255,.18);
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.brand-mark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 50%),
-    repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(255,255,255,.06) 8px, rgba(255,255,255,.06) 9px);
-}
-.brand-mark svg {
-  position: relative;
-  z-index: 1;
-  width: 24px;
-  height: 24px;
-}
-
-.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-.brand-text strong {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -.3px;
-  color: var(--ink);
-}
-.brand-text small {
-  font-size: 10.5px;
-  font-weight: 500;
-  color: var(--muted);
-  letter-spacing: .3px;
-  margin-top: 2px;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-  justify-content: center;
-}
-
-.nav a {
-  position: relative;
-  padding: 10px 18px;
-  border-radius: 12px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--ink-2);
-  transition: all var(--dur-sm) var(--ease);
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-}
-
-.nav a svg { width: 15px; height: 15px; opacity: .7; }
-
-.nav a:hover {
-  background: var(--surface-2);
-  color: var(--brand-d);
-}
-
-.nav a.active {
-  background: var(--brand);
-  color: var(--surface);
-  box-shadow: 0 4px 14px rgba(61,90,61,.24), inset 0 1px 0 rgba(255,255,255,.12);
-}
-.nav a.active svg { opacity: 1; }
-
-.nav a.active:hover {
-  background: var(--brand-d);
-  color: var(--surface);
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  padding-inline-start: 16px;
-  border-inline-start: 1px solid var(--line-2);
-}
-
-.icon-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  color: var(--ink-2);
-  background: var(--surface-2);
-  border: 1px solid var(--line-2);
-  transition: all var(--dur-sm) var(--ease);
-}
-.icon-btn:hover {
-  background: var(--surface);
-  border-color: var(--line-strong);
-  color: var(--brand);
-  transform: translateY(-1px);
-}
-.icon-btn svg { width: 18px; height: 18px; }
-
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 11px 20px;
-  border-radius: 12px;
-  background: var(--saffron);
-  color: var(--surface-hi);
-  font-size: 13px;
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(196,144,58,.32), inset 0 1px 0 rgba(255,255,255,.2);
-  transition: all var(--dur-sm) var(--ease);
-  white-space: nowrap;
-}
-.cta-btn:hover {
-  background: var(--saffron-d);
-  color: var(--surface-hi);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(196,144,58,.4);
-}
-.cta-btn svg { width: 15px; height: 15px; }
-
-.nav-toggle {
-  display: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--line-2);
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-2);
-}
-.nav-toggle svg { width: 20px; height: 20px; }
-
-@media (max-width: 1080px) {
-  .nav { display: none; }
-  .nav-toggle { display: inline-flex; }
-  .header-actions .icon-btn:not(.nav-toggle) { display: none; }
-}
-
-@media (max-width: 560px) {
-  .brand-text small { display: none; }
-  .brand { padding-inline-end: 10px; }
-  .cta-btn { display: none; }
-  .header-in { padding: 8px 10px; border-radius: var(--r); }
-  .header-in::after { display: none; }
-  .brand-mark { width: 40px; height: 40px; }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   MOBILE MENU
-   ═══════════════════════════════════════════════════════════════ */
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 400;
-  background: rgba(42,36,25,.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all var(--dur) var(--ease);
-}
-.mobile-menu.open { opacity: 1; visibility: visible; }
-
-.mobile-menu-in {
-  position: absolute;
-  top: 0;
-  inset-inline-end: 0;
-  bottom: 0;
-  width: min(360px, 88vw);
-  background: var(--surface);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transform: translateX(100%);
-  transition: transform var(--dur-lg) var(--ease-out);
-  overflow-y: auto;
-  box-shadow: var(--shadow-xl);
-}
-html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
-.mobile-menu.open .mobile-menu-in { transform: translateX(0); }
-
-.mobile-menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--line-2);
-}
-
-.mobile-menu-close {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--surface-2);
-  border: 1px solid var(--line-2);
-  display: grid;
-  place-items: center;
-  color: var(--ink-2);
-}
-.mobile-menu-close svg { width: 18px; height: 18px; }
-
-.mobile-menu-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.mobile-menu-nav a {
-  padding: 14px 16px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: all var(--dur-sm) var(--ease);
-}
-.mobile-menu-nav a svg { width: 18px; height: 18px; opacity: .6; }
-.mobile-menu-nav a:hover { background: var(--brand-soft); color: var(--brand-d); }
-.mobile-menu-nav a.active {
-  background: var(--brand);
-  color: var(--surface);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   HERO — نقشه تمام‌عرض
-   ═══════════════════════════════════════════════════════════════ */
-.hero {
-  position: relative;
-  padding: 44px 0 60px;
-}
-
-.hero-inner {
-  position: relative;
-  border-radius: var(--r-2xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  border: 1.5px solid var(--line);
-  background: var(--paper-2);
-  min-height: 620px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* نقشه پس‌زمینه */
-.hero-map {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-#map {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #E4DBC6 0%, #D9CEB4 100%);
-}
-
-/* بافت کاغذی روی نقشه */
-.hero-map::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--texture-paper);
-  pointer-events: none;
-  z-index: 1;
-  opacity: .9;
-}
-
-/* گرادیان تیره‌کننده لبه‌ها */
-.hero-map::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(237,230,214,.92) 0%, rgba(237,230,214,.55) 20%, transparent 40%),
-    linear-gradient(0deg, rgba(237,230,214,.95) 0%, rgba(237,230,214,.4) 30%, transparent 55%),
-    radial-gradient(circle at 50% 50%, transparent 40%, rgba(237,230,214,.35) 100%);
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 5;
-  padding: 56px 56px 32px;
-  max-width: 720px;
-}
-@media (max-width: 900px) { .hero-content { padding: 40px 28px 24px; } }
-@media (max-width: 560px) { .hero-content { padding: 32px 20px 20px; } }
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 18px 8px 12px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--brand-d);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 24px;
-  letter-spacing: .2px;
-}
-.hero-eyebrow-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 4px var(--brand-soft);
-  animation: pulse 2.4s ease-in-out infinite;
-  flex-shrink: 0;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .55; transform: scale(1.25); }
-}
-
-.hero h1 {
-  color: var(--ink);
-  margin-bottom: 20px;
-  text-shadow: 0 2px 20px rgba(237,230,214,.6);
-}
-.hero h1 .accent {
-  color: var(--clay);
-  position: relative;
-  white-space: nowrap;
-}
-.hero h1 .accent::after {
-  content: '';
-  position: absolute;
-  bottom: .08em;
-  inset-inline: 0;
-  height: .14em;
-  background: linear-gradient(90deg, var(--saffron), transparent);
-  opacity: .55;
-  border-radius: 2px;
-  z-index: -1;
-}
-
-.hero-lede {
-  font-size: 16px;
-  line-height: 1.95;
-  color: var(--ink-2);
-  max-width: 580px;
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-.hero-lede strong { color: var(--brand-d); font-weight: 700; }
-
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 26px;
-  border-radius: 13px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: all var(--dur) var(--ease);
-  border: 1.5px solid transparent;
-  white-space: nowrap;
-  cursor: pointer;
-  font-family: inherit;
-}
-.btn svg { width: 16px; height: 16px; }
-
-.btn-primary {
-  background: linear-gradient(145deg, var(--brand), var(--brand-d));
-  color: var(--surface);
-  box-shadow: 0 6px 18px rgba(61,90,61,.32), inset 0 1px 0 rgba(255,255,255,.15);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(61,90,61,.42);
-  color: var(--surface);
-  background: linear-gradient(145deg, var(--brand-l), var(--brand));
-}
-
-.btn-secondary {
-  background: var(--surface);
-  color: var(--ink);
-  border-color: var(--line);
-  box-shadow: var(--shadow-sm);
-}
-.btn-secondary:hover {
-  border-color: var(--brand);
-  color: var(--brand-d);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.btn-saffron {
-  background: linear-gradient(145deg, var(--saffron), var(--saffron-d));
-  color: var(--surface-hi);
-  box-shadow: 0 6px 18px rgba(196,144,58,.35);
-}
-.btn-saffron:hover {
-  transform: translateY(-2px);
-  color: var(--surface-hi);
-  box-shadow: 0 10px 28px rgba(196,144,58,.45);
-}
-
-/* نوار جست‌وجو شناور روی نقشه */
-.hero-search {
-  position: relative;
-  z-index: 6;
-  margin: auto 56px 40px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-xl);
-  padding: 14px;
-  box-shadow: var(--shadow-lg), var(--shadow-in);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-@media (max-width: 900px) { .hero-search { margin: auto 24px 24px; } }
-@media (max-width: 560px) { .hero-search { margin: auto 16px 16px; padding: 10px; border-radius: var(--r-lg); } }
-
-.search-field {
-  flex: 1;
-  min-width: 200px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.search-field svg {
-  position: absolute;
-  inset-inline-start: 18px;
-  width: 20px;
-  height: 20px;
-  color: var(--muted-2);
-  pointer-events: none;
-}
-.search-field input {
-  width: 100%;
-  padding: 14px 50px 14px 16px;
-  border: none;
-  background: transparent;
-  font-size: 15px;
-  color: var(--ink);
-  outline: none;
-  font-weight: 500;
-}
-.search-field input::placeholder { color: var(--muted-3); font-weight: 400; }
-
-.search-filters {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  padding-inline: 4px;
-}
-@media (max-width: 800px) { .search-filters { display: none; } }
-
-.filter-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 14px;
-  border-radius: var(--r-full);
-  background: var(--surface-2);
-  border: 1.5px solid var(--line-2);
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--muted);
-  transition: all var(--dur-sm) var(--ease);
-  font-family: inherit;
-  cursor: pointer;
-}
-.filter-chip:hover { border-color: var(--brand); color: var(--brand-d); }
-.filter-chip.on {
-  background: var(--brand-soft);
-  border-color: transparent;
-  color: var(--brand-d);
-}
-.filter-chip i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: block;
-  flex-shrink: 0;
-}
-
-.search-submit {
-  padding: 14px 24px;
-  border-radius: 13px;
-  background: var(--ink);
-  color: var(--surface);
-  font-size: 13.5px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all var(--dur-sm) var(--ease);
-  white-space: nowrap;
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-}
-.search-submit:hover { background: var(--brand); transform: translateY(-1px); }
-.search-submit svg { width: 16px; height: 16px; }
-@media (max-width: 560px) {
-  .search-submit { padding: 12px 18px; font-size: 12.5px; }
-  .search-submit span { display: none; }
-}
-
-/* کارت‌های شناور روی نقشه */
-.map-cards {
-  position: absolute;
-  top: 120px;
-  inset-inline-end: 56px;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 240px;
-}
-@media (max-width: 1100px) { .map-cards { display: none; } }
-
-.map-card {
-  background: var(--glass);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r);
-  padding: 12px 14px;
-  box-shadow: var(--shadow-md);
-  transition: all var(--dur-sm) var(--ease);
-}
-.map-card:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-lg); }
-
-.map-card-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-.map-card-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba(255,255,255,.5);
-}
-.map-card-title {
-  font-size: 12.5px;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -.2px;
-}
-.map-card-meta {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 500;
-  padding-inline-start: 17px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   STATS
-   ═══════════════════════════════════════════════════════════════ */
-.stats {
-  padding: 20px 0 60px;
-}
-
-.stats-inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-md), var(--shadow-in);
-}
-@media (max-width: 800px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } }
-
-.stat {
-  padding: 26px 24px;
-  text-align: center;
-  border-inline-end: 1px solid var(--line-2);
-  transition: background var(--dur-sm) var(--ease);
-  position: relative;
-}
-.stat:last-child { border-inline-end: 0; }
-.stat:hover { background: var(--surface-2); }
-
-@media (max-width: 800px) {
-  .stat:nth-child(2) { border-inline-end: 0; }
-  .stat:nth-child(1),
-  .stat:nth-child(2) { border-bottom: 1px solid var(--line-2); }
-}
-
-.stat-num {
-  font-size: clamp(30px, 3.6vw, 40px);
-  font-weight: 900;
-  color: var(--brand-d);
-  line-height: 1.1;
-  letter-spacing: -1px;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 4px;
-}
-.stat-num .unit {
-  font-size: .5em;
-  color: var(--muted);
-  font-weight: 700;
-  margin-inline-start: 4px;
-}
-
-.stat-label {
-  font-size: 12.5px;
-  color: var(--muted);
-  font-weight: 600;
-  letter-spacing: .2px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SECTION
-   ═══════════════════════════════════════════════════════════════ */
-.section { padding: 56px 0; }
-.section-tight { padding: 32px 0; }
-.section-alt {
-  background: var(--paper-2);
-  border-block: 1px solid var(--line-2);
-  position: relative;
-}
-.section-alt::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--texture-lines);
-  opacity: .5;
-  pointer-events: none;
-}
-
-.section-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-.section-head-text { max-width: 640px; }
-.section-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
-  font-weight: 800;
-  color: var(--brand);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.section-eyebrow::before {
-  content: '';
-  width: 24px;
-  height: 2px;
-  background: var(--brand);
-  border-radius: 1px;
-}
-
-.section-head h2 {
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.section-head p {
-  color: var(--muted);
-  font-size: 14.5px;
-  margin: 0;
-  line-height: 1.8;
-}
-
-.section-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border-radius: 11px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-2);
-  transition: all var(--dur-sm) var(--ease);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.section-link:hover {
-  background: var(--brand);
-  color: var(--surface);
-  border-color: var(--brand);
-  transform: translateY(-1px);
-}
-.section-link svg {
-  width: 14px;
-  height: 14px;
-  transition: transform var(--dur-sm) var(--ease);
-}
-.section-link:hover svg { transform: translateX(-3px); }
-
-/* ═══════════════════════════════════════════════════════════════
-   LAYERS
-   ═══════════════════════════════════════════════════════════════ */
-.layers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
-  position: relative;
-  z-index: 1;
-}
-
-.layer-card {
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 22px 20px 18px;
-  transition: all var(--dur) var(--ease);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.layer-card::before {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--lc, var(--brand));
-  transition: width var(--dur) var(--ease);
-}
-
-.layer-card::after {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  background: radial-gradient(circle at 0% 50%, color-mix(in srgb, var(--lc) 8%, transparent), transparent 60%);
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease);
-  pointer-events: none;
-}
-
-.layer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--lc);
-}
-.layer-card:hover::before { width: 6px; }
-.layer-card:hover::after { opacity: 1; }
-
-.layer-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--lc) 14%, var(--surface));
-  color: var(--lc);
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 16px;
-  transition: transform var(--dur) var(--ease);
-  position: relative;
-  z-index: 1;
-  border: 1px solid color-mix(in srgb, var(--lc) 20%, transparent);
-}
-.layer-card:hover .layer-icon {
-  transform: scale(1.08) rotate(-4deg);
-}
-
-.layer-card h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: -.2px;
-  position: relative;
-  z-index: 1;
-}
-.layer-card p {
-  font-size: 12.5px;
-  line-height: 1.75;
-  color: var(--muted);
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
-  min-height: 3.5em;
-}
-.layer-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px solid var(--line-2);
-  font-size: 11.5px;
-  color: var(--muted-2);
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-}
-.layer-meta code {
-  font-family: var(--ff-mono);
-  font-size: 10.5px;
-  color: var(--lc);
-  background: color-mix(in srgb, var(--lc) 10%, transparent);
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: .3px;
-  direction: ltr;
-  border: 1px solid color-mix(in srgb, var(--lc) 18%, transparent);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PLACES
-   ═══════════════════════════════════════════════════════════════ */
-.places-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
-}
-
-.place-card {
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: all var(--dur) var(--ease);
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-}
-.place-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--line-strong);
-}
-
-.place-thumb {
-  height: 170px;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(61,90,61,.18), transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(196,144,58,.14), transparent 50%),
-    linear-gradient(135deg, #E4DBC6, #D9CEB4);
-  position: relative;
-  overflow: hidden;
-}
-.place-thumb::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(45deg, rgba(42,36,25,.06) 0, rgba(42,36,25,.06) 1px, transparent 1px, transparent 14px);
-}
-.place-thumb::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  inset-inline-start: 50%;
-  transform: translate(50%, -50%);
-  width: 40px;
-  height: 40px;
-  border: 2.5px solid var(--lc, var(--brand));
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--lc) 20%, var(--surface));
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--lc) 14%, transparent);
-}
-.place-thumb .pin {
-  position: absolute;
-  top: 50%;
-  inset-inline-start: 50%;
-  transform: translate(50%, -50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--lc, var(--brand));
-  z-index: 1;
-}
-
-.place-badge {
-  position: absolute;
-  top: 12px;
-  inset-inline-start: 12px;
-  padding: 5px 11px;
-  border-radius: var(--r-full);
-  background: rgba(245,239,226,.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 10.5px;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid var(--line-2);
-  z-index: 2;
-}
-.place-badge i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  display: block;
-}
-.badge-exact { color: #2F6B4A; }
-.badge-exact i { background: #2F6B4A; box-shadow: 0 0 0 3px rgba(47,107,74,.2); }
-.badge-approx { color: #B07820; }
-.badge-approx i { background: #B07820; box-shadow: 0 0 0 3px rgba(176,120,32,.2); }
-.badge-area { color: #9C4A2E; }
-.badge-area i { background: #9C4A2E; box-shadow: 0 0 0 3px rgba(156,74,46,.2); }
-.badge-unknown { color: var(--muted-2); }
-.badge-unknown i { background: var(--muted-2); }
-
-.place-body {
-  padding: 18px 20px 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.place-tags {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-.ptag {
-  padding: 4px 10px;
-  border-radius: 7px;
-  font-size: 10.5px;
-  font-weight: 700;
-  background: var(--paper-2);
-  color: var(--muted);
-  letter-spacing: .2px;
-}
-.ptag.brand { background: var(--brand-soft); color: var(--brand-d); }
-.ptag.clay { background: var(--clay-soft); color: var(--clay-d); }
-.ptag.indigo { background: var(--indigo-soft); color: var(--indigo-d); }
-.ptag.saffron { background: var(--saffron-soft); color: var(--saffron-d); }
-
-.place-card h3 {
-  font-size: 15.5px;
-  font-weight: 800;
-  color: var(--ink);
-  line-height: 1.45;
-  margin-bottom: 8px;
-  letter-spacing: -.2px;
-}
-.place-card .desc {
-  font-size: 12.5px;
-  color: var(--muted);
-  line-height: 1.75;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex: 1;
-}
-
-.place-foot {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px solid var(--line-2);
-  font-size: 11.5px;
-  color: var(--muted-2);
-  font-weight: 600;
-}
-.place-foot .stat-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.place-foot svg {
-  width: 13px;
-  height: 13px;
-  color: var(--muted-3);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   EVENTS + PERSONS (دو ستون)
-   ═══════════════════════════════════════════════════════════════ */
-.two-col {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 28px;
-}
-@media (max-width: 960px) { .two-col { grid-template-columns: 1fr; gap: 32px; } }
-
-/* رویدادها */
-.events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.event-item {
-  display: flex;
-  gap: 16px;
-  padding: 18px 20px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r);
-  transition: all var(--dur-sm) var(--ease);
-  cursor: pointer;
-}
-.event-item:hover {
-  border-color: var(--saffron);
-  transform: translateX(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.event-date {
-  flex-shrink: 0;
-  width: 62px;
-  text-align: center;
-  padding: 10px 6px;
-  background: linear-gradient(145deg, var(--saffron-soft), color-mix(in srgb, var(--saffron) 8%, var(--surface)));
-  border: 1.5px solid color-mix(in srgb, var(--saffron) 25%, transparent);
-  border-radius: 12px;
-  color: var(--saffron-d);
-}
-.event-date .day {
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.5px;
-  font-variant-numeric: tabular-nums;
-}
-.event-date .mon {
-  font-size: 10.5px;
-  font-weight: 700;
-  margin-top: 3px;
-  letter-spacing: .3px;
-}
-
-.event-body { flex: 1; min-width: 0; }
-.event-body h4 {
-  font-size: 14.5px;
-  font-weight: 800;
-  color: var(--ink);
-  margin-bottom: 4px;
-  letter-spacing: -.2px;
-}
-.event-body p {
-  font-size: 12.5px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin: 0;
-}
-.event-meta {
-  display: flex;
-  gap: 12px;
-  margin-top: 8px;
-  font-size: 11px;
-  color: var(--muted-2);
-  font-weight: 600;
-  flex-wrap: wrap;
-}
-.event-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.event-meta svg { width: 12px; height: 12px; }
-
-/* شهدا */
-.persons-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.person-item {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  padding: 14px 16px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r);
-  transition: all var(--dur-sm) var(--ease);
-  cursor: pointer;
-}
-.person-item:hover {
-  border-color: var(--brand);
-  transform: translateX(-4px);
-  box-shadow: var(--shadow);
-}
-
-.person-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  flex-shrink: 0;
-  background: linear-gradient(145deg, var(--brand-soft), color-mix(in srgb, var(--brand) 12%, var(--surface)));
-  border: 1.5px solid color-mix(in srgb, var(--brand) 22%, transparent);
-  display: grid;
-  place-items: center;
-  color: var(--brand-d);
-  font-weight: 900;
-  font-size: 17px;
-  position: relative;
-  overflow: hidden;
-}
-.person-avatar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.4), transparent 60%);
-}
-
-.person-info { flex: 1; min-width: 0; }
-.person-info h4 {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--ink);
-  margin-bottom: 3px;
-  letter-spacing: -.2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.person-info p {
-  font-size: 11.5px;
-  color: var(--muted);
-  margin: 0;
-  line-height: 1.6;
-}
-
-.person-arrow {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: var(--paper-2);
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  transition: all var(--dur-sm) var(--ease);
-}
-.person-item:hover .person-arrow {
-  background: var(--brand);
-  color: var(--surface);
-}
-.person-arrow svg { width: 14px; height: 14px; }
-
-/* ═══════════════════════════════════════════════════════════════
-   ROUTES
-   ═══════════════════════════════════════════════════════════════ */
-.routes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 18px;
-}
-
-.route-card {
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 24px 22px;
-  transition: all var(--dur) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-.route-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.route-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: .4;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(44,62,92,.08), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(196,144,58,.06), transparent 40%);
-}
-.route-pattern::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(60deg, rgba(42,36,25,.04) 0, rgba(42,36,25,.04) 1px, transparent 1px, transparent 16px);
-}
-
-.route-content { position: relative; z-index: 1; }
-
-.route-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: var(--r-full);
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: .4px;
-  margin-bottom: 14px;
-  background: var(--indigo-soft);
-  color: var(--indigo-d);
-}
-.route-tag.saffron { background: var(--saffron-soft); color: var(--saffron-d); }
-.route-tag.clay { background: var(--clay-soft); color: var(--clay-d); }
-.route-tag svg { width: 12px; height: 12px; }
-
-.route-card h3 {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--ink);
-  margin-bottom: 10px;
-  letter-spacing: -.3px;
-  line-height: 1.4;
-}
-.route-card p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 18px;
-}
-
-.route-stops {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 16px;
-  padding: 12px;
-  background: var(--surface-2);
-  border-radius: 11px;
-  border: 1px solid var(--line-2);
-}
-.route-stop {
-  flex: 1;
-  text-align: center;
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 600;
-  position: relative;
-  padding-top: 14px;
-}
-.route-stop::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  inset-inline-start: 50%;
-  transform: translateX(50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 2px var(--surface);
-}
-.route-stop:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  top: 7.5px;
-  inset-inline-start: 50%;
-  width: calc(100% - 8px);
-  height: 1.5px;
-  background: repeating-linear-gradient(90deg, var(--brand) 0, var(--brand) 3px, transparent 3px, transparent 6px);
-}
-
-.route-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px solid var(--line-2);
-  font-size: 11.5px;
-  color: var(--muted-2);
-  font-weight: 600;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   STORIES
-   ═══════════════════════════════════════════════════════════════ */
-.stories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-}
-
-.story-card {
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 26px 24px;
-  transition: all var(--dur) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-.story-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--saffron);
-}
-
-.story-quote {
-  font-size: 42px;
-  line-height: .8;
-  color: var(--saffron);
-  font-weight: 900;
-  margin-bottom: 8px;
-  font-family: Georgia, serif;
-  opacity: .7;
-}
-
-.story-card p {
-  font-size: 13.5px;
-  color: var(--ink-2);
-  line-height: 1.95;
-  margin-bottom: 20px;
-  font-style: italic;
-}
-
-.story-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line-2);
-}
-.story-author-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--clay-soft), color-mix(in srgb, var(--clay) 15%, var(--surface)));
-  border: 1.5px solid color-mix(in srgb, var(--clay) 25%, transparent);
-  display: grid;
-  place-items: center;
-  color: var(--clay-d);
-  font-weight: 900;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-.story-author-info strong {
-  display: block;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -.2px;
-}
-.story-author-info small {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 500;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CTA
-   ═══════════════════════════════════════════════════════════════ */
-.cta {
-  margin: 20px 0 40px;
-  background: linear-gradient(145deg, var(--ink), var(--brand-d));
-  border-radius: var(--r-2xl);
-  padding: 68px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  color: var(--surface);
-  box-shadow: var(--shadow-xl);
-}
-.cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(61,90,61,.5), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(196,144,58,.18), transparent 50%);
-  pointer-events: none;
-}
-.cta::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(237,230,214,.03) 0, rgba(237,230,214,.03) 1px, transparent 1px, transparent 40px),
-    repeating-linear-gradient(90deg, rgba(237,230,214,.03) 0, rgba(237,230,214,.03) 1px, transparent 1px, transparent 40px);
-  pointer-events: none;
-}
-.cta-content {
-  position: relative;
-  z-index: 1;
-  max-width: 680px;
-  margin-inline: auto;
-}
-.cta h2 {
-  color: var(--surface);
-  font-size: clamp(26px, 3.4vw, 40px);
-  font-weight: 900;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-  text-wrap: balance;
-}
-.cta p {
-  color: rgba(237,230,214,.78);
-  font-size: 15.5px;
-  line-height: 1.9;
-  margin-bottom: 32px;
-}
-.cta-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.cta .btn-primary {
-  background: var(--saffron);
-  color: var(--surface-hi);
-  box-shadow: 0 6px 20px rgba(196,144,58,.4);
-}
-.cta .btn-primary:hover {
-  background: var(--saffron-d);
-  color: var(--surface-hi);
-}
-.cta .btn-secondary {
-  background: transparent;
-  color: var(--surface);
-  border-color: rgba(237,230,214,.3);
-}
-.cta .btn-secondary:hover {
-  background: rgba(237,230,214,.1);
-  border-color: var(--surface);
-  color: var(--surface);
-}
-@media (max-width: 640px) {
-  .cta { padding: 44px 24px; border-radius: var(--r-xl); margin: 12px 0 28px; }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   FOOTER — سنگین و طرح‌دار
-   ═══════════════════════════════════════════════════════════════ */
-.footer {
-  margin-top: auto;
-  background: linear-gradient(180deg, var(--ink) 0%, #1A1611 100%);
-  color: var(--paper-2);
-  position: relative;
-  overflow: hidden;
-}
-.footer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(61,90,61,.25), transparent 50%),
-    radial-gradient(circle at 90% 80%, rgba(196,144,58,.12), transparent 50%),
-    repeating-linear-gradient(0deg, rgba(237,230,214,.02) 0, rgba(237,230,214,.02) 1px, transparent 1px, transparent 50px),
-    repeating-linear-gradient(90deg, rgba(237,230,214,.02) 0, rgba(237,230,214,.02) 1px, transparent 1px, transparent 50px);
-  pointer-events: none;
-}
-
-/* ردیف بالا: برند + نقشه + خبرنامه */
-.footer-top {
-  position: relative;
-  z-index: 1;
-  padding: 56px 0 40px;
-  border-bottom: 1px solid rgba(237,230,214,.1);
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1.2fr;
-  gap: 40px;
-  align-items: start;
-}
-@media (max-width: 960px) {
-  .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 40px 0 28px; }
-}
-
-.footer-brand-block { max-width: 380px; }
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 18px;
-}
-.footer-brand .brand-mark {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-}
-.footer-brand-text strong {
-  display: block;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--surface);
-  letter-spacing: -.3px;
-}
-.footer-brand-text small {
-  font-size: 11.5px;
-  color: rgba(237,230,214,.55);
-  letter-spacing: .3px;
-}
-.footer-brand-block p {
-  font-size: 13.5px;
-  line-height: 1.9;
-  color: rgba(237,230,214,.6);
-  margin-bottom: 20px;
-}
-.footer-social {
-  display: flex;
-  gap: 8px;
-}
-.footer-social a {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: rgba(237,230,214,.08);
-  border: 1px solid rgba(237,230,214,.12);
-  display: grid;
-  place-items: center;
-  color: rgba(237,230,214,.7);
-  transition: all var(--dur-sm) var(--ease);
-}
-.footer-social a:hover {
-  background: var(--saffron);
-  color: var(--surface-hi);
-  border-color: var(--saffron);
-  transform: translateY(-2px);
-}
-.footer-social svg { width: 16px; height: 16px; }
-
-/* نقشه کوچک فوتر */
-.footer-map-block {
-  padding: 16px;
-  background: rgba(237,230,214,.04);
-  border: 1px solid rgba(237,230,214,.1);
-  border-radius: var(--r-lg);
-}
-.footer-map-title {
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--saffron);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.footer-map-title::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  background: var(--saffron);
-  border-radius: 1px;
-}
-.footer-map {
-  position: relative;
-  aspect-ratio: 16/10;
-  border-radius: 12px;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(61,90,61,.4), transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(196,144,58,.2), transparent 50%),
-    linear-gradient(135deg, #1A2740, #2C3E5C);
-  overflow: hidden;
-  border: 1px solid rgba(237,230,214,.08);
-}
-.footer-map::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(237,230,214,.04) 0, rgba(237,230,214,.04) 1px, transparent 1px, transparent 20px),
-    repeating-linear-gradient(90deg, rgba(237,230,214,.04) 0, rgba(237,230,214,.04) 1px, transparent 1px, transparent 20px);
-}
-.footer-map-dots {
-  position: absolute;
-  inset: 0;
-}
-.footer-map-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--saffron);
-  box-shadow: 0 0 0 4px rgba(196,144,58,.2);
-  animation: pulse 2.6s ease-in-out infinite;
-}
-.footer-map-dot.brand { background: #5A7A5A; box-shadow: 0 0 0 4px rgba(90,122,90,.25); }
-.footer-map-dot.clay { background: #C4704E; box-shadow: 0 0 0 4px rgba(196,112,78,.2); }
-.footer-map-label {
-  position: absolute;
-  bottom: 10px;
-  inset-inline-start: 12px;
-  font-size: 10.5px;
-  color: rgba(237,230,214,.5);
-  font-weight: 600;
-  letter-spacing: .3px;
-}
-
-/* خبرنامه */
-.footer-newsletter h4 {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--saffron);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.footer-newsletter h4::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  background: var(--saffron);
-  border-radius: 1px;
-}
-.footer-newsletter p {
-  font-size: 13px;
-  color: rgba(237,230,214,.6);
-  line-height: 1.85;
-  margin-bottom: 18px;
-}
-.newsletter-form {
-  display: flex;
-  gap: 8px;
-  background: rgba(237,230,214,.06);
-  border: 1px solid rgba(237,230,214,.14);
-  border-radius: 13px;
-  padding: 6px;
-  transition: border-color var(--dur-sm) var(--ease);
-}
-.newsletter-form:focus-within {
-  border-color: var(--saffron);
-  background: rgba(237,230,214,.09);
-}
-.newsletter-form input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  padding: 10px 14px;
-  color: var(--surface);
-  font-size: 13.5px;
-  outline: none;
-  min-width: 0;
-}
-.newsletter-form input::placeholder { color: rgba(237,230,214,.4); }
-.newsletter-form button {
-  padding: 10px 18px;
-  border-radius: 9px;
-  background: var(--saffron);
-  color: var(--surface-hi);
-  font-size: 12.5px;
-  font-weight: 700;
-  transition: all var(--dur-sm) var(--ease);
-  white-space: nowrap;
-  font-family: inherit;
-}
-.newsletter-form button:hover {
-  background: var(--saffron-d);
-  transform: translateY(-1px);
-}
-
-/* ردیف وسط: لینک‌ها */
-.footer-mid {
-  position: relative;
-  z-index: 1;
-  padding: 48px 0 40px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  border-bottom: 1px solid rgba(237,230,214,.1);
-}
-@media (max-width: 800px) { .footer-mid { grid-template-columns: repeat(2, 1fr); gap: 28px; padding: 36px 0 28px; } }
-@media (max-width: 480px) { .footer-mid { grid-template-columns: 1fr; } }
-
-.footer-col h5 {
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--saffron);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(196,144,58,.2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.footer-col h5::before {
-  content: '◆';
-  font-size: 8px;
-}
-.footer-col ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.footer-col a {
-  font-size: 13.5px;
-  color: rgba(237,230,214,.65);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all var(--dur-sm) var(--ease);
-  line-height: 1.6;
-}
-.footer-col a::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(196,144,58,.35);
-  transition: all var(--dur-sm) var(--ease);
-  flex-shrink: 0;
-}
-.footer-col a:hover {
-  color: var(--saffron);
-  transform: translateX(-4px);
-}
-.footer-col a:hover::before {
-  background: var(--saffron);
-  width: 10px;
-  border-radius: 3px;
-}
-
-/* ردیف پایین */
-.footer-bottom {
-  position: relative;
-  z-index: 1;
-  padding: 24px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 12.5px;
-  color: rgba(237,230,214,.45);
-}
-.footer-bottom-links {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.footer-bottom-links a {
-  color: rgba(237,230,214,.5);
-  font-size: 12.5px;
-}
-.footer-bottom-links a:hover { color: var(--saffron); }
-
-/* ═══════════════════════════════════════════════════════════════
-   MAPLIBRE OVERRIDES
-   ═══════════════════════════════════════════════════════════════ */
-.maplibregl-ctrl-group {
-  background: var(--surface) !important;
-  border: 1.5px solid var(--line) !important;
-  border-radius: 12px !important;
-  box-shadow: var(--shadow-md) !important;
-  overflow: hidden;
-}
-.maplibregl-ctrl-group button {
-  width: 38px !important;
-  height: 38px !important;
-  background: transparent !important;
-  border-bottom: 1px solid var(--line-2) !important;
-}
-.maplibregl-ctrl-group button:last-child { border-bottom: none !important; }
-.maplibregl-ctrl-group button:hover { background: var(--surface-2) !important; }
-.maplibregl-ctrl-group button span { filter: hue-rotate(80deg) saturate(.5); }
-.maplibregl-ctrl-attrib {
-  background: rgba(245,239,226,.8) !important;
-  border-radius: 8px 0 0 0 !important;
-  font-size: 10px !important;
-}
-.maplibregl-ctrl-attrib a { color: var(--muted) !important; }
-
-/* ═══════════════════════════════════════════════════════════════
-   FALLBACK MAP
-   ═══════════════════════════════════════════════════════════════ */
-.map-fallback {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(61,90,61,.15), transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(196,144,58,.1), transparent 50%),
-    linear-gradient(135deg, #E4DBC6, #D9CEB4);
-}
-.map-fallback::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(42,36,25,.06) 0, rgba(42,36,25,.06) 1px, transparent 1px, transparent 40px),
-    repeating-linear-gradient(90deg, rgba(42,36,25,.06) 0, rgba(42,36,25,.06) 1px, transparent 1px, transparent 40px);
-}
-.map-fallback .dot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 6px rgba(61,90,61,.18), 0 2px 6px rgba(42,36,25,.2);
-  animation: pulse 2.6s ease-in-out infinite;
-}
-.map-fallback .dot.clay { background: var(--clay); box-shadow: 0 0 0 6px rgba(156,74,46,.18), 0 2px 6px rgba(42,36,25,.2); }
-.map-fallback .dot.saffron { background: var(--saffron); box-shadow: 0 0 0 6px rgba(196,144,58,.2), 0 2px 6px rgba(42,36,25,.2); }
-.map-fallback .dot.small { width: 8px; height: 8px; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
-}
-</style>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
 
-<!-- ══════════════ HEADER ══════════════ -->
-<header class="header">
-  <div class="container">
-    <div class="header-in">
-      <a href="#" class="brand" aria-label="اطلس شهدا">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/>
-            <path d="M9 7v13M15 4v13"/>
-            <circle cx="12" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-          </svg>
-        </span>
-        <span class="brand-text">
-          <strong>اطلس شهدا</strong>
-          <small>مرجع مکانی جغرافیا</small>
-        </span>
-      </a>
+<a class="skip-link" href="#main">پرش به محتوا</a>
 
-      <nav class="nav" aria-label="ناوبری اصلی">
-        <a href="#" class="active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          </svg>
-          خانه
-        </a>
-        <a href="#map">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>
-          </svg>
-          نقشه
-        </a>
-        <a href="#places">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-          مکان‌ها
-        </a>
-        <a href="#persons">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-          </svg>
-          شهدا
-        </a>
-        <a href="#layers">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/>
-          </svg>
-          لایه‌ها
-        </a>
-        <a href="#about">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
-          </svg>
-          درباره
-        </a>
-      </nav>
+<!-- ═══════ HEADER (از components.js) ═══════ -->
+<div id="site-header"></div>
 
-      <div class="header-actions">
-        <a href="#search" class="icon-btn" aria-label="جست‌وجو">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-          </svg>
-        </a>
-        <a href="#" class="cta-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-          مشارکت
-        </a>
-        <button class="nav-toggle" id="navToggle" aria-label="باز کردن منو">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- ═══════ MAIN ═══════ -->
+<main id="main">
 
-<!-- ══════════════ MOBILE MENU ══════════════ -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="منو">
-  <div class="mobile-menu-in">
-    <div class="mobile-menu-header">
-      <div class="brand" style="padding:0;border:0;gap:10px">
-        <span class="brand-mark" style="width:40px;height:40px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px">
-            <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>
-          </svg>
-        </span>
-        <span class="brand-text">
-          <strong style="font-size:14px">اطلس شهدا</strong>
-          <small style="font-size:10px">مرجع مکانی</small>
-        </span>
-      </div>
-      <button class="mobile-menu-close" id="menuClose" aria-label="بستن">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-    <nav class="mobile-menu-nav">
-      <a href="#" class="active">خانه</a>
-      <a href="#map">نقشه</a>
-      <a href="#places">مکان‌ها</a>
-      <a href="#persons">شهدا</a>
-      <a href="#layers">لایه‌ها</a>
-      <a href="#about">درباره</a>
-      <a href="#search">جست‌وجو</a>
-    </nav>
-  </div>
-</div>
-
-<!-- ══════════════ MAIN ══════════════ -->
-<main>
-
-  <!-- HERO -->
-  <section class="hero" id="map">
+  <!-- ══════════ HERO با نقشه تمام‌عرض ══════════ -->
+  <section class="home-hero">
     <div class="container">
-      <div class="hero-inner">
+      <div class="home-hero-inner">
 
         <!-- نقشه -->
-        <div class="hero-map">
+        <div class="home-hero-map" aria-hidden="true">
           <div id="map"></div>
         </div>
 
-        <!-- محتوا -->
-        <div class="hero-content">
-          <span class="hero-eyebrow">
-            <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-            سند مرجع زنده · نسخه ۱
+        <!-- محتوای روی نقشه -->
+        <div class="home-hero-content">
+          <span class="home-hero-eyebrow">
+            <span class="home-hero-eyebrow-dot" aria-hidden="true"></span>
+            مرجع مکانی · سند مرجع زنده · نسخه ۱
           </span>
 
           <h1>
@@ -2233,68 +48,71 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
             در بستر <span class="accent">زمان و مکان</span>
           </h1>
 
-          <p class="hero-lede">
+          <p class="home-hero-lede">
             اطلس شهدا یک <strong>مرجع مکانی یکپارچه</strong> است. هر مکان یک هویت پایدار دارد و اطلاعات — اشخاص، رویدادها، اسناد، مسیرها و روایت‌ها — در طول زمان روی همان هویت شکل می‌گیرند.
           </p>
 
-          <div class="hero-actions">
-            <a href="#places" class="btn btn-primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>
+          <div class="home-hero-actions">
+            <a href="pages/map.html" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/>
+                <path d="M9 7v13M15 4v13"/>
               </svg>
               کاوش در نقشه
             </a>
-            <a href="#layers" class="btn btn-secondary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/>
+            <a href="pages/locations.html" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
               </svg>
-              لایه‌های اطلاعاتی
+              فهرست مکان‌ها
             </a>
           </div>
         </div>
 
         <!-- کارت‌های شناور روی نقشه -->
-        <div class="map-cards" aria-hidden="true">
-          <div class="map-card">
-            <div class="map-card-head">
-              <span class="map-card-dot" style="background:#2F6B4A"></span>
-              <span class="map-card-title">گلزار شهدای وادی رحمت</span>
+        <div class="home-map-cards" aria-hidden="true">
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#2F6B4A"></span>
+              <span class="home-map-card-title">گلزار شهدای وادی رحمت</span>
             </div>
-            <div class="map-card-meta">کرمان · ۱۴ شهید مرتبط</div>
+            <div class="home-map-card-meta">کرمان · ۵ شهید مرتبط</div>
           </div>
-          <div class="map-card">
-            <div class="map-card-head">
-              <span class="map-card-dot" style="background:#9C4A2E"></span>
-              <span class="map-card-title">محدوده فتح‌المبین</span>
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#C4903A"></span>
+              <span class="home-map-card-title">محدوده فتح‌المبین</span>
             </div>
-            <div class="map-card-meta">خوزستان · محدوده عملیاتی</div>
+            <div class="home-map-card-meta">خوزستان · عملیاتی</div>
           </div>
-          <div class="map-card">
-            <div class="map-card-head">
-              <span class="map-card-dot" style="background:#1E6B72"></span>
-              <span class="map-card-title">یادمان هفت تیر</span>
+          <div class="home-map-card">
+            <div class="home-map-card-head">
+              <span class="home-map-card-dot" style="background:#1E6B72"></span>
+              <span class="home-map-card-title">یادمان هفت تیر</span>
             </div>
-            <div class="map-card-meta">تهران · ۷۲ شهید</div>
+            <div class="home-map-card-meta">تهران · ۷ شهید</div>
           </div>
         </div>
 
         <!-- نوار جست‌وجو -->
-        <div class="hero-search" id="search" role="search">
-          <label class="search-field">
+        <div class="home-search" role="search">
+          <label class="home-search-field">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m21 21-4.3-4.3"/>
             </svg>
             <input type="search" placeholder="جست‌وجوی مکان، شهید، رویداد یا مسیر…" aria-label="جست‌وجو">
           </label>
 
-          <div class="search-filters" role="group" aria-label="فیلتر">
-            <button class="filter-chip on" type="button"><i style="background:#2F6B4A" aria-hidden="true"></i>گلزار</button>
-            <button class="filter-chip" type="button"><i style="background:#9C4A2E" aria-hidden="true"></i>شهادت</button>
-            <button class="filter-chip" type="button"><i style="background:#2C3E5C" aria-hidden="true"></i>زندگی</button>
-            <button class="filter-chip" type="button"><i style="background:#1E6B72" aria-hidden="true"></i>یادمان</button>
+          <div class="home-search-filters" role="group" aria-label="فیلتر سریع">
+            <button class="home-filter-chip on" type="button"><i style="background:#2F6B4A" aria-hidden="true"></i>گلزار</button>
+            <button class="home-filter-chip" type="button"><i style="background:#9C4A2E" aria-hidden="true"></i>شهادت</button>
+            <button class="home-filter-chip" type="button"><i style="background:#2C3E5C" aria-hidden="true"></i>زندگی</button>
+            <button class="home-filter-chip" type="button"><i style="background:#1E6B72" aria-hidden="true"></i>یادمان</button>
           </div>
 
-          <button class="search-submit" type="button">
+          <button class="home-search-submit" type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
@@ -2306,31 +124,31 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats">
+  <!-- ══════════ STATS ══════════ -->
+  <section class="home-stats">
     <div class="container">
-      <div class="stats-inner">
-        <div class="stat">
-          <div class="stat-num" data-count="1247">۰</div>
-          <div class="stat-label">مکان ثبت‌شده</div>
+      <div class="home-stats-inner">
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="locations" data-count="0">۰</div>
+          <div class="home-stat-label">مکان ثبت‌شده</div>
         </div>
-        <div class="stat">
-          <div class="stat-num" data-count="386">۰</div>
-          <div class="stat-label">شهید مرتبط</div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="persons" data-count="0">۰</div>
+          <div class="home-stat-label">شهید مرتبط</div>
         </div>
-        <div class="stat">
-          <div class="stat-num" data-count="10">۰</div>
-          <div class="stat-label">لایه اطلاعاتی</div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="layers" data-count="0">۰</div>
+          <div class="home-stat-label">لایه اطلاعاتی</div>
         </div>
-        <div class="stat">
-          <div class="stat-num" data-count="24">۰</div>
-          <div class="stat-label">استان پوشش‌داده‌شده</div>
+        <div class="home-stat">
+          <div class="home-stat-num" data-stat="provinces" data-count="0">۰</div>
+          <div class="home-stat-label">استان پوشش‌داده‌شده</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LAYERS -->
+  <!-- ══════════ LAYERS ══════════ -->
   <section class="section section-alt" id="layers">
     <div class="container">
       <header class="section-head">
@@ -2339,89 +157,19 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
           <h2>ده لایه برای سازمان‌دهی معنا روی مکان</h2>
           <p>هر لایه یک رنگ، یک نماد و یک قاعده نمایش دارد. لایه‌ها موجودیت مستقل نیستند؛ روش سازمان‌دهی و نمایش‌اند.</p>
         </div>
-        <a href="#" class="section-link">
+        <a href="pages/layers.html" class="section-link">
           همه لایه‌ها
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 12H5M11 6l-6 6 6 6"/>
           </svg>
         </a>
       </header>
 
-      <div class="layers-grid">
-        <article class="layer-card" style="--lc:#2C3E5C">
-          <div class="layer-icon">⌂</div>
-          <h3>تولد و زندگی</h3>
-          <p>زادگاه، محل سکونت، خانه کودکی، مهاجرت و دوره‌های زندگی.</p>
-          <div class="layer-meta"><code>zendegi</code><span>۴۲ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#3D5A3D">
-          <div class="layer-icon">✎</div>
-          <h3>تحصیل و تربیت</h3>
-          <p>دبستان، دبیرستان، حوزه، دانشگاه، کلاس و مربیان.</p>
-          <div class="layer-meta"><code>tahsil</code><span>۲۸ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#6B5424">
-          <div class="layer-icon">⚒</div>
-          <h3>کار و فعالیت</h3>
-          <p>محل اشتغال، کارگاه، اداره، فعالیت اجتماعی و جهادی.</p>
-          <div class="layer-meta"><code>kargah</code><span>۱۹ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#C4903A">
-          <div class="layer-icon">➤</div>
-          <h3>مسیر و اعزام</h3>
-          <p>مسیر حرکت، اعزام، بازگشت، زیارت و نقاط میانی.</p>
-          <div class="layer-meta"><code>masir</code><span>۱۲ مسیر</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#9C4A2E">
-          <div class="layer-icon">✚</div>
-          <h3>شهادت و رویداد</h3>
-          <p>محل شهادت، جراحت، حادثه و محدوده رخداد.</p>
-          <div class="layer-meta"><code>shahadat</code><span>۳۶ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#4A6B3A">
-          <div class="layer-icon">◫</div>
-          <h3>محدوده عملیات</h3>
-          <p>منطقه، محور و محدوده جغرافیایی یک عملیات یا رخداد.</p>
-          <div class="layer-meta"><code>amaliyat</code><span>۸ محدوده</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#2F6B4A">
-          <div class="layer-icon">❁</div>
-          <h3>گلزار و مزار</h3>
-          <p>گلزار، مزار، مقبره، سنگ‌نوشته و محل دفن.</p>
-          <div class="layer-meta"><code>golzar</code><span>۵۴ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#1E6B72">
-          <div class="layer-icon">◈</div>
-          <h3>یادمان و موزه</h3>
-          <p>یادمان، موزه، مرکز اسناد، تندیس و نشانه‌های شهری.</p>
-          <div class="layer-meta"><code>yadman</code><span>۲۱ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#6B4A7A">
-          <div class="layer-icon">✧</div>
-          <h3>فرهنگی و اجتماعی</h3>
-          <p>مراسم، یادواره، فعالیت فرهنگی و اجتماعات محلی.</p>
-          <div class="layer-meta"><code>farhang</code><span>۱۷ مکان</span></div>
-        </article>
-
-        <article class="layer-card" style="--lc:#5C4A2E">
-          <div class="layer-icon">◷</div>
-          <h3>تاریخی و نامگذاری</h3>
-          <p>وضعیت‌های پیشین مکان، بافت تاریخی و نام‌گذاری‌ها.</p>
-          <div class="layer-meta"><code>tarikhi</code><span>۳۳ رکورد</span></div>
-        </article>
-      </div>
+      <div class="home-layers-grid" id="layers-grid"></div>
     </div>
   </section>
 
-  <!-- PLACES -->
+  <!-- ══════════ PLACES ══════════ -->
   <section class="section" id="places">
     <div class="container">
       <header class="section-head">
@@ -2430,333 +178,87 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
           <h2>هر مکان، یک پرونده زنده و قابل استناد</h2>
           <p>هویت پایدار، وضعیت‌های زمانی، لایه‌ها و منابع — همه در یک نمای منسجم.</p>
         </div>
-        <a href="#" class="section-link">
+        <a href="pages/locations.html" class="section-link">
           همه مکان‌ها
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 12H5M11 6l-6 6 6 6"/>
           </svg>
         </a>
       </header>
 
-      <div class="places-grid">
-        <article class="place-card" style="--lc:#2F6B4A">
-          <div class="place-thumb">
-            <span class="place-badge badge-exact"><i aria-hidden="true"></i>دقیق</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag brand">گلزار</span>
-              <span class="ptag">کرمان</span>
-            </div>
-            <h3>گلزار شهدای وادی رحمت</h3>
-            <p class="desc">آرامستان وادی رحمت کرمان؛ محل دفن شهدای دفاع مقدس و یادمان شهدای گمنام.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                ۱۴ شهید
-              </span>
-              <span>۳ منبع</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="place-card" style="--lc:#1E6B72">
-          <div class="place-thumb">
-            <span class="place-badge badge-exact"><i aria-hidden="true"></i>دقیق</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag indigo">یادمان</span>
-              <span class="ptag">تهران</span>
-            </div>
-            <h3>یادمان شهدای هفت تیر</h3>
-            <p class="desc">یادمان شهدای حادثه هفت تیر در تهران؛ محل ثبت رویداد و برگزاری مراسم سالانه.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                ۷۲ شهید
-              </span>
-              <span>۵ منبع</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="place-card" style="--lc:#C4903A">
-          <div class="place-thumb">
-            <span class="place-badge badge-approx"><i aria-hidden="true"></i>تقریبی</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag saffron">شهادت</span>
-              <span class="ptag">خوزستان</span>
-            </div>
-            <h3>محدوده عملیاتی فتح‌المبین</h3>
-            <p class="desc">محدوده جغرافیایی عملیات فتح‌المبین؛ مکان شهادت جمعی از رزمندگان در سال ۶۱.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                بیش از ۱۰۰
-              </span>
-              <span>۱۲ منبع</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="place-card" style="--lc:#2C3E5C">
-          <div class="place-thumb">
-            <span class="place-badge badge-exact"><i aria-hidden="true"></i>دقیق</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag indigo">زندگی</span>
-              <span class="ptag">اصفهان</span>
-            </div>
-            <h3>خانه شهید محمدی</h3>
-            <p class="desc">زادگاه و محل زندگی شهید در اصفهان؛ با اسناد خانوادگی و روایت شفاهی معتبر.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                ۱ شهید
-              </span>
-              <span>۲ منبع</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="place-card" style="--lc:#9C4A2E">
-          <div class="place-thumb">
-            <span class="place-badge badge-area"><i aria-hidden="true"></i>محدوده</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag clay">عملیات</span>
-              <span class="ptag">ایلام</span>
-            </div>
-            <h3>محور عملیاتی میمک</h3>
-            <p class="desc">محور و محدوده عملیاتی میمک؛ شامل چندین نقطه شهادت و مسیر اعزام رزمندگان.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                ۲۸ شهید
-              </span>
-              <span>۸ منبع</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="place-card" style="--lc:#6B4A7A">
-          <div class="place-thumb">
-            <span class="place-badge badge-exact"><i aria-hidden="true"></i>دقیق</span>
-            <span class="pin" aria-hidden="true"></span>
-          </div>
-          <div class="place-body">
-            <div class="place-tags">
-              <span class="ptag">فرهنگی</span>
-              <span class="ptag">مشهد</span>
-            </div>
-            <h3>حسینیه شهدای مشهد</h3>
-            <p class="desc">مرکز فرهنگی و حسینیه؛ محل برگزاری یادواره‌ها و اجتماعات محلی مرتبط با شهدا.</p>
-            <div class="place-foot">
-              <span class="stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                ۹ شهید
-              </span>
-              <span>۳ منبع</span>
-            </div>
-          </div>
-        </article>
-      </div>
+      <div class="home-places-grid" id="places-grid"></div>
     </div>
   </section>
 
-  <!-- EVENTS + PERSONS -->
-  <section class="section section-alt" id="persons">
+  <!-- ══════════ ECOSYSTEM ══════════ -->
+  <section class="home-eco" id="ecosystem">
     <div class="container">
-      <div class="two-col">
+      <div class="home-eco-head">
+        <span class="section-eyebrow" style="justify-content:center;display:inline-flex">جایگاه اطلس</span>
+        <h2>مستقل در اجرا، یکپارچه در معماری</h2>
+        <p>اطلس شهدا صاحب «لایه مکانی» است و هویت پایدار هر مکان را نگه می‌دارد. بقیه‌ی نقش‌های اکوسیستم به‌تدریج و به‌صورت مستقل شکل می‌گیرند و از طریق شناسه‌ی پایدار به اطلس متصل می‌شوند.</p>
+      </div>
 
-        <!-- رویدادها -->
+      <div class="home-eco-grid" id="eco-grid"></div>
+
+      <p class="home-eco-note">
+        هر پروژه‌ی اکوسیستم هویت، داده و مسیر توسعه‌ی خودش را دارد.
+        <strong>اطلس از طریق شناسه و API با آن‌ها یکپارچه می‌شود، نه با تکثیر داده.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ EVENTS + PERSONS (دو ستون) ══════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="home-two-col">
+
+        <!-- رویدادها (مکمل) -->
         <div>
-          <header class="section-head" style="margin-bottom:28px">
+          <header class="section-head" style="margin-bottom:20px">
             <div class="section-head-text">
               <span class="section-eyebrow">گاه‌شمار</span>
-              <h2 style="font-size:26px">رویدادهای اخیر</h2>
+              <h2 style="font-size:24px">رویدادهای مرتبط با مکان</h2>
             </div>
-            <a href="#" class="section-link">همه رویدادها</a>
           </header>
 
-          <div class="events-list">
-            <article class="event-item">
-              <div class="event-date">
-                <div class="day">۱۵</div>
-                <div class="mon">مهر ۱۴۰۴</div>
-              </div>
-              <div class="event-body">
-                <h4>رونمایی از پرونده مکانی شهدای کرمان</h4>
-                <p>پرونده مکانی ۴۲ شهید کرمان با اسناد و منابع معتبر در اطلس منتشر شد.</p>
-                <div class="event-meta">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    کرمان
-                  </span>
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><path d="M12 2v13M8 6l4-4 4 4"/></svg>
-                    به‌روزرسانی داده
-                  </span>
-                </div>
-              </div>
-            </article>
-
-            <article class="event-item">
-              <div class="event-date">
-                <div class="day">۰۸</div>
-                <div class="mon">مهر ۱۴۰۴</div>
-              </div>
-              <div class="event-body">
-                <h4>ثبت محدوده عملیاتی فتح‌المبین</h4>
-                <p>محدوده عملیاتی با ۱۲ منبع معتبر و سطح اطمینان «تقریبی» در اطلس ثبت شد.</p>
-                <div class="event-meta">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    خوزستان
-                  </span>
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><path d="M12 2v13M8 6l4-4 4 4"/></svg>
-                    رکورد جدید
-                  </span>
-                </div>
-              </div>
-            </article>
-
-            <article class="event-item">
-              <div class="event-date">
-                <div class="day">۰۲</div>
-                <div class="mon">مهر ۱۴۰۴</div>
-              </div>
-              <div class="event-body">
-                <h4>به‌روزرسانی پرونده یادمان هفت تیر</h4>
-                <p>اسناد و روایت‌های تازه‌ای درباره ۷۲ شهید حادثه هفت تیر به پرونده اضافه شد.</p>
-                <div class="event-meta">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    تهران
-                  </span>
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><path d="M12 2v13M8 6l4-4 4 4"/></svg>
-                    به‌روزرسانی
-                  </span>
-                </div>
-              </div>
-            </article>
-
-            <article class="event-item">
-              <div class="event-date">
-                <div class="day">۲۵</div>
-                <div class="mon">شهریور ۱۴۰۴</div>
-              </div>
-              <div class="event-body">
-                <h4>انتشار API نسخه ۱ اطلس</h4>
-                <p>سرویس مکانی استاندارد با ۸ نقطه پایانی و schema نسخه‌دار منتشر شد.</p>
-                <div class="event-meta">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
-                    API v1
-                  </span>
-                </div>
-              </div>
-            </article>
+          <div class="guest-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span>این بخش موقتاً در اطلس میزبانی می‌شود. مرجع اصلی: <strong>لایه‌ی زمانی</strong> (به‌زودی).</span>
           </div>
+
+          <div class="home-events-list" id="events-list"></div>
         </div>
 
-        <!-- شهدا -->
+        <!-- شهدا (مکمل) -->
         <div>
-          <header class="section-head" style="margin-bottom:28px">
+          <header class="section-head" style="margin-bottom:20px">
             <div class="section-head-text">
               <span class="section-eyebrow">چهره‌ها</span>
-              <h2 style="font-size:26px">شهدای اخیر</h2>
+              <h2 style="font-size:24px">شهدای مرتبط با مکان</h2>
             </div>
-            <a href="#" class="section-link">همه شهدا</a>
           </header>
 
-          <div class="persons-list">
-            <a href="#" class="person-item">
-              <div class="person-avatar">م</div>
-              <div class="person-info">
-                <h4>شهید محمود کاوه</h4>
-                <p>مشهد · فرمانده تیپ ویژه شهدا</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
-
-            <a href="#" class="person-item">
-              <div class="person-avatar">ح</div>
-              <div class="person-info">
-                <h4>شهید حسین خرازی</h4>
-                <p>اصفهان · فرمانده لشکر ۱۴ امام حسین</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
-
-            <a href="#" class="person-item">
-              <div class="person-avatar">ب</div>
-              <div class="person-info">
-                <h4>شهید مهدی baker</h4>
-                <p>تهران · فرمانده قرارگاه نجف</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
-
-            <a href="#" class="person-item">
-              <div class="person-avatar">ی</div>
-              <div class="person-info">
-                <h4>شهید یوسف کلاهدوز</h4>
-                <p>قوچان · قائم‌مقام فرمانده سپاه</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
-
-            <a href="#" class="person-item">
-              <div class="person-avatar">ع</div>
-              <div class="person-info">
-                <h4>شهید علی صیاد شیرازی</h4>
-                <p>درگز · فرمانده نیروی زمینی ارتش</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
-
-            <a href="#" class="person-item">
-              <div class="person-avatar">ا</div>
-              <div class="person-info">
-                <h4>شهید ابراهیم همت</h4>
-                <p>شهرضا · فرمانده لشکر ۲۷ محمد رسول‌الله</p>
-              </div>
-              <div class="person-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-            </a>
+          <div class="guest-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span>این بخش موقتاً در اطلس میزبانی می‌شود. مرجع اصلی: <strong>لایه‌ی هویتی</strong> (به‌زودی).</span>
           </div>
+
+          <div class="home-persons-list" id="persons-list"></div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ROUTES -->
-  <section class="section">
+  <!-- ══════════ ROUTES ══════════ -->
+  <section class="section section-alt">
     <div class="container">
       <header class="section-head">
         <div class="section-head-text">
@@ -2764,149 +266,33 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
           <h2>همه اطلاعات جغرافیایی، نقطه نیستند</h2>
           <p>مسیرهای زندگی، اعزام، عملیات و زیارت — با ترتیب و جهت مشخص.</p>
         </div>
-        <a href="#" class="section-link">همه مسیرها</a>
+        <a href="pages/routes.html" class="section-link">همه مسیرها</a>
       </header>
 
-      <div class="routes-grid">
-        <article class="route-card">
-          <div class="route-pattern" aria-hidden="true"></div>
-          <div class="route-content">
-            <span class="route-tag">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-              مسیر زندگی
-            </span>
-            <h3>مسیر جغرافیایی شهید محمود کاوه</h3>
-            <p>از زادگاه در مشهد تا محل شهادت در منطقه عملیاتی، همراه با ۹ نقطه ثبت‌شده.</p>
-            <div class="route-stops">
-              <div class="route-stop">زادگاه</div>
-              <div class="route-stop">تحصیل</div>
-              <div class="route-stop">اعزام</div>
-              <div class="route-stop">شهادت</div>
-            </div>
-            <div class="route-foot">
-              <span>۹ نقطه · ۴ منبع</span>
-              <span>۱۴۰۴/۰۷/۱۵</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="route-card">
-          <div class="route-pattern" aria-hidden="true"></div>
-          <div class="route-content">
-            <span class="route-tag saffron">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-              مسیر اعزام
-            </span>
-            <h3>محور اعزام استان کرمان به جبهه‌های جنوب</h3>
-            <p>مسیر حرکت کاروان‌های اعزام از کرمان به اهواز و سپس مناطق عملیاتی جنوب.</p>
-            <div class="route-stops">
-              <div class="route-stop">کرمان</div>
-              <div class="route-stop">راور</div>
-              <div class="route-stop">اهواز</div>
-              <div class="route-stop">جبهه</div>
-            </div>
-            <div class="route-foot">
-              <span>۷ نقطه · ۶ منبع</span>
-              <span>۱۴۰۴/۰۶/۲۸</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="route-card">
-          <div class="route-pattern" aria-hidden="true"></div>
-          <div class="route-content">
-            <span class="route-tag clay">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              مسیر زیارت
-            </span>
-            <h3>مسیر زیارتی گلزارهای شهدای اصفهان</h3>
-            <p>اتصال ۵ گلزار شهدا در استان اصفهان برای زیارت و پژوهش میدانی.</p>
-            <div class="route-stops">
-              <div class="route-stop">گلستان</div>
-              <div class="route-stop">دستگرد</div>
-              <div class="route-stop">نجف‌آباد</div>
-              <div class="route-stop">شهرضا</div>
-            </div>
-            <div class="route-foot">
-              <span>۵ نقطه · ۳ منبع</span>
-              <span>۱۴۰۴/۰۶/۱۲</span>
-            </div>
-          </div>
-        </article>
-      </div>
+      <div class="home-routes-grid" id="routes-grid"></div>
     </div>
   </section>
 
-  <!-- STORIES -->
-  <section class="section section-alt">
-    <div class="container">
-      <header class="section-head">
-        <div class="section-head-text">
-          <span class="section-eyebrow">روایت‌ها</span>
-          <h2>از داده خام به روایت قابل فهم</h2>
-          <p>روایت، مکمل داده است — نه جایگزین آن. هر روایت با منبع و زمینه منتشر می‌شود.</p>
-        </div>
-      </header>
-
-      <div class="stories-grid">
-        <article class="story-card">
-          <div class="story-quote">”</div>
-          <p>خانه‌ی پدری‌اش در کوچه‌ای باریک بود که هنوز هم بوی نان و یاس می‌دهد. از همان‌جا بود که هر صبح با دوچرخه به مدرسه می‌رفت و برمی‌گشت...</p>
-          <div class="story-author">
-            <div class="story-author-avatar">ف</div>
-            <div class="story-author-info">
-              <strong>روایت خانوادگی</strong>
-              <small>خانواده شهید · کرمان</small>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-quote">”</div>
-          <p>آن شب تا صبح بیدار بود. نقشه‌ی عملیات را روی زمین پهن کرده بود و با انگشت روی نقطه‌ای می‌کوبید که هیچ‌کس نمی‌دانست کجاست...</p>
-          <div class="story-author">
-            <div class="story-author-avatar">ه</div>
-            <div class="story-author-info">
-              <strong>روایت همرزم</strong>
-              <small>همرزم شهید · خوزستان</small>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-quote">”</div>
-          <p>وقتی برای اولین بار به محدوده رسیدیم، فقط یک درخت کهنسال بود که سایه‌اش را روی زمین پهن می‌کرد. حالا آن نقطه روی نقشه ما ثبت شده است...</p>
-          <div class="story-author">
-            <div class="story-author-avatar">پ</div>
-            <div class="story-author-info">
-              <strong>روایت پژوهشگر</strong>
-              <small>پژوهش میدانی · ایلام</small>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
+  <!-- ══════════ CTA ══════════ -->
   <section class="section-tight">
     <div class="container">
-      <div class="cta">
-        <div class="cta-content">
+      <div class="home-cta">
+        <div class="home-cta-content">
           <h2>هر مکان، یک پرونده زنده و قابل استناد</h2>
           <p>اگر پژوهشگر، خانواده شهید یا علاقه‌مند به جغرافیای شهدا هستید، به اطلس بپیوندید و در ساختن این مرجع سهیم شوید.</p>
-          <div class="cta-actions">
-            <a href="#" class="btn btn-primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="home-cta-actions">
+            <a href="pages/contribute.html" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 5v14M5 12h14"/>
               </svg>
               مشارکت در اطلس
             </a>
-            <a href="#" class="btn btn-secondary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+            <a href="pages/plan.html" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
               </svg>
-              مطالعه سند طرح جامع
+              مطالعه سند جامع
             </a>
           </div>
         </div>
@@ -2916,320 +302,212 @@ html[dir="rtl"] .mobile-menu-in { transform: translateX(-100%); }
 
 </main>
 
-<!-- ══════════════ FOOTER ══════════════ -->
-<footer class="footer">
-  <div class="container">
+<!-- ═══════ FOOTER (از components.js) ═══════ -->
+<div id="site-footer"></div>
 
-    <!-- ردیف بالا -->
-    <div class="footer-top">
-      <div class="footer-brand-block">
-        <div class="footer-brand">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/>
-              <path d="M9 7v13M15 4v13"/>
-              <circle cx="12" cy="11" r="1.4" fill="currentColor" stroke="none"/>
-            </svg>
-          </span>
-          <div class="footer-brand-text">
-            <strong>اطلس شهدا</strong>
-            <small>مرجع مکانی جغرافیا</small>
-          </div>
-        </div>
-        <p>سامانه تخصصی جغرافیای مرتبط با شهدا؛ پیوند انسان، مکان و زمان در یک مرجع قابل استناد و پایدار.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="ایمیل">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="گیت‌هاب">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="تلگرام">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22 3 2 11l5 2 2 7 3.5-4L18 20l4-17z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="اینستاگرام">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="footer-map-block">
-        <div class="footer-map-title">پوشش جغرافیایی</div>
-        <div class="footer-map">
-          <div class="footer-map-dots">
-            <span class="footer-map-dot" style="top:30%;left:58%"></span>
-            <span class="footer-map-dot brand" style="top:45%;left:35%"></span>
-            <span class="footer-map-dot clay" style="top:55%;left:48%"></span>
-            <span class="footer-map-dot" style="top:38%;left:70%"></span>
-            <span class="footer-map-dot brand" style="top:62%;left:62%"></span>
-            <span class="footer-map-dot" style="top:25%;left:48%"></span>
-          </div>
-          <span class="footer-map-label">۲۴ استان · ۱٬۲۴۷ مکان</span>
-        </div>
-      </div>
-
-      <div class="footer-newsletter">
-        <h4>خبرنامه اطلس</h4>
-        <p>از آخرین مکان‌ها، رویدادها و روایت‌های ثبت‌شده در اطلس باخبر شوید.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('ایمیل شما ثبت شد (نمایشی)');">
-          <input type="email" placeholder="نشانی ایمیل شما" aria-label="ایمیل" required>
-          <button type="submit">عضویت</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- ردیف وسط -->
-    <div class="footer-mid">
-      <div class="footer-col">
-        <h5>محصول</h5>
-        <ul>
-          <li><a href="#map">نقشه تعاملی</a></li>
-          <li><a href="#layers">لایه‌های اطلاعاتی</a></li>
-          <li><a href="#places">پرونده مکان</a></li>
-          <li><a href="#persons">پرونده شهید</a></li>
-          <li><a href="#">مسیرها و محدوده‌ها</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>منابع</h5>
-        <ul>
-          <li><a href="#">سند طرح جامع</a></li>
-          <li><a href="#">مدل داده کامل</a></li>
-          <li><a href="#">قرارداد API v1</a></li>
-          <li><a href="#">واژه‌نامه رسمی</a></li>
-          <li><a href="#">استانداردها و مراجع</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>مجموعه</h5>
-        <ul>
-          <li><a href="#">شهیدپورتال</a></li>
-          <li><a href="#">تقویم شهدا</a></li>
-          <li><a href="#">پاتوق شهدا</a></li>
-          <li><a href="#">ودجا</a></li>
-          <li><a href="#">پروژه‌های آینده</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>ارتباط</h5>
-        <ul>
-          <li><a href="#">درباره اطلس</a></li>
-          <li><a href="#">مشارکت عمومی</a></li>
-          <li><a href="#">گردش بررسی داده</a></li>
-          <li><a href="#">سیاست حریم خصوصی</a></li>
-          <li><a href="#">تماس با ما</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ردیف پایین -->
-    <div class="footer-bottom">
-      <span>© ۱۴۰۴ اطلس شهدا · سند مرجع زنده · نسخه ۱.۰</span>
-      <div class="footer-bottom-links">
-        <a href="#">شرایط استفاده</a>
-        <a href="#">حریم خصوصی</a>
-        <a href="#">دسترس‌پذیری</a>
-      </div>
-    </div>
-
-  </div>
-</footer>
-
-<!-- ══════════════ SCRIPTS ══════════════ -->
+<!-- ═══════ SCRIPTS ═══════ -->
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/app.js"></script>
+
+<!-- ═══════ RENDERING ═══════ -->
 <script>
+/* رندر کردن بخش‌های داینامیک صفحه‌ی نخست با داده‌ی data.js */
 (function () {
   'use strict';
+  var D = window.ATLAS || {};
 
-  /* ---------- Mobile Menu ---------- */
-  var navToggle = document.getElementById('navToggle');
-  var menuClose = document.getElementById('menuClose');
-  var mobileMenu = document.getElementById('mobileMenu');
-
-  function openMenu() {
-    mobileMenu.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMenu() {
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  navToggle && navToggle.addEventListener('click', openMenu);
-  menuClose && menuClose.addEventListener('click', closeMenu);
-  mobileMenu && mobileMenu.addEventListener('click', function (e) {
-    if (e.target === mobileMenu) closeMenu();
-  });
-  mobileMenu && mobileMenu.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  /* ---------- Filter Chips ---------- */
-  document.querySelectorAll('.filter-chip').forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      chip.classList.toggle('on');
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
     });
-  });
+  }
 
-  /* ---------- Animated Counter ---------- */
-  var counters = document.querySelectorAll('[data-count]');
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ─────── کارت‌های لایه ─────── */
+  function renderLayers() {
+    var root = document.getElementById('layers-grid');
+    if (!root || !D.layers) return;
+    root.innerHTML = D.layers.map(function (l) {
+      return ''
+        + '<article class="home-layer-card" style="--lc:' + l.color + '">'
+        +   '<div class="home-layer-icon">' + l.icon + '</div>'
+        +   '<h3>' + esc(l.name) + '</h3>'
+        +   '<p>' + esc(l.desc) + '</p>'
+        +   '<div class="home-layer-meta">'
+        +     '<code>' + esc(l.slug) + '</code>'
+        +     '<span>' + toFa(l.count) + ' مکان</span>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
 
+  /* ─────── کارت‌های مکان ─────── */
+  function renderPlaces() {
+    var root = document.getElementById('places-grid');
+    if (!root || !D.locations) return;
+    var picks = D.locations.slice(0, 4);
+    root.innerHTML = picks.map(function (p) {
+      var layer = (D.layers || []).find(function (x) { return x.slug === p.layer; }) || {};
+      var color = layer.color || '#3D5A3D';
+      var layerName = layer.name || p.layer;
+      var badgeClass = 'badge-' + (p.confidence === 'exact' ? 'exact' :
+                                    p.confidence === 'approx' ? 'approx' :
+                                    p.confidence === 'area' ? 'area' : 'unknown');
+      var confText = p.confidence === 'exact' ? 'دقیق' :
+                     p.confidence === 'approx' ? 'تقریبی' :
+                     p.confidence === 'area' ? 'محدوده' : 'نامعلوم';
+      return ''
+        + '<article class="home-place-card" style="--lc:' + color + '">'
+        +   '<div class="home-place-thumb">'
+        +     '<span class="home-place-badge ' + badgeClass + '"><i aria-hidden="true"></i>' + confText + '</span>'
+        +     '<span class="pin" aria-hidden="true"></span>'
+        +   '</div>'
+        +   '<div class="home-place-body">'
+        +     '<div class="home-place-tags">'
+        +       '<span class="tag brand">' + esc(layerName) + '</span>'
+        +       '<span class="tag">' + esc(p.province) + '</span>'
+        +     '</div>'
+        +     '<h3>' + esc(p.name) + '</h3>'
+        +     '<p class="desc">' + esc(p.desc) + '</p>'
+        +     '<div class="home-place-foot">'
+        +       '<span class="stat-item">'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'
+        +         toFa(p.persons) + ' شهید'
+        +       '</span>'
+        +       '<span>' + toFa(p.sources) + ' منبع</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── اکوسیستم ─────── */
+  var ECO_ICONS = {
+    map: '<path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>',
+    users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>'
+  };
+
+  function renderEco() {
+    var root = document.getElementById('eco-grid');
+    if (!root || !D.ecosystem) return;
+    root.innerHTML = D.ecosystem.map(function (n) {
+      var classes = 'home-eco-node' + (n.isCurrent ? ' active' : '') + (n.status === 'future' ? ' future' : '');
+      var iconPath = ECO_ICONS[n.icon] || ECO_ICONS.map;
+      return ''
+        + '<article class="' + classes + '">'
+        +   '<div class="home-eco-node-icon">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px">' + iconPath + '</svg>'
+        +   '</div>'
+        +   '<h3>' + esc(n.role) + '</h3>'
+        +   '<p>' + esc(n.desc) + '</p>'
+        +   '<span class="status"><i></i>' + esc(n.statusText) + '</span>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── رویدادها (مکمل) ─────── */
+  function renderEvents() {
+    var root = document.getElementById('events-list');
+    if (!root || !D.events) return;
+    root.innerHTML = D.events.map(function (e) {
+      return ''
+        + '<article class="home-event-item">'
+        +   '<span class="guest-badge">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a10 10 0 0 0 0-20"/></svg>'
+        +     'مکمل'
+        +   '</span>'
+        +   '<div class="home-event-date">'
+        +     '<div class="day">' + esc(e.day) + '</div>'
+        +     '<div class="mon">' + esc(e.month) + '</div>'
+        +   '</div>'
+        +   '<div class="home-event-body">'
+        +     '<h4>' + esc(e.title) + '</h4>'
+        +     '<p>' + esc(e.desc) + '</p>'
+        +     '<div class="home-event-meta">'
+        +       '<span>'
+        +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+        +         esc(e.province)
+        +       '</span>'
+        +       '<span>' + esc(e.type) + '</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── شهدا (مکمل) ─────── */
+  function renderPersons() {
+    var root = document.getElementById('persons-list');
+    if (!root || !D.persons) return;
+    root.innerHTML = D.persons.map(function (p) {
+      return ''
+        + '<a href="#" class="home-person-item" aria-disabled="true">'
+        +   '<span class="guest-badge">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a10 10 0 0 0 0-20"/></svg>'
+        +     'مکمل'
+        +   '</span>'
+        +   '<div class="home-person-avatar">' + esc(p.initial) + '</div>'
+        +   '<div class="home-person-info">'
+        +     '<h4>' + esc(p.name) + '</h4>'
+        +     '<p>' + esc(p.desc) + '</p>'
+        +   '</div>'
+        +   '<div class="home-person-arrow">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>'
+        +   '</div>'
+        + '</a>';
+    }).join('');
+  }
+
+  /* ─────── مسیرها ─────── */
+  function renderRoutes() {
+    var root = document.getElementById('routes-grid');
+    if (!root || !D.routes) return;
+    root.innerHTML = D.routes.map(function (r) {
+      var stops = r.stops.map(function (s) { return '<div class="home-route-stop">' + esc(s) + '</div>'; }).join('');
+      return ''
+        + '<article class="home-route-card">'
+        +   '<div class="home-route-pattern" aria-hidden="true"></div>'
+        +   '<div class="home-route-content">'
+        +     '<span class="home-route-tag ' + (r.typeClass || '') + '">' + esc(r.type) + '</span>'
+        +     '<h3>' + esc(r.title) + '</h3>'
+        +     '<p>' + esc(r.desc) + '</p>'
+        +     '<div class="home-route-stops">' + stops + '</div>'
+        +     '<div class="home-route-foot">'
+        +       '<span>' + toFa(r.points) + ' نقطه · ' + toFa(r.sources) + ' منبع</span>'
+        +       '<span>' + esc(r.updated) + '</span>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  /* ─────── اعداد فارسی ─────── */
   function toFa(n) {
-    return String(n).replace(/\d/g, function (d) {
-      return '۰۱۲۳۴۵۶۷۸۹'[+d];
-    }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+    return String(n)
+      .replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; })
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
   }
 
-  function animateCounter(el) {
-    var target = parseInt(el.getAttribute('data-count'), 10);
-    if (isNaN(target)) return;
-    if (reducedMotion) {
-      el.textContent = toFa(target);
-      return;
-    }
-    var duration = 1400;
-    var start = performance.now();
-    function step(now) {
-      var t = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - t, 3);
-      var current = Math.round(target * eased);
-      el.textContent = toFa(current);
-      if (t < 1) requestAnimationFrame(step);
-      else el.textContent = toFa(target);
-    }
-    requestAnimationFrame(step);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(function (c) { io.observe(c); });
-  } else {
-    counters.forEach(animateCounter);
-  }
-
-  /* ---------- Smooth Anchor Scroll ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var id = a.getAttribute('href');
-      if (id.length < 2) return;
-      var target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      var top = target.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    });
-  });
-
-  /* ---------- Map ---------- */
-  function initMap() {
-    var el = document.getElementById('map');
-    if (!el) return;
-
-    if (typeof maplibregl === 'undefined') {
-      renderMapFallback(el);
-      return;
-    }
-
-    try {
-      var map = new maplibregl.Map({
-        container: el,
-        style: 'https://tiles.openfreemap.org/styles/positron',
-        center: [54.0, 32.5],
-        zoom: 4,
-        attributionControl: false,
-        dragRotate: false,
-        pitchWithRotate: false,
-        cooperativeGestures: true
-      });
-
-      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
-
-      var markers = [
-        { lng: 57.08, lat: 30.28, color: '#2F6B4A', title: 'گلزار وادی رحمت' },
-        { lng: 51.39, lat: 35.70, color: '#1E6B72', title: 'یادمان هفت تیر' },
-        { lng: 48.30, lat: 32.30, color: '#C4903A', title: 'فتح‌المبین' },
-        { lng: 51.67, lat: 32.65, color: '#2C3E5C', title: 'خانه شهید محمدی' },
-        { lng: 46.30, lat: 32.60, color: '#9C4A2E', title: 'میمک' },
-        { lng: 59.60, lat: 36.30, color: '#6B4A7A', title: 'حسینیه مشهد' },
-        { lng: 50.90, lat: 34.60, color: '#3D5A3D', title: 'قم' },
-        { lng: 44.00, lat: 36.20, color: '#6B5424', title: 'اربیل' },
-        { lng: 61.20, lat: 34.30, color: '#5C4A2E', title: 'هرات' },
-        { lng: 52.50, lat: 29.60, color: '#4A6B3A', title: 'شیراز' }
-      ];
-
-      markers.forEach(function (m) {
-        var node = document.createElement('div');
-        node.style.cssText =
-          'width:16px;height:16px;border-radius:50%;' +
-          'background:' + m.color + ';' +
-          'box-shadow:0 0 0 6px ' + m.color + '33, 0 0 0 2px #F5EFE2, 0 2px 6px rgba(42,36,25,.3);' +
-          'cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1);';
-        node.setAttribute('title', m.title);
-        node.addEventListener('mouseenter', function () { node.style.transform = 'scale(1.4)'; });
-        node.addEventListener('mouseleave', function () { node.style.transform = 'scale(1)'; });
-        new maplibregl.Marker({ element: node }).setLngLat([m.lng, m.lat]).addTo(map);
-      });
-
-      map.on('error', function () {
-        if (!el.querySelector('.map-fallback')) renderMapFallback(el);
-      });
-
-    } catch (err) {
-      renderMapFallback(el);
-    }
-  }
-
-  function renderMapFallback(el) {
-    if (el.querySelector('.map-fallback')) return;
-    var fb = document.createElement('div');
-    fb.className = 'map-fallback';
-    var dots = [
-      { top: '30%', left: '58%', c: '' },
-      { top: '45%', left: '35%', c: 'clay' },
-      { top: '55%', left: '48%', c: 'saffron' },
-      { top: '38%', left: '70%', c: 'small' },
-      { top: '62%', left: '62%', c: '' },
-      { top: '25%', left: '48%', c: 'saffron small' },
-      { top: '52%', left: '22%', c: 'clay small' },
-      { top: '68%', left: '40%', c: 'small' }
-    ];
-    var html = '';
-    dots.forEach(function (d) {
-      html += '<span class="dot ' + d.c + '" style="top:' + d.top + ';left:' + d.left + '"></span>';
-    });
-    fb.innerHTML = html;
-    el.appendChild(fb);
+  /* ─────── اجرا ─────── */
+  function run() {
+    renderLayers();
+    renderPlaces();
+    renderEco();
+    renderEvents();
+    renderPersons();
+    renderRoutes();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMap);
+    document.addEventListener('DOMContentLoaded', run);
   } else {
-    initMap();
+    run();
   }
-
 })();
 </script>
+
 </body>
 </html>
