@@ -3,231 +3,130 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="درباره اطلس شهدا — مأموریت، جایگاه در اکوسیستم و اصول بنیادین">
-<meta name="color-scheme" content="light dark">
-<title>درباره اطلس | اطلس شهدا</title>
-
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<meta name="description" content="معرفی اطلس شهدا، مأموریت، جایگاه، اصول داده و راه‌های ارتباط و مشارکت.">
+<meta name="color-scheme" content="light">
+<title>معرفی اطلس شهدا | اطلس شهدا</title>
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/pages.css">
-
 <style>
-.about-page { padding: 32px 0 64px; max-width: 900px; margin: 0 auto; }
-.about-hero { text-align: center; padding: 32px 0 56px; border-bottom: 1px solid var(--line-2); margin-bottom: 48px; }
-.about-hero .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--brand-d);
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-xs);
-}
-.about-hero h1 { font-size: clamp(28px,4vw,42px); font-weight: 900; letter-spacing: -1.2px; margin-bottom: 16px; }
-.about-hero p { color: var(--muted); font-size: 15.5px; line-height: 1.95; max-width: 640px; margin: 0 auto; }
-
-.about-section { margin-bottom: 48px; }
-.about-section h2 {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -.5px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.about-section h2::before {
-  content: '';
-  width: 4px;
-  height: 24px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--brand), var(--saffron));
-}
-.about-section p { font-size: 14.5px; line-height: 1.95; color: var(--ink-2); margin-bottom: 14px; }
-
-.about-quote {
-  padding: 20px 24px;
-  border-inline-start: 4px solid var(--saffron);
-  background: linear-gradient(90deg, var(--saffron-soft), transparent);
-  border-radius: 0 var(--r) var(--r) 0;
-  font-size: 14.5px;
-  line-height: 1.9;
-  color: var(--ink-2);
-  margin: 20px 0;
-}
-.about-quote strong { color: var(--ink); }
-
-.about-eco {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 14px;
-  margin-top: 20px;
-}
-.about-eco-card {
-  padding: 20px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  transition: all var(--dur) var(--ease);
-}
-.about-eco-card:hover { border-color: var(--brand); transform: translateY(-2px); }
-.about-eco-card h4 { font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
-.about-eco-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 0; }
-
-.about-principles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-  margin-top: 20px;
-}
-.about-principle {
-  padding: 20px;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-lg);
-  position: relative;
-  overflow: hidden;
-  transition: all var(--dur) var(--ease);
-}
-.about-principle::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  inset-inline-start: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--brand);
-}
-.about-principle:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.about-principle h4 { font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
-.about-principle p { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 0; }
+.about-page{padding:28px 0 72px}
+.about-hero{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center;padding:44px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(255,252,244,.94),rgba(239,230,210,.78));box-shadow:var(--shadow-md);overflow:hidden}
+.about-hero:before{content:"";position:absolute;inset:0;background:var(--texture-lines);opacity:.45;pointer-events:none}
+.about-hero-copy,.about-hero-art{position:relative;z-index:1}
+.about-hero .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.68);font-size:11px;font-weight:800;color:var(--brand-d)}
+.about-hero h1{margin:18px 0 14px;font-size:clamp(32px,5vw,52px)}
+.about-hero .lead{max-width:680px;font-size:16px;line-height:2.05;color:var(--ink-2)}
+.about-hero-art{display:flex;justify-content:center}
+.about-logo-frame{width:min(300px,75vw);aspect-ratio:1;border-radius:34px;background:rgba(255,255,255,.7);border:1px solid var(--line);display:grid;place-items:center;box-shadow:inset 0 0 0 10px rgba(255,255,255,.28),0 22px 55px rgba(61,52,34,.12);position:relative}
+.about-logo-frame:after{content:"انسان • مکان • زمان • سند";position:absolute;bottom:18px;font-size:11px;font-weight:800;color:var(--brand-d);letter-spacing:.2px}
+.about-logo-frame img{width:68%;height:68%;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(61,90,61,.16))}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0 52px}
+.about-card{padding:24px;background:rgba(255,252,244,.78);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.about-card:before{content:"";position:absolute;top:0;inset-inline:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--saffron),transparent)}
+.about-card .num{font-size:11px;color:var(--saffron-d);font-weight:900}
+.about-card h3{font-size:20px;margin:9px 0 8px}.about-card p{font-size:13px;line-height:1.9;margin:0}
+.about-section{margin:48px 0}
+.about-section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}
+.about-section-head h2{margin:0;font-size:28px}
+.about-section-head p{margin:0;color:var(--muted);font-size:13px}
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.about-panel{padding:26px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.58);box-shadow:var(--shadow-sm)}
+.about-panel h3{font-size:19px;margin-bottom:10px}.about-panel p{font-size:14px;line-height:2;margin:0}
+.about-quote{margin:20px 0;padding:22px 25px;border-radius:0 18px 18px 0;border-inline-start:4px solid var(--saffron);background:linear-gradient(90deg,var(--saffron-soft),rgba(245,239,226,.35));font-size:15px;line-height:2}
+.about-principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.about-principle{padding:20px;background:rgba(255,252,244,.76);border:1px solid var(--line);border-radius:18px}
+.about-principle b{display:block;color:var(--brand-d);margin-bottom:6px}.about-principle p{font-size:12.5px;line-height:1.85;margin:0;color:var(--muted)}
+.about-ecosystem{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.about-eco{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--surface);text-align:center}
+.about-eco strong{display:block;color:var(--brand-d);margin-bottom:5px}.about-eco span{font-size:11.5px;color:var(--muted)}
+.contact-box{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;padding:28px;border-radius:24px;border:1px solid #cdbf9f;background:linear-gradient(135deg,#f7eedc,#ebe0c9);position:relative;overflow:hidden}
+.contact-box:after{content:"✦";position:absolute;left:35px;bottom:-45px;font-size:170px;color:rgba(189,139,53,.08)}
+.contact-box h2{font-size:27px;margin-bottom:10px}.contact-box p{font-size:13.5px;line-height:2;margin:0}
+.contact-list{display:grid;gap:10px}.contact-item{display:flex;align-items:center;gap:11px;padding:13px 15px;border-radius:13px;background:rgba(255,255,255,.65);border:1px solid rgba(61,52,34,.1);font-size:12px;color:var(--ink-2)}
+.contact-item svg{color:var(--brand);flex:none}
+.about-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+@media(max-width:850px){.about-hero{grid-template-columns:1fr;padding:30px;text-align:center}.about-hero .lead{margin-inline:auto}.about-hero-art{order:-1}.about-grid,.about-principles{grid-template-columns:1fr 1fr}.about-story,.contact-box{grid-template-columns:1fr}.about-ecosystem{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.about-hero{padding:22px;border-radius:21px}.about-logo-frame{width:220px}.about-grid,.about-principles,.about-ecosystem{grid-template-columns:1fr}.about-section-head{display:block}.about-section-head p{margin-top:7px}.about-page{padding-top:15px}}
 </style>
 </head>
 <body>
-
 <a class="skip-link" href="#main">پرش به محتوا</a>
 <div id="site-header"></div>
-
 <main id="main">
-  <div class="container about-page">
+<div class="container about-page">
 
-    <header class="about-hero">
-      <span class="eyebrow">
-        <span style="width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)"></span>
-        سند مرجع زنده · نسخه ۱
-      </span>
-      <h1>درباره اطلس شهدا</h1>
-      <p>مرجع مکانی جغرافیای مرتبط با شهدا. محصولی مستقل که هویت پایدار مکان را نگه می‌دارد و اطلاعات را در طول زمان و در لایه‌های مختلف روی همان هویت سازمان می‌دهد.</p>
-    </header>
+<section class="about-hero">
+<div class="about-hero-copy">
+<span class="eyebrow">✦ معرفی رسمی پروژه · سند مرجع زنده</span>
+<h1>اطلس شهدا</h1>
+<p class="lead"><strong>مرجع پیوند انسان، مکان، زمان و سند.</strong> اطلس شهدا یک پروژه مستقل و تخصصی برای ثبت، شناخت و نمایش جغرافیای مرتبط با شهداست؛ جایی که «مکان» هویت پایدار خود را حفظ می‌کند و اطلاعات تاریخی و انسانی در طول زمان روی همان هویت به هم متصل می‌شوند.</p>
+<div class="about-actions">
+<a href="map.html" class="btn btn-primary">کاوش در نقشه</a>
+<a href="plan.html" class="btn btn-secondary">مطالعه طرح جامع</a>
+</div>
+</div>
+<div class="about-hero-art"><div class="about-logo-frame"><img src="../assets/images/logo.png" alt="لوگوی اطلس شهدا"></div></div>
+</section>
 
-    <section class="about-section">
-      <h2>مأموریت</h2>
-      <p>
-        اطلس شهدا سامانه‌ای تخصصی برای شناخت و نمایش جغرافیای مرتبط با شهداست.
-        در این سامانه، «مکان» فقط یک نشانی یا یک نقطه روی نقشه نیست؛
-        هر مکان می‌تواند در دوره‌های مختلف، نقش‌ها، رویدادها، اشخاص، اسناد و روایت‌های متفاوتی داشته باشد.
-        مأموریت اطلس، نگه‌داشتن این تنوع روی یک هویت واحد است.
-      </p>
+<section class="about-grid">
+<article class="about-card"><span class="num">۰۱</span><h3>مکان‌محور</h3><p>هسته اطلس «مکان» است؛ یک شناسه پایدار که با تغییر نام، کاربری یا وضعیت تاریخی از بین نمی‌رود.</p></article>
+<article class="about-card"><span class="num">۰۲</span><h3>زمان‌مند</h3><p>هر وضعیت و رابطه می‌تواند به یک دوره یا بازه زمانی متصل شود تا تاریخ مکان در یک پرونده واحد دیده شود.</p></article>
+<article class="about-card"><span class="num">۰۳</span><h3>قابل استناد</h3><p>منبع، سطح اطمینان و وضعیت بررسی بخشی از مدل داده‌اند؛ نه اطلاعاتی که بعداً به رکورد اضافه شوند.</p></article>
+</section>
 
-      <div class="about-quote">
-        <strong>جمله محوری:</strong> «یک مکان، یک هویت؛ وضعیت‌ها، روایت‌ها و روابط متعدد در طول زمان.»
-      </div>
-    </section>
+<section class="about-section">
+<div class="about-section-head"><div><h2>اطلس برای چه ساخته می‌شود؟</h2><p>از یک نقطه روی نقشه تا یک پرونده کامل مکانی</p></div></div>
+<div class="about-story">
+<div class="about-panel"><h3>مسئله</h3><p>اطلاعات جغرافیایی مرتبط با شهدا معمولاً میان فهرست‌ها، اسناد، نقشه‌ها، روایت‌ها و پروژه‌های مختلف پراکنده است. یک مکان ممکن است نام‌های تاریخی متعدد داشته باشد یا در دوره‌های مختلف نقش متفاوتی پیدا کند. اگر هر سامانه نسخه خودش را از آن مکان بسازد، داده‌ها به‌مرور متناقض و غیرقابل اتکا می‌شوند.</p></div>
+<div class="about-panel"><h3>راه‌حل</h3><p>اطلس یک هویت پایدار برای مکان ایجاد می‌کند و سپس اشخاص، رویدادها، عملیات، مسیرها، اسناد و روایت‌های مرتبط را به همان هویت متصل می‌کند. نتیجه، «پرونده مکانی» است؛ نه فقط یک مختصات روی نقشه.</p></div>
+</div>
+<div class="about-quote"><strong>اصل محوری اطلس:</strong> «یک مکان، یک هویت؛ وضعیت‌ها، روایت‌ها و روابط متعدد در طول زمان.»</div>
+</section>
 
-    <section class="about-section">
-      <h2>سه گزاره هویتی</h2>
-      <div class="about-eco">
-        <div class="about-eco-card">
-          <h4>اطلس چیست؟</h4>
-          <p>مرجع مکانی مجموعه؛ سیستمی که مکان را به انسان، رویداد، سند و زمان پیوند می‌زند.</p>
-        </div>
-        <div class="about-eco-card">
-          <h4>اطلس چه نیست؟</h4>
-          <p>فهرست ساده مختصات، آرشیو تصویر، یا نسخه تکراری سامانه‌های دیگر نیست.</p>
-        </div>
-        <div class="about-eco-card">
-          <h4>اطلس چه می‌دهد؟</h4>
-          <p>پرونده مکانی قابل استناد، نقشه لایه‌ای، جست‌وجوی چندوجهی و سرویس مکانی استاندارد.</p>
-        </div>
-      </div>
-    </section>
+<section class="about-section">
+<div class="about-section-head"><div><h2>چه چیزهایی در اطلس به هم می‌رسند؟</h2><p>ساختار داده برای جلوگیری از جزیره‌ای شدن اطلاعات</p></div></div>
+<div class="about-principles">
+<div class="about-principle"><b>شخص ↔ مکان</b><p>زادگاه، محل زندگی، تحصیل، فعالیت، شهادت یا دفن.</p></div>
+<div class="about-principle"><b>رویداد ↔ مکان</b><p>رویدادهای تاریخی و مناسبت‌هایی که یک مکان را درگیر کرده‌اند.</p></div>
+<div class="about-principle"><b>عملیات ↔ مکان</b><p>محدوده‌ها، محورهای عملیاتی و نقاط مرتبط با رخداد.</p></div>
+<div class="about-principle"><b>سند ↔ مکان</b><p>هر ادعای مهم باید مسیر استناد و منبع مشخص داشته باشد.</p></div>
+<div class="about-principle"><b>زمان ↔ وضعیت</b><p>تغییر نام، کاربری، محدوده و نقش مکان بدون شکستن هویت آن.</p></div>
+<div class="about-principle"><b>رابطه ↔ اکوسیستم</b><p>پروژه‌های دیگر از شناسه پایدار و سرویس مکانی استفاده می‌کنند.</p></div>
+</div>
+</section>
 
-    <section class="about-section">
-      <h2>جایگاه در اکوسیستم</h2>
-      <p>
-        اطلس شهدا صاحب «لایه مکانی» است و هویت پایدار هر مکان را نگه می‌دارد.
-        سایر نقش‌های اکوسیستم — لایه هویتی، لایه زمانی و لایه خدمت — به‌تدریج و به‌صورت مستقل شکل می‌گیرند
-        و از طریق شناسه پایدار به اطلس متصل می‌شوند.
-      </p>
-      <div class="about-quote">
-        <strong>قاعده:</strong> «مستقل در اجرا، یکپارچه در معماری، هماهنگ در راهبری، هم‌افزایی در اکوسیستم.»
-      </div>
-      <p>
-        هر پروژه‌ی اکوسیستم هویت، داده و مسیر توسعه‌ی خودش را دارد.
-        اطلس از طریق <strong>شناسه و API</strong> با آن‌ها یکپارچه می‌شود، نه با تکثیر داده.
-      </p>
-    </section>
+<section class="about-section">
+<div class="about-section-head"><div><h2>اصول بنیادین</h2><p>قواعدی که کیفیت اطلس را در بلندمدت حفظ می‌کنند</p></div></div>
+<div class="about-ecosystem">
+<div class="about-eco"><strong>صداقت جغرافیایی</strong><span>عدم نمایش دقت ساختگی</span></div>
+<div class="about-eco"><strong>هویت پایدار</strong><span>شناسه مستقل از نام و وضعیت</span></div>
+<div class="about-eco"><strong>منبع‌مندی</strong><span>ردیابی منشأ هر داده مهم</span></div>
+<div class="about-eco"><strong>مشارکت مسئولانه</strong><span>پیشنهاد جدا از داده تأییدشده</span></div>
+</div>
+</section>
 
-    <section class="about-section">
-      <h2>اصول بنیادین</h2>
-      <div class="about-principles">
-        <div class="about-principle">
-          <h4>۱. مکان‌محوری</h4>
-          <p>مکان هسته مدل است؛ همه چیز به آن گره می‌خورد.</p>
-        </div>
-        <div class="about-principle">
-          <h4>۲. زمان‌مندی</h4>
-          <p>هر اطلاعات مکانی می‌تواند بازه اعتبار و سطح اطمینان زمانی داشته باشد.</p>
-        </div>
-        <div class="about-principle">
-          <h4>۳. لایه‌مندی</h4>
-          <p>اطلاعات روی یک مکان قابل تفکیک، روشن‌وخاموش‌کردن و فیلترشدن است.</p>
-        </div>
-        <div class="about-principle">
-          <h4>۴. هویت پایدار</h4>
-          <p>تغییر نام یا وضعیت، مکان تازه نمی‌سازد.</p>
-        </div>
-        <div class="about-principle">
-          <h4>۵. منبع‌مندی</h4>
-          <p>داده مهم بدون منشأ و وضعیت اعتبار منتشر نمی‌شود.</p>
-        </div>
-        <div class="about-principle">
-          <h4>۶. عدم جعل دقت</h4>
-          <p>مکان نامعلوم با مختصات ساختگی دقیق نمایش داده نمی‌شود.</p>
-        </div>
-      </div>
-    </section>
+<section class="about-section">
+<div class="about-section-head"><div><h2>جایگاه در اکوسیستم</h2><p>مستقل در اجرا، یکپارچه در معماری</p></div></div>
+<div class="about-panel"><p>اطلس شهدا یک محصول مستقل است و مالک «لایه مکانی» مجموعه محسوب می‌شود. <strong>شهیدپورتال، تقویم شهدا، پاتوق شهدا، ودجا و پروژه‌های آینده</strong> می‌توانند از شناسه‌های مکانی و سرویس‌های اطلس استفاده کنند، بدون آنکه داده‌های خود را با اطلس ادغام یا دوباره‌کاری کنند. اتصال مطلوب از مسیر شناسه پایدار، قرارداد داده و API انجام می‌شود.</p></div>
+</section>
 
-    <section class="about-section">
-      <h2>مشارکت</h2>
-      <p>
-        مشارکت عمومی می‌تواند مکان‌های فراموش‌شده را کشف کند، تصاویر و اسناد را تکمیل کند و خطاها را اصلاح کند؛
-        به شرط آنکه گردش بررسی شفاف باشد و «پیشنهاد کاربر» از «داده تأییدشده» جدا بماند.
-      </p>
-      <div style="margin-top:24px">
-        <a href="contribute.html" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg>
-          مشارکت در اطلس
-        </a>
-      </div>
-    </section>
+<section class="about-section" id="contact">
+<div class="contact-box">
+<div><h2>ارتباط با اطلس</h2><p>برای پیشنهاد اصلاح، معرفی یک مکان، ارسال منبع یا گفت‌وگو درباره همکاری و توسعه اطلس، مسیر ارتباطی پروژه در این بخش قرار می‌گیرد. در نسخه‌های بعدی می‌توان فرم ارتباط، سامانه بررسی و کانال‌های رسمی پروژه را به همین نقطه متصل کرد.</p><div class="about-actions"><a href="contribute.html" class="btn btn-primary">ارسال پیشنهاد و مشارکت</a><a href="plan.html" class="btn btn-secondary">مشاهده مسیر توسعه</a></div></div>
+<div class="contact-list">
+<div class="contact-item">svg</div>
+<div class="contact-item">✦ ارتباطات رسمی پروژه از طریق همین صفحه و مسیر مشارکت مدیریت می‌شود.</div>
+<div class="contact-item">✦ هر داده پیشنهادی پیش از تبدیل شدن به داده مرجع باید بررسی و منبع‌سنجی شود.</div>
+</div>
+</div>
+</section>
 
-  </div>
+</div>
 </main>
-
 <div id="site-footer"></div>
-
 <script src="../assets/js/data.js"></script>
 <script src="../assets/js/data-generator.js"></script>
 <script src="../assets/js/components.js"></script>
-
 </body>
 </html>
