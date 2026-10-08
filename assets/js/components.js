@@ -15,7 +15,7 @@
       {href:'pages/routes.html',label:'مسیرها',icon:'route'}
     ]},
     { key:'about', label:'معرفی', icon:'info', href:'pages/about.html' },
-    { key:'contact', label:'ارتباط با ما', icon:'mail', href:'pages/contact.html' }
+    { key:'contact', label:'تماس', icon:'mail', href:'pages/contact.html' }
   ];
 
   var ICONS = {
