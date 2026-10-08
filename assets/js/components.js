@@ -14,12 +14,8 @@
       {href:'pages/layers.html',label:'لایه‌های اطلاعاتی',icon:'layers'},
       {href:'pages/routes.html',label:'مسیرها',icon:'route'}
     ]},
-    { key:'knowledge', label:'دانش اطلس', icon:'book', items:[
-      {href:'pages/about.html',label:'معرفی اطلس',icon:'info'},
-      {href:'pages/plan.html',label:'طرح جامع',icon:'bookmark'},
-      {href:'pages/contribute.html',label:'مشارکت و تکمیل داده',icon:'users'}
-    ]},
-    { key:'contact', label:'ارتباط', icon:'mail', href:'pages/about.html#contact' }
+    { key:'about', label:'معرفی', icon:'info', href:'pages/about.html' },
+    { key:'contact', label:'ارتباط با ما', icon:'mail', href:'pages/contact.html' }
   ];
 
   var ICONS = {
@@ -86,7 +82,7 @@
       +'<nav class="nav" aria-label="ناوبری اصلی">'+desktop+'</nav>'
       +'<div class="header-actions"><a href="'+ROOT+'pages/about.html#search'+'" class="icon-btn" aria-label="جست‌وجو">'+svg('search',18)+'</a><a href="'+ROOT+'pages/contribute.html" class="cta-btn">'+svg('plus',15)+'<span>مشارکت</span></a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
       +'</div></div></header>'
-      +'<div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-in"><div class="mobile-menu-header"><a href="'+ROOT+'" class="brand brand-sm"><span class="brand-mark"><img src="'+LOGO+'" alt=""></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی</small></span></a><button class="mobile-menu-close" id="menuClose" aria-label="بستن">'+svg('close',18)+'</button></div><nav class="mobile-menu-nav">'+mobile+'</nav><a href="'+ROOT+'pages/contribute.html" class="mobile-menu-action primary">'+svg('plus',16)+'<span>مشارکت در اطلس</span></a></div></div>'
+      +'<div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-in"><div class="mobile-menu-header"><a href="'+ROOT+'" class="brand brand-sm"><span class="brand-mark"><img src="'+LOGO+'" alt=""></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی</small></span></a><button class="mobile-menu-close" id="menuClose" aria-label="بستن">'+svg('close',18)+'</button></div><nav class="mobile-menu-nav">'+mobile+'</nav></div></div>'
       +'<nav class="mobile-bottom-nav" aria-label="ناوبری سریع موبایل">'
       +'<a href="'+ROOT+'" class="'+(isActive('')?'active':'')+'">'+svg('home',19)+'<span>خانه</span></a>'
       +'<a href="'+ROOT+'pages/map.html" class="'+(isActive('pages/map.html')?'active':'')+'">'+svg('map',19)+'<span>نقشه</span></a>'
@@ -97,16 +93,14 @@
   }
 
   function renderFooter(){
-    return '<footer class="footer"><div class="footer-pattern" aria-hidden="true"></div><div class="container footer-inner">'
-      +'<div class="footer-hero"><div class="footer-brand"><a href="'+ROOT+'" class="footer-brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"></a><div><strong>اطلس شهدا</strong><small>مرجع مکانی جغرافیا</small></div></div><p>مرجع پیوند <b>انسان، مکان، زمان و سند</b>؛ برای ثبت و شناخت جغرافیای مرتبط با شهدا.</p><a href="'+ROOT+'pages/about.html#contact" class="footer-contact-link">'+svg('mail',15)+' تماس با اطلس '+svg('arrow',14)+'</a></div>'
-      +'<div class="footer-columns"><section><h5>کاوش</h5><a href="'+ROOT+'pages/map.html">'+svg('map',14)+'نقشه اطلس</a><a href="'+ROOT+'pages/locations.html">'+svg('location',14)+'مکان‌ها</a><a href="'+ROOT+'pages/layers.html">'+svg('layers',14)+'لایه‌ها</a><a href="'+ROOT+'pages/routes.html">'+svg('route',14)+'مسیرها</a></section>'
-      +'<section><h5>شناخت اطلس</h5><a href="'+ROOT+'pages/about.html">'+svg('info',14)+'معرفی اطلس</a><a href="'+ROOT+'pages/plan.html">'+svg('book',14)+'طرح جامع</a><a href="'+ROOT+'pages/contribute.html">'+svg('users',14)+'مشارکت</a></section>'
-      +'<section><h5>اصول داده</h5><span>هویت پایدار مکان</span><span>زمان‌مندی و عدم‌قطعیت</span><span>منبع‌مندی و اعتبار</span><span>اتصال‌پذیری بین پروژه‌ها</span></section></div>'
-      +'<div class="footer-stats"><div><b>'+toFa(getStat('locations',1247))+'</b><span>مکان</span></div><i></i><div><b>'+toFa(getStat('layers',10))+'</b><span>لایه</span></div><i></i><div><b>'+toFa(getStat('provinces',31))+'</b><span>استان</span></div><i></i><div><b>'+toFa(getStat('sources',892))+'</b><span>منبع</span></div></div>'
-      +'<div class="footer-bottom"><span>اطلس شهدا · مرجع مکانی جغرافیای مرتبط با شهدا</span><span>نسخه در حال توسعه و تکمیل</span><button id="footerTopBtn" type="button">'+svg('up',14)+' بالا</button></div>'
+    return '<footer class="footer"><div class="container footer-inner">'
+      +'<div class="footer-main"><div class="footer-brand"><a href="'+ROOT+'" class="footer-brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"></a><div><strong>اطلس شهدا</strong><small>مرجع مکانی جغرافیای مرتبط با شهدا</small></div></div><p>مرجع پیوند <b>انسان، مکان، زمان و سند</b>.</p></div>'
+      +'<div class="footer-columns"><section><h5>کاوش</h5><a href="'+ROOT+'pages/map.html">'+svg('map',14)+'نقشه اطلس</a><a href="'+ROOT+'pages/locations.html">'+svg('location',14)+'مکان‌ها</a><a href="'+ROOT+'pages/layers.html">'+svg('layers',14)+'لایه‌های اطلاعاتی</a><a href="'+ROOT+'pages/routes.html">'+svg('route',14)+'مسیرها</a></section>'
+      +'<section><h5>اطلس</h5><a href="'+ROOT+'pages/about.html">'+svg('info',14)+'معرفی اطلس</a><a href="'+ROOT+'pages/search.html">'+svg('search',14)+'جست‌وجوی اطلس</a></section>'
+      +'<section><h5>ارتباط</h5><a href="'+ROOT+'pages/contact.html">'+svg('mail',14)+'ارتباط با ما</a></section></div>'
+      +'<div class="footer-bottom"><span>اطلس شهدا · مرجع مکانی جغرافیای مرتبط با شهدا</span><button id="footerTopBtn" type="button">'+svg('up',14)+' بالا</button></div>'
       +'</div></footer>';
   }
-
   function mount(){
     var h=document.getElementById('site-header'),f=document.getElementById('site-footer');
     if(h)h.outerHTML=renderHeader(); if(f)f.outerHTML=renderFooter();
