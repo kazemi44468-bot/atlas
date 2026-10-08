@@ -8,7 +8,7 @@
 
   var NAV_GROUPS = [
     { key:'home', label:'خانه', href:'' },
-    { key:'explore', label:'کاوش', items:[
+    { key:'explore', label:'کاوش', icon:'compass', items:[
       {href:'pages/map.html',label:'نقشه اطلس'},
       {href:'pages/locations.html',label:'مکان‌ها'},
       {href:'pages/layers.html',label:'لایه‌های اطلاعاتی'},
@@ -78,7 +78,7 @@
     });
 
     return '<header class="header"><div class="container"><div class="header-in">'
-      +'<a href="'+ROOT+'" class="brand" aria-label="اطلس شهدا"><span class="brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"><span class="brand-glow"></span></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی جغرافیا</small></span></a>'
+      +'<a href="'+ROOT+'" class="brand" aria-label="اطلس شهدا"><span class="brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"><span class="brand-glow"></span></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع جغرافیایی و مکانی شهدا</small></span></a>'
       +'<nav class="nav" aria-label="ناوبری اصلی">'+desktop+'</nav>'
       +'<div class="header-actions"><a href="'+ROOT+'pages/search.html" class="icon-btn" aria-label="جست‌وجو">'+svg('search',18)+'</a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
       +'</div></div></header>'
