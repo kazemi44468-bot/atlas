@@ -7,15 +7,15 @@
   var LOGO = ROOT + 'assets/images/logo.png';
 
   var NAV_GROUPS = [
-    { key:'home', label:'خانه', icon:'home', href:'' },
-    { key:'explore', label:'کاوش', icon:'compass', items:[
-      {href:'pages/map.html',label:'نقشه اطلس',icon:'map'},
-      {href:'pages/locations.html',label:'مکان‌ها',icon:'location'},
-      {href:'pages/layers.html',label:'لایه‌های اطلاعاتی',icon:'layers'},
-      {href:'pages/routes.html',label:'مسیرها',icon:'route'}
+    { key:'home', label:'خانه', href:'' },
+    { key:'explore', label:'کاوش', items:[
+      {href:'pages/map.html',label:'نقشه اطلس'},
+      {href:'pages/locations.html',label:'مکان‌ها'},
+      {href:'pages/layers.html',label:'لایه‌های اطلاعاتی'},
+      {href:'pages/routes.html',label:'مسیرها'}
     ]},
-    { key:'about', label:'معرفی', icon:'info', href:'pages/about.html' },
-    { key:'contact', label:'تماس', icon:'mail', href:'pages/contact.html' }
+    { key:'about', label:'معرفی', href:'pages/about.html' },
+    { key:'contact', label:'تماس', href:'pages/contact.html' }
   ];
 
   var ICONS = {
