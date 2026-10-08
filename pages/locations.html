@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="فهرست مکان‌های ثبت‌شده در اطلس شهدا با فیلتر لایه، استان، اطمینان و جست‌وجو">
+<meta name="color-scheme" content="light dark">
+<title>فهرست مکان‌ها | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="container loc-wrap">
+
+    <header class="loc-page-head">
+      <nav class="place-breadcrumb" aria-label="مسیر">
+        <a href="../index.html">خانه</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="current">مکان‌ها</span>
+      </nav>
+      <h1>مکان‌های ثبت‌شده</h1>
+      <p>هر مکان یک هویت پایدار دارد. با فیلتر لایه، استان و سطح اطمینان، مکان‌های مرتبط با جغرافیای شهدا را کاوش کنید.</p>
+    </header>
+
+    <!-- نوار ابزار -->
+    <div class="loc-toolbar">
+      <label class="loc-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input type="search" id="loc-search" placeholder="جست‌وجوی نام مکان، شناسه یا توضیح…" aria-label="جست‌وجو">
+      </label>
+
+      <select class="loc-select" id="loc-province" aria-label="استان">
+        <option value="">همه استان‌ها</option>
+      </select>
+
+      <select class="loc-select" id="loc-confidence" aria-label="سطح اطمینان">
+        <option value="">همه سطوح</option>
+        <option value="exact">دقیق</option>
+        <option value="approx">تقریبی</option>
+        <option value="area">محدوده</option>
+        <option value="unknown">نامعلوم</option>
+      </select>
+
+      <span class="loc-count" id="loc-count">—</span>
+    </div>
+
+    <!-- فیلتر لایه -->
+    <div class="loc-filters" id="loc-layer-filters" role="group" aria-label="فیلتر لایه"></div>
+
+    <!-- گرید -->
+    <div class="loc-grid" id="loc-grid"></div>
+
+    <!-- صفحه‌بندی -->
+    <div class="loc-pagination" id="loc-pagination"></div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  var D = window.ATLAS || {};
+  var allLocations = (D.locations || []).slice();
+  var layers = D.layers || [];
+
+  var state = {
+    query: '',
+    province: '',
+    confidence: '',
+    layers: [],
+    page: 1,
+    perPage: 12
+  };
+
+  function toFa(n) {
+    return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  /* ─── پر کردن select استان ─── */
+  function populateProvinces() {
+    var sel = document.getElementById('loc-province');
+    var provinces = [];
+    allLocations.forEach(function (l) {
+      if (provinces.indexOf(l.province) === -1) provinces.push(l.province);
+    });
+    provinces.sort();
+    provinces.forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = p;
+      o.textContent = p;
+      sel.appendChild(o);
+    });
+  }
+
+  /* ─── چیپ‌های لایه ─── */
+  function renderLayerFilters() {
+    var root = document.getElementById('loc-layer-filters');
+    var all = '<button class="loc-chip on" data-layer="" type="button">همه لایه‌ها</button>';
+    var chips = layers.map(function (l) {
+      return '<button class="loc-chip" data-layer="' + l.slug + '" type="button">'
+        + '<i style="background:' + l.color + '"></i>'
+        + esc(l.name)
+        + '</button>';
+    }).join('');
+    root.innerHTML = all + chips;
+
+    root.querySelectorAll('.loc-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var val = chip.getAttribute('data-layer');
+        if (val === '') {
+          state.layers = [];
+          root.querySelectorAll('.loc-chip').forEach(function (c) { c.classList.remove('on'); });
+          chip.classList.add('on');
+        } else {
+          chip.classList.toggle('on');
+          if (chip.classList.contains('on')) {
+            state.layers.push(val);
+            root.querySelector('.loc-chip[data-layer=""]').classList.remove('on');
+          } else {
+            state.layers = state.layers.filter(function (x) { return x !== val; });
+            if (state.layers.length === 0) {
+              root.querySelector('.loc-chip[data-layer=""]').classList.add('on');
+            }
+          }
+        }
+        state.page = 1;
+        render();
+      });
+    });
+  }
+
+  /* ─── فیلتر ─── */
+  function applyFilters() {
+    return allLocations.filter(function (l) {
+      if (state.query) {
+        var q = state.query.toLowerCase();
+        var hay = (l.name + ' ' + l.id + ' ' + l.desc + ' ' + l.province + ' ' + l.city).toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      if (state.province && l.province !== state.province) return false;
+      if (state.confidence && l.confidence !== state.confidence) return false;
+      if (state.layers.length > 0) {
+        var hasLayer = state.layers.some(function (sl) {
+          return (l.layers || []).indexOf(sl) !== -1;
+        });
+        if (!hasLayer) return false;
+      }
+      return true;
+    });
+  }
+
+  /* ─── کارت ─── */
+  function renderCard(p) {
+    var layer = layers.find(function (x) { return x.slug === p.layer; }) || {};
+    var color = layer.color || '#3D5A3D';
+    var layerName = layer.name || p.layer;
+
+    var confMap = {
+      exact: { text: 'دقیق', cls: 'status-exact' },
+      approx: { text: 'تقریبی', cls: 'status-approx' },
+      area: { text: 'محدوده', cls: 'status-area' },
+      unknown: { text: 'نامعلوم', cls: 'status-unknown' }
+    };
+    var conf = confMap[p.confidence] || confMap.unknown;
+
+    return ''
+      + '<a href="place.html?id=' + encodeURIComponent(p.id) + '" class="loc-card" style="--lc:' + color + '">'
+      +   '<div class="loc-card-thumb">'
+      +     '<span class="loc-card-badge ' + conf.cls + '"><i></i>' + conf.text + '</span>'
+      +     '<span class="loc-card-id">' + esc(p.id) + '</span>'
+      +     '<span class="pin" aria-hidden="true"></span>'
+      +   '</div>'
+      +   '<div class="loc-card-body">'
+      +     '<div class="loc-card-tags">'
+      +       '<span class="tag brand">' + esc(layerName) + '</span>'
+      +       '<span class="tag">' + esc(p.province) + '</span>'
+      +     '</div>'
+      +     '<h3>' + esc(p.name) + '</h3>'
+      +     '<p class="desc">' + esc(p.desc) + '</p>'
+      +     '<div class="loc-card-foot">'
+      +       '<span>' + toFa(p.persons) + ' شهید · ' + toFa(p.sources) + ' منبع</span>'
+      +       '<span>' + esc(p.city) + '</span>'
+      +     '</div>'
+      +   '</div>'
+      + '</a>';
+  }
+
+  /* ─── رندر گرید + صفحه‌بندی ─── */
+  function render() {
+    var filtered = applyFilters();
+    var grid = document.getElementById('loc-grid');
+    var countEl = document.getElementById('loc-count');
+    var pag = document.getElementById('loc-pagination');
+
+    countEl.textContent = toFa(filtered.length) + ' مکان';
+
+    if (filtered.length === 0) {
+      grid.innerHTML = ''
+        + '<div class="loc-empty">'
+        +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>'
+        +   '<h3>مکانی یافت نشد</h3>'
+        +   '<p>فیلترها را تغییر دهید یا با عبارت دیگری جست‌وجو کنید.</p>'
+        + '</div>';
+      pag.innerHTML = '';
+      return;
+    }
+
+    var totalPages = Math.ceil(filtered.length / state.perPage);
+    if (state.page > totalPages) state.page = totalPages;
+    var start = (state.page - 1) * state.perPage;
+    var slice = filtered.slice(start, start + state.perPage);
+
+    grid.innerHTML = slice.map(renderCard).join('');
+
+    // صفحه‌بندی
+    if (totalPages <= 1) {
+      pag.innerHTML = '';
+      return;
+    }
+    var html = '';
+    html += '<button class="loc-page-btn" data-page="prev" ' + (state.page === 1 ? 'disabled' : '') + '>›</button>';
+    for (var i = 1; i <= totalPages; i++) {
+      html += '<button class="loc-page-btn' + (i === state.page ? ' active' : '') + '" data-page="' + i + '">' + toFa(i) + '</button>';
+    }
+    html += '<button class="loc-page-btn" data-page="next" ' + (state.page === totalPages ? 'disabled' : '') + '>‹</button>';
+    pag.innerHTML = html;
+
+    pag.querySelectorAll('.loc-page-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var p = btn.getAttribute('data-page');
+        if (p === 'prev') state.page = Math.max(1, state.page - 1);
+        else if (p === 'next') state.page = Math.min(totalPages, state.page + 1);
+        else state.page = parseInt(p, 10);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ─── رویدادها ─── */
+  function bindEvents() {
+    var searchInput = document.getElementById('loc-search');
+    var timer;
+    searchInput.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        state.query = searchInput.value.trim();
+        state.page = 1;
+        render();
+      }, 200);
+    });
+
+    document.getElementById('loc-province').addEventListener('change', function (e) {
+      state.province = e.target.value;
+      state.page = 1;
+      render();
+    });
+
+    document.getElementById('loc-confidence').addEventListener('change', function (e) {
+      state.confidence = e.target.value;
+      state.page = 1;
+      render();
+    });
+  }
+
+  function run() {
+    populateProvinces();
+    renderLayerFilters();
+    bindEvents();
+    render();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
+
+</body>
+</html>
