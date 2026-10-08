@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ارتباط با اطلس شهدا؛ پیشنهاد، اصلاح اطلاعات، معرفی منبع و ارتباط درباره توسعه پروژه.">
+<title>ارتباط با ما | اطلس شهدا</title>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+<style>
+.contact-page{padding:28px 0 72px}
+.contact-hero{padding:28px 0 30px}
+.contact-hero h1{font-size:clamp(30px,4.5vw,48px);margin:12px 0 10px}
+.contact-hero p{max-width:720px;color:var(--muted);font-size:14px;line-height:2}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+.contact-form,.contact-side{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm)}
+.contact-form{padding:24px}
+.contact-form h2,.contact-side h2{font-size:20px;margin-bottom:7px}
+.contact-form>p,.contact-side>p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-field{display:grid;gap:6px}.form-field.full{grid-column:1/-1}
+.form-field label{font-size:11px;font-weight:800;color:var(--ink-2)}
+.form-field textarea{min-height:150px}
+.contact-submit{margin-top:14px;padding:11px 18px;border-radius:10px;background:var(--brand);color:#fff;font-weight:800}
+.contact-note{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--paper-2);font-size:10.5px;color:var(--muted);line-height:1.8}
+.contact-side{padding:24px;background:linear-gradient(145deg,#f5ecdc,#ece1ca)}
+.contact-items{display:grid;gap:9px}
+.contact-item{display:flex;gap:10px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.62);border:1px solid rgba(61,52,34,.1);border-radius:12px}
+.contact-item-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:9px;background:#f7f1e5;color:var(--brand);flex:none}
+.contact-item strong{display:block;font-size:12px;margin-bottom:2px}
+.contact-item span{font-size:10.5px;color:var(--muted);line-height:1.7}
+.contact-principles{margin-top:20px;padding-top:18px;border-top:1px solid rgba(61,52,34,.12)}
+.contact-principles h3{font-size:13px;margin-bottom:8px}
+.contact-principles ul{padding-inline-start:18px;margin:0;color:var(--muted);font-size:11px;line-height:2}
+@media(max-width:800px){.contact-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">پرش به محتوا</a>
+<div id="site-header"></div>
+<main id="main"><div class="container contact-page">
+<header class="contact-hero">
+<nav class="place-breadcrumb" aria-label="مسیر"><a href="../index.html">خانه</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="current">ارتباط با ما</span></nav>
+<h1>ارتباط با ما</h1>
+<p>این صفحه مسیر رسمی ارتباط با پروژه است؛ برای اصلاح اطلاعات، معرفی مکان و منبع، طرح پرسش، پیشنهاد توسعه یا گفت‌وگو درباره همکاری.</p>
+</header>
+<div class="contact-grid">
+<section class="contact-form"><h2>پیام خود را ارسال کنید</h2><p>پیام شما در نسخه فعلی در همین رابط ثبت نمی‌شود؛ این فرم ساختار آماده اتصال به سرویس ارتباطی پروژه را فراهم می‌کند.</p>
+<div class="form-grid">
+<div class="form-field"><label for="name">نام و نام خانوادگی</label><input id="name" type="text" placeholder="نام شما"></div>
+<div class="form-field"><label for="email">ایمیل</label><input id="email" type="email" placeholder="ایمیل شما"></div>
+<div class="form-field full"><label for="subject">موضوع</label><select id="subject"><option>اصلاح یا تکمیل اطلاعات</option><option>معرفی مکان</option><option>ارسال منبع</option><option>پیشنهاد توسعه</option><option>پرسش و ارتباط عمومی</option></select></div>
+<div class="form-field full"><label for="message">متن پیام</label><textarea id="message" placeholder="پیام خود را بنویسید…"></textarea></div>
+</div>
+<button id="contactSubmit" class="contact-submit" type="button">آماده‌سازی پیام</button>
+<div id="contactNote" class="contact-note">فرم فعلاً نمایشی است و بعداً می‌توان آن را به ایمیل، API یا سامانه مدیریت پیام متصل کرد.</div>
+</section>
+<aside class="contact-side">
+<h2>چه مواردی را می‌توانید مطرح کنید؟</h2><p>ارتباطات اطلس باید قابل بررسی، دقیق و مبتنی بر منبع باشد.</p>
+<div class="contact-items">
+<div class="contact-item"><span class="contact-item-icon">⌖</span><div><strong>معرفی یک مکان</strong><span>مکان جدید یا اصلاح موقعیت و مشخصات یک مکان موجود.</span></div></div>
+<div class="contact-item"><span class="contact-item-icon">◫</span><div><strong>منبع و سند</strong><span>معرفی کتاب، سند، آرشیو یا منبع معتبر مرتبط با یک رکورد.</span></div></div>
+<div class="contact-item"><span class="contact-item-icon">✎</span><div><strong>اصلاح اطلاعات</strong><span>گزارش خطا یا اطلاعاتی که نیازمند بررسی دوباره است.</span></div></div>
+<div class="contact-item"><span class="contact-item-icon">↗</span><div><strong>توسعه و همکاری</strong><span>پیشنهاد فنی، پژوهشی یا همکاری در توسعه اطلس.</span></div></div>
+</div>
+<div class="contact-principles"><h3>قاعده ارتباط</h3><ul><li>اطلاعات پیشنهادی پیش از تبدیل شدن به داده مرجع بررسی می‌شود.</li><li>ادعاهای مهم باید تا حد امکان منبع و مسیر استناد داشته باشند.</li><li>اطلس میان داده تأییدشده و پیشنهادهای در حال بررسی تفکیک قائل می‌شود.</li></ul></div>
+</aside>
+</div>
+</div></main>
+<div id="site-footer"></div>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/data-generator.js"></script>
+<script src="../assets/js/components.js"></script>
+<script>
+(function(){
+var b=document.getElementById('contactSubmit'),n=document.getElementById('contactNote');
+if(b)b.onclick=function(){n.textContent='پیام شما آماده اتصال به مسیر ارتباطی پروژه است. در نسخه فعلی ارسال واقعی فعال نشده است.'};
+})();
+</script>
+</body>
+</html>
