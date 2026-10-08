@@ -202,6 +202,18 @@ html[dir="rtl"] .map-layer-toggle input:checked::after {
   margin-bottom: 8px;
   direction: ltr;
 }
+<style>
+.map-tools{border-top:1px solid var(--line);padding-top:14px}
+.route-pick-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.route-pick,.route-location{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px;font:inherit;font-size:11px;font-weight:800;color:var(--ink-2);cursor:pointer}
+.route-pick.active{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-d)}
+.route-location{margin-top:7px;color:var(--brand-d)}
+.route-result{margin-top:9px;padding:9px;border-radius:9px;background:var(--paper-2);font-size:11px;line-height:1.8;color:var(--muted)}
+.nearby-result{margin-top:8px;display:grid;gap:5px}
+.nearby-item{display:flex;justify-content:space-between;gap:8px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.65);font-size:10.5px}
+.nearby-item b{color:var(--ink)}
+@media(max-width:900px){.map-tools{margin-top:0}}
+</style>
 </style>
 </head>
 <body>
@@ -233,6 +245,17 @@ html[dir="rtl"] .map-layer-toggle input:checked::after {
           <div id="map-layers-toggles"></div>
         </div>
 
+        <div class="map-panel-section map-tools">
+          <div class="map-panel-label">فاصله و مسیر</div>
+          <div class="route-pick-grid">
+            <button type="button" id="pickA" class="route-pick">نقطه مبدأ</button>
+            <button type="button" id="pickB" class="route-pick">نقطه مقصد</button>
+          </div>
+          <button type="button" id="useMyLocation" class="route-location">موقعیت فعلی من</button>
+          <div id="route-result" class="route-result">دو نقطه را روی نقشه انتخاب کنید.</div>
+          <div id="nearby-result" class="nearby-result"></div>
+        </div>
+
         <div class="map-panel-section">
           <div class="map-panel-label">پیوند</div>
           <a href="locations.html" class="btn btn-secondary btn-sm" style="width:100%;justify-content:center">
@@ -249,6 +272,7 @@ html[dir="rtl"] .map-layer-toggle input:checked::after {
 <div id="site-footer"></div>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/mapbox-gl-rtl-text.js"></script>
 <script src="../assets/js/data.js"></script>
 <script src="../assets/js/data-generator.js"></script>
 <script src="../assets/js/components.js"></script>
@@ -322,8 +346,15 @@ html[dir="rtl"] .map-layer-toggle input:checked::after {
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
+      if (maplibregl.setRTLTextPlugin && typeof maplibregl.getRTLTextPluginStatus === 'function') {
+        maplibregl.setRTLTextPlugin('https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/mapbox-gl-rtl-text.js', null, true);
+      }
       map.on('load', function () {
         updateMap();
+      });
+
+      map.on('click',function(e){
+        if(pickMode){setPoint(pickMode,[e.lngLat.lng,e.lngLat.lat]);pickMode=null;document.getElementById('pickA').classList.remove('active');document.getElementById('pickB').classList.remove('active');}
       });
 
       map.on('error', function () {});
@@ -377,7 +408,44 @@ html[dir="rtl"] .map-layer-toggle input:checked::after {
     });
   }
 
+  var pointA = null, pointB = null, pickMode = null, pointMarkers = [];
+  function haversine(a,b){
+    var R=6371, p1=a[1]*Math.PI/180,p2=b[1]*Math.PI/180,dp=(b[1]-a[1])*Math.PI/180,dl=(b[0]-a[0])*Math.PI/180;
+    var x=Math.sin(dp/2)*Math.sin(dp/2)+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)*Math.sin(dl/2);
+    return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  }
+  function fmtDistance(km){return km<1 ? toFa(Math.round(km*1000))+' متر' : toFa(km.toFixed(1))+' کیلومتر';}
+  function drawLine(a,b,geojson){
+    if(!map)return;
+    var data=geojson||{type:'Feature',geometry:{type:'LineString',coordinates:[a,b]}};
+    if(map.getSource('atlas-route')) map.getSource('atlas-route').setData(data);
+    else { map.addSource('atlas-route',{type:'geojson',data:data}); map.addLayer({id:'atlas-route-line',type:'line',source:'atlas-route',paint:{'line-color':'#3D5A3D','line-width':4,'line-opacity':.8,'line-dasharray':[1,1.5]}}); }
+  }
+  function placePointMarker(coord,label){
+    var el=document.createElement('div');el.style.cssText='width:18px;height:18px;border-radius:50%;background:#fff;border:4px solid #3D5A3D;box-shadow:0 2px 9px rgba(0,0,0,.25)';
+    var mm=new maplibregl.Marker({element:el}).setLngLat(coord).setPopup(new maplibregl.Popup({offset:12}).setText(label)).addTo(map);pointMarkers.push(mm);
+  }
+  function updateRoute(){
+    if(!pointA||!pointB)return;
+    var straight=haversine(pointA,pointB), box=document.getElementById('route-result');
+    box.innerHTML='<b>فاصله مستقیم:</b> '+fmtDistance(straight)+'<br><span>در حال محاسبه مسیر جاده‌ای…</span>'; drawLine(pointA,pointB);
+    fetch('https://router.project-osrm.org/route/v1/driving/'+pointA[0]+','+pointA[1]+';'+pointB[0]+','+pointB[1]+'?overview=full&geometries=geojson').then(function(r){return r.ok?r.json():Promise.reject();}).then(function(d){if(d.routes&&d.routes[0]){var route=d.routes[0];box.innerHTML='<b>مسافت مسیر:</b> '+fmtDistance(route.distance/1000)+'<br><b>زمان تقریبی:</b> '+toFa(Math.round(route.duration/60))+' دقیقه<br><span>مسیر جاده‌ای بر اساس شبکه عمومی</span>';drawLine(pointA,pointB,{type:'Feature',geometry:route.geometry});}}).catch(function(){box.innerHTML='<b>فاصله مستقیم:</b> '+fmtDistance(straight)+'<br><span>مسیر جاده‌ای در دسترس نبود؛ خط مستقیم نمایش داده شد.</span>';});
+  }
+  function showNearby(coord){
+    var list=(locations||[]).map(function(l){return {l:l,d:haversine(coord,l.coord)}}).sort(function(a,b){return a.d-b.d}).slice(0,5), root=document.getElementById('nearby-result');
+    root.innerHTML='<div class="map-panel-label">نزدیک‌ترین مکان‌ها</div>'+list.map(function(x){return '<div class="nearby-item"><b>'+esc(x.l.name)+'</b><span>'+fmtDistance(x.d)+'</span></div>';}).join('');
+  }
+  function setPoint(which,coord){if(which==='A'){pointA=coord;placePointMarker(coord,'مبدأ');}else{pointB=coord;placePointMarker(coord,'مقصد');}showNearby(coord);if(pointA&&pointB)updateRoute();}
+  function enablePick(which){pickMode=which;document.getElementById('pickA').classList.toggle('active',which==='A');document.getElementById('pickB').classList.toggle('active',which==='B');document.getElementById('route-result').textContent=which==='A'?'روی نقشه محل مبدأ را انتخاب کنید.':'روی نقشه محل مقصد را انتخاب کنید.';}
+  function locateMe(){
+    if(!navigator.geolocation){document.getElementById('route-result').textContent='مرورگر شما موقعیت مکانی را پشتیبانی نمی‌کند.';return;}
+    navigator.geolocation.getCurrentPosition(function(pos){var coord=[pos.coords.longitude,pos.coords.latitude];map.flyTo({center:coord,zoom:13});setPoint('A',coord);document.getElementById('route-result').innerHTML='<b>موقعیت فعلی شما به‌عنوان مبدأ ثبت شد.</b><br>حالا مقصد را انتخاب کنید.';enablePick('B');},function(){document.getElementById('route-result').textContent='دسترسی به موقعیت مکانی رد شد یا در دسترس نیست.'},{enableHighAccuracy:true,timeout:10000});
+  }
+
   function run() {
+    document.getElementById('pickA').onclick=function(){enablePick('A');};
+    document.getElementById('pickB').onclick=function(){enablePick('B');};
+    document.getElementById('useMyLocation').onclick=locateMe;
     renderLayerToggles();
     initMap();
   }
