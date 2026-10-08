@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="پرونده مکان در اطلس شهدا — موقعیت، وضعیت‌های زمانی، لایه‌ها، روابط و منابع">
+<meta name="color-scheme" content="light dark">
+<title>پرونده مکان | اطلس شهدا</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">پرش به محتوا</a>
+
+<!-- ═══════ HEADER (از components.js) ═══════ -->
+<div id="site-header"></div>
+
+<!-- ═══════ MAIN ═══════ -->
+<main id="main">
+  <div class="container place-wrap">
+
+    <!-- Breadcrumb -->
+    <nav class="place-breadcrumb" aria-label="مسیر">
+      <a href="../index.html">خانه</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      <a href="locations.html">مکان‌ها</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      <span class="current" id="breadcrumb-name">…</span>
+    </nav>
+
+    <!-- سربرگ پرونده (با JS پر می‌شود) -->
+    <header class="place-header" id="place-header" style="--lc:#2F6B4A"></header>
+
+    <!-- تب‌های پرونده -->
+    <nav class="place-tabs" role="tablist" aria-label="بخش‌های پرونده">
+      <button class="place-tab active" role="tab" data-tab="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/>
+        </svg>
+        نمای کلی
+      </button>
+      <button class="place-tab" role="tab" data-tab="timeline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+        </svg>
+        خط زمان
+      </button>
+      <button class="place-tab" role="tab" data-tab="sources">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20V6"/>
+        </svg>
+        منابع
+      </button>
+      <button class="place-tab" role="tab" data-tab="changes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>
+        </svg>
+        تغییرات
+      </button>
+    </nav>
+
+    <!-- گرید اصلی -->
+    <div class="place-grid">
+
+      <!-- ستون اصلی -->
+      <div class="place-col-main">
+
+        <!-- نقشه -->
+        <section class="place-block">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              موقعیت جغرافیایی
+            </h3>
+            <span class="hint" id="map-hint">—</span>
+          </div>
+          <div class="place-block-body">
+            <div class="place-map">
+              <div id="place-map"></div>
+              <div class="place-map-badge" id="map-badge">
+                <i aria-hidden="true"></i>
+                <span id="map-badge-text">در حال بارگذاری…</span>
+              </div>
+            </div>
+            <div class="place-coords" id="place-coords"></div>
+          </div>
+        </section>
+
+        <!-- توصیف -->
+        <section class="place-block">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              </svg>
+              درباره این مکان
+            </h3>
+          </div>
+          <div class="place-block-body" id="place-description"></div>
+        </section>
+
+        <!-- خط زمان (پیش‌فرض پنهان) -->
+        <section class="place-block" id="tab-timeline" style="display:none">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+              خط زمان مکان
+            </h3>
+            <span class="hint">وضعیت‌ها از گذشته تا امروز</span>
+          </div>
+          <div class="place-block-body">
+            <div class="place-timeline" id="timeline-list"></div>
+          </div>
+        </section>
+
+        <!-- منابع (پیش‌فرض پنهان) -->
+        <section class="place-block" id="tab-sources" style="display:none">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              </svg>
+              منابع و شواهد
+            </h3>
+            <span class="hint" id="sources-count">—</span>
+          </div>
+          <div class="place-block-body">
+            <div class="place-sources" id="sources-list"></div>
+          </div>
+        </section>
+
+        <!-- تغییرات (پیش‌فرض پنهان) -->
+        <section class="place-block" id="tab-changes" style="display:none">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
+              </svg>
+              تاریخچه تغییرات
+            </h3>
+            <span class="hint">چه کسی، چه زمانی، چه چیزی را تغییر داد</span>
+          </div>
+          <div class="place-block-body">
+            <div class="place-change-list" id="changes-list"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ستون کنار -->
+      <aside class="place-col-side">
+
+        <!-- اشخاص مرتبط (مکمل) -->
+        <section class="place-block">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              </svg>
+              اشخاص مرتبط
+            </h3>
+            <span class="hint">مکمل</span>
+          </div>
+          <div class="place-block-body">
+            <div class="guest-note" style="margin-bottom:14px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              </svg>
+              <span>موقتاً در اطلس. مرجع اصلی: <strong>لایه‌ی هویتی</strong></span>
+            </div>
+            <div class="place-guest-list" id="persons-list"></div>
+          </div>
+        </section>
+
+        <!-- رویدادهای مرتبط (مکمل) -->
+        <section class="place-block">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              رویدادهای مرتبط
+            </h3>
+            <span class="hint">مکمل</span>
+          </div>
+          <div class="place-block-body">
+            <div class="guest-note" style="margin-bottom:14px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2v6M12 22a10 10 0 0 0 0-20"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              </svg>
+              <span>موقتاً در اطلس. مرجع اصلی: <strong>لایه‌ی زمانی</strong></span>
+            </div>
+            <div class="place-guest-list" id="events-list"></div>
+          </div>
+        </section>
+
+        <!-- نمره اعتبار -->
+        <section class="place-block">
+          <div class="place-block-head">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              اعتبار داده
+            </h3>
+          </div>
+          <div class="place-block-body" id="validity-block"></div>
+        </section>
+
+      </aside>
+    </div>
+
+    <!-- نوار اقدام -->
+    <div class="place-actions">
+      <a href="contribute.html" class="btn btn-primary btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        ثبت پیشنهاد اصلاح
+      </a>
+      <button class="btn btn-secondary btn-sm" type="button" id="copy-id">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        کپی شناسه
+      </button>
+      <button class="btn btn-secondary btn-sm" type="button" id="share-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/>
+        </svg>
+        اشتراک‌گذاری
+      </button>
+      <button class="btn btn-secondary btn-sm" type="button" onclick="window.print()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <path d="M6 14h12v8H6z"/>
+        </svg>
+        چاپ
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<!-- ═══════ FOOTER (از components.js) ═══════ -->
+<div id="site-footer"></div>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/components.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   Place Page — رندر پرونده مکان
+   ═══════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var D = window.ATLAS || {};
+
+  /* ─────── ابزار ─────── */
+  function toFa(n) {
+    return String(n)
+      .replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; })
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  /* ─────── انتخاب مکان: از URL یا اولین مکان ─────── */
+  var params = new URLSearchParams(window.location.search);
+  var requestedId = params.get('id');
+  var place = (D.locations || []).find(function (l) { return l.id === requestedId; })
+              || (D.locations || [])[0];
+
+  if (!place) {
+    document.querySelector('.place-wrap').innerHTML =
+      '<div class="place-empty"><p>مکانی یافت نشد.</p></div>';
+    return;
+  }
+
+  /* ─────── رنگ لایه ─────── */
+  var layerObj = (D.layers || []).find(function (x) { return x.slug === place.layer; }) || {};
+  var LC = layerObj.color || '#3D5A3D';
+  var layerName = layerObj.name || place.layer;
+
+  document.documentElement.style.setProperty('--lc', LC);
+
+  /* ─────── Breadcrumb ─────── */
+  document.getElementById('breadcrumb-name').textContent = place.short || place.name;
+  document.title = place.name + ' | اطلس شهدا';
+
+  /* ─────── سربرگ ─────── */
+  function renderHeader() {
+    var confMap = {
+      exact: { text: 'دقیق', cls: 'status-exact' },
+      approx: { text: 'تقریبی', cls: 'status-approx' },
+      area: { text: 'محدوده', cls: 'status-area' },
+      unknown: { text: 'نامعلوم', cls: 'status-unknown' }
+    };
+    var conf = confMap[place.confidence] || confMap.unknown;
+
+    var layerTags = (place.layers || []).map(function (slug) {
+      var l = (D.layers || []).find(function (x) { return x.slug === slug; });
+      var name = l ? l.name : slug;
+      return '<span class="tag" style="background:' + (l ? l.color : LC) + '1a;color:' + (l ? l.color : LC) + '">' + esc(name) + '</span>';
+    }).join('');
+
+    var html = ''
+      + '<div class="place-header-inner">'
+      +   '<div class="place-header-main">'
+      +     '<div class="place-header-tags">'
+      +       '<span class="tag ' + conf.cls + '"><i></i>' + conf.text + '</span>'
+      +       '<span class="tag">' + esc(place.province) + '</span>'
+      +       '<span class="tag">' + esc(place.city) + '</span>'
+      +     '</div>'
+      +     '<h1>' + esc(place.name) + '</h1>'
+      +     '<p class="place-header-lede">' + esc(place.desc) + '</p>'
+      +     '<div class="place-header-meta">'
+      +       '<span class="place-header-meta-item">'
+      +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'
+      +         '<strong>' + toFa(place.persons) + '</strong> شهید مرتبط'
+      +       '</span>'
+      +       '<span class="place-header-meta-item">'
+      +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>'
+      +         '<strong>' + toFa(place.sources) + '</strong> منبع'
+      +       '</span>'
+      +       '<span class="place-header-meta-item">'
+      +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/></svg>'
+      +         '<strong>' + toFa((place.layers || []).length) + '</strong> لایه'
+      +       '</span>'
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="place-header-id">'
+      +     '<div class="place-header-id-label">شناسه پایدار</div>'
+      +     '<div class="place-header-id-value">' + esc(place.id) + '</div>'
+      +     '<div class="place-header-id-meta">'
+      +       '<span>وضعیت <b>فعال</b></span>'
+      +       '<span>دسترسی <b>عمومی</b></span>'
+      +       '<span>پژوهش <b>تأییدشده</b></span>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+
+    document.getElementById('place-header').innerHTML = html;
+    document.getElementById('place-header').style.setProperty('--lc', LC);
+
+    // لایه‌های چندگانه به‌عنوان تگ
+    var tagsWrap = document.querySelector('.place-header-tags');
+    if (tagsWrap && layerTags) {
+      tagsWrap.insertAdjacentHTML('beforeend', layerTags);
+    }
+  }
+
+  /* ─────── توصیف ─────── */
+  function renderDescription() {
+    var html = ''
+      + '<p>' + esc(place.desc) + '</p>'
+      + '<p style="margin-top:14px;font-size:13px;color:var(--muted)">'
+      +   'این مکان در لایه‌ی <strong>' + esc(layerName) + '</strong> ثبت شده است. '
+      +   'اطلاعات بیشتر در بخش‌های خط زمان، اشخاص و رویدادهای مرتبط در همین صفحه قابل مشاهده است.'
+      + '</p>';
+    document.getElementById('place-description').innerHTML = html;
+  }
+
+  /* ─────── مختصات ─────── */
+  function renderCoords() {
+    var lat = place.coord[1];
+    var lng = place.coord[0];
+    var confMap = {
+      exact: 'دقیق — مدرک موقعیت موجود',
+      approx: 'تقریبی — حاشیه خطای مشخص',
+      area: 'محدوده — نقطه دقیق نامعلوم',
+      unknown: 'نامعلوم — نیازمند پژوهش'
+    };
+    var coords = [
+      { l: 'عرض جغرافیایی', v: lat.toFixed(4) + '°' },
+      { l: 'طول جغرافیایی', v: lng.toFixed(4) + '°' },
+      { l: 'سطح اطمینان', v: (confMap[place.confidence] || '—') }
+    ];
+    document.getElementById('place-coords').innerHTML = coords.map(function (c) {
+      return ''
+        + '<div class="place-coord">'
+        +   '<div class="place-coord-label">' + c.l + '</div>'
+        +   '<div class="place-coord-value">' + esc(c.v) + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ─────── خط زمان (نمونه تولیدشده از داده) ─────── */
+  function renderTimeline() {
+    var states = [
+      {
+        period: 'پیش از ۱۳۵۷',
+        title: 'پیشینه تاریخی مکان',
+        desc: 'این مکان در دوره‌های پیشین به‌عنوان بخشی از بافت جغرافیایی منطقه شناخته می‌شده است.',
+        source: 'منابع محلی و اسناد تاریخی'
+      },
+      {
+        period: '۱۳۵۷ — ۱۳۶۷',
+        title: 'نقش در دوره دفاع مقدس',
+        desc: 'در این بازه، مکان به‌عنوان یکی از نقاط مرتبط با رویدادهای دفاع مقدس شناخته می‌شود.',
+        source: 'پرونده‌های رسمی و اسناد سازمانی'
+      },
+      {
+        period: '۱۳۶۷ — ۱۴۰۰',
+        title: 'ثبت رسمی و توسعه',
+        desc: 'مکان به‌عنوان یک نقطه‌ی مرجع ثبت و در طول سال‌ها توسعه یافته است.',
+        source: 'اسناد رسمی'
+      },
+      {
+        period: '۱۴۰۰ تا امروز',
+        title: 'ثبت در اطلس شهدا',
+        desc: 'مکان با شناسه پایدار در اطلس شهدا ثبت شده و به لایه‌ها و اشخاص مرتبط پیوند خورده است.',
+        source: 'حاکمیت داده اطلس'
+      }
+    ];
+
+    document.getElementById('timeline-list').innerHTML = states.map(function (s) {
+      return ''
+        + '<div class="place-timeline-item">'
+        +   '<span class="place-timeline-period">' + esc(s.period) + '</span>'
+        +   '<h4>' + esc(s.title) + '</h4>'
+        +   '<p>' + esc(s.desc) + '</p>'
+        +   '<span class="place-timeline-source">'
+        +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>'
+        +     esc(s.source)
+        +   '</span>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ─────── منابع ─────── */
+  function renderSources() {
+    var sources = [
+      { icon: 'ب', title: 'پرونده‌های رسمی سازمانی', desc: 'اسناد و پرونده‌های ثبت‌شده در نهادهای مسئول', badge: 'بالا', cls: '' },
+      { icon: 'ک', title: 'کتاب و پژوهش‌های میدانی', desc: 'منابع مکتوب و پژوهش‌های مرتبط با مکان', badge: 'بالا', cls: '' },
+      { icon: 'ع', title: 'عکس و فیلم مستند', desc: 'تصاویر و مستندات تصویری از مکان در دوره‌های مختلف', badge: 'متوسط', cls: 'medium' },
+      { icon: 'خ', title: 'روایت خانوادگی', desc: 'خاطرات و روایت‌های شفاهی خانواده‌ها و شاهدان', badge: 'متوسط', cls: 'medium' }
+    ];
+
+    document.getElementById('sources-list').innerHTML = sources.map(function (s) {
+      return ''
+        + '<div class="place-source-item">'
+        +   '<div class="place-source-icon">' + esc(s.icon) + '</div>'
+        +   '<div class="place-source-info">'
+        +     '<h5>' + esc(s.title) + '</h5>'
+        +     '<p>' + esc(s.desc) + '</p>'
+        +   '</div>'
+        +   '<span class="place-source-badge ' + s.cls + '">' + esc(s.badge) + '</span>'
+        + '</div>';
+    }).join('');
+
+    document.getElementById('sources-count').textContent = toFa(place.sources) + ' منبع';
+  }
+
+  /* ─────── تغییرات ─────── */
+  function renderChanges() {
+    var changes = [
+      { t: 'ثبت اولیه مکان', d: 'مکان با شناسه پایدار در اطلس ثبت شد.', m: '۱۴۰۴/۰۵/۱۲ · حاکمیت داده' },
+      { t: 'افزودن منابع', d: 'سه منبع معتبر به پرونده اضافه شد.', m: '۱۴۰۴/۰۶/۰۳ · پژوهشگر محتوا' },
+      { t: 'به‌روزرسانی هندسه', d: 'مختصات نقطه‌ی مکان با دقت بالاتر به‌روزرسانی شد.', m: '۱۴۰۴/۰۷/۱۵ · کارشناس مکانی' }
+    ];
+
+    document.getElementById('changes-list').innerHTML = changes.map(function (c) {
+      return ''
+        + '<div class="place-change-item">'
+        +   '<span class="place-change-dot"></span>'
+        +   '<div class="place-change-content">'
+        +     '<h5>' + esc(c.t) + '</h5>'
+        +     '<p>' + esc(c.d) + '</p>'
+        +     '<div class="place-change-meta">' + esc(c.m) + '</div>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ─────── اشخاص (مکمل) ─────── */
+  function renderPersons() {
+    var persons = (D.persons || []).slice(0, 4);
+    if (!persons.length) {
+      document.getElementById('persons-list').innerHTML =
+        '<div class="place-empty"><p>هنوز شخصی ثبت نشده است.</p></div>';
+      return;
+    }
+    document.getElementById('persons-list').innerHTML = persons.map(function (p) {
+      return ''
+        + '<a href="#" class="place-guest-item" aria-disabled="true">'
+        +   '<div class="place-guest-avatar">' + esc(p.initial) + '</div>'
+        +   '<div class="place-guest-info">'
+        +     '<h5>' + esc(p.name) + '</h5>'
+        +     '<p>' + esc(p.desc) + '</p>'
+        +   '</div>'
+        + '</a>';
+    }).join('');
+  }
+
+  /* ─────── رویدادها (مکمل) ─────── */
+  function renderEvents() {
+    var events = (D.events || []).slice(0, 3);
+    if (!events.length) {
+      document.getElementById('events-list').innerHTML =
+        '<div class="place-empty"><p>هنوز رویدادی ثبت نشده است.</p></div>';
+      return;
+    }
+    document.getElementById('events-list').innerHTML = events.map(function (e) {
+      return ''
+        + '<div class="place-guest-item">'
+        +   '<div class="place-guest-avatar">' + esc(e.day) + '</div>'
+        +   '<div class="place-guest-info">'
+        +     '<h5>' + esc(e.title) + '</h5>'
+        +     '<p>' + esc(e.month) + '</p>'
+        +   '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ─────── نمره اعتبار ─────── */
+  function renderValidity() {
+    var score = 0.86;
+    var pct = Math.round(score * 100);
+    var items = [
+      { l: 'دقت موقعیت', v: 25 },
+      { l: 'منبع', v: 22 },
+      { l: 'کامل‌بودن', v: 18 },
+      { l: 'سازگاری', v: 12 },
+      { l: 'تازگی', v: 9 }
+    ];
+
+    var html = ''
+      + '<div style="text-align:center;margin-bottom:18px">'
+      +   '<div style="font-size:42px;font-weight:900;color:var(--brand-d);line-height:1;letter-spacing:-1.5px">' + toFa(pct) + '<span style="font-size:18px;color:var(--muted);font-weight:700">٪</span></div>'
+      +   '<div style="font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:600">نمره اعتبار مکان</div>'
+      + '</div>';
+
+    html += '<div style="display:flex;flex-direction:column;gap:10px">';
+    items.forEach(function (it) {
+      var w = Math.round((it.v / 25) * 100);
+      html += ''
+        + '<div>'
+        +   '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px">'
+        +     '<span>' + it.l + '</span>'
+        +     '<span>' + toFa(it.v) + '/' + toFa(25) + '</span>'
+        +   '</div>'
+        +   '<div style="height:5px;background:var(--paper-2);border-radius:3px;overflow:hidden">'
+        +     '<div style="height:100%;width:' + w + '%;background:linear-gradient(90deg,var(--brand),var(--brand-l));border-radius:3px"></div>'
+        +   '</div>'
+        + '</div>';
+    });
+    html += '</div>';
+
+    html += '<p style="font-size:11px;color:var(--muted-2);line-height:1.7;margin-top:16px;padding-top:12px;border-top:1px solid var(--line-2)">نمره اعتبار جایگزین قضاوت پژوهشگر نیست؛ ابزار کمکی برای اولویت‌بندی بررسی است.</p>';
+
+    document.getElementById('validity-block').innerHTML = html;
+  }
+
+  /* ─────── تب‌ها ─────── */
+  function initTabs() {
+    var tabs = document.querySelectorAll('.place-tab');
+    var panels = {
+      timeline: document.getElementById('tab-timeline'),
+      sources: document.getElementById('tab-sources'),
+      changes: document.getElementById('tab-changes')
+    };
+    var overviewBlocks = document.querySelectorAll('.place-col-main .place-block:not([id^="tab-"])');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = tab.getAttribute('data-tab');
+
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+
+        if (target === 'overview') {
+          overviewBlocks.forEach(function (b) { b.style.display = ''; });
+          Object.keys(panels).forEach(function (k) { panels[k].style.display = 'none'; });
+        } else {
+          overviewBlocks.forEach(function (b) { b.style.display = 'none'; });
+          Object.keys(panels).forEach(function (k) {
+            panels[k].style.display = (k === target) ? '' : 'none';
+          });
+        }
+      });
+    });
+  }
+
+  /* ─────── نقشه ─────── */
+  function initMap() {
+    var el = document.getElementById('place-map');
+    if (!el) return;
+
+    var badge = document.getElementById('map-badge-text');
+    var hint = document.getElementById('map-hint');
+    var coords = place.coord;
+
+    hint.textContent = place.city + ' · ' + place.province;
+
+    if (typeof maplibregl === 'undefined') {
+      el.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(135deg,#E4DBC6,#D9CEB4);display:grid;place-items:center;color:var(--muted);font-size:12px">نقشه در دسترس نیست</div>';
+      if (badge) badge.textContent = 'نمای ساده';
+      return;
+    }
+
+    try {
+      var map = new maplibregl.Map({
+        container: el,
+        style: 'https://tiles.openfreemap.org/styles/positron',
+        center: coords,
+        zoom: 11,
+        attributionControl: false,
+        dragRotate: false,
+        pitchWithRotate: false,
+        cooperativeGestures: true
+      });
+
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
+
+      var node = document.createElement('div');
+      node.style.cssText =
+        'width:20px;height:20px;border-radius:50%;' +
+        'background:' + LC + ';' +
+        'box-shadow:0 0 0 8px ' + LC + '33, 0 0 0 2.5px #F5EFE2, 0 3px 8px rgba(42,36,25,.35);';
+      new maplibregl.Marker({ element: node }).setLngLat(coords).addTo(map);
+
+      if (badge) badge.textContent = 'موقعیت مکان روی نقشه';
+
+    } catch (err) {
+      if (badge) badge.textContent = 'نمای ساده';
+    }
+  }
+
+  /* ─────── کپی شناسه ─────── */
+  function initCopyId() {
+    var btn = document.getElementById('copy-id');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var text = place.id;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () {
+          var original = btn.innerHTML;
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> کپی شد';
+          setTimeout(function () { btn.innerHTML = original; }, 1800);
+        });
+      }
+    });
+  }
+
+  /* ─────── اشتراک‌گذاری ─────── */
+  function initShare() {
+    var btn = document.getElementById('share-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({ title: place.name, url: window.location.href });
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+        var original = btn.innerHTML;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> لینک کپی شد';
+        setTimeout(function () { btn.innerHTML = original; }, 1800);
+      }
+    });
+  }
+
+  /* ─────── اجرا ─────── */
+  function run() {
+    renderHeader();
+    renderDescription();
+    renderCoords();
+    renderTimeline();
+    renderSources();
+    renderChanges();
+    renderPersons();
+    renderEvents();
+    renderValidity();
+    initTabs();
+    initMap();
+    initCopyId();
+    initShare();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+</body>
+</html>
