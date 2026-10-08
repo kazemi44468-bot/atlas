@@ -1839,9 +1839,19 @@ body{background-color:var(--atlas-cream);background-image:radial-gradient(circle
 
 /* Atlas navigation — compact, icon-free main items, marked submenu */
 .nav{
-  position:relative!important;display:flex!important;align-items:center!important;gap:4px!important;
-  padding:3px!important;border:1px solid #d8ccb5!important;border-radius:8px!important;
-  background:rgba(255,252,244,.72)!important;box-shadow:inset 0 1px 0 #fff,0 3px 10px rgba(61,52,34,.04)!important;
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:max-content!important;
+  max-width:100%!important;
+  flex:0 0 auto!important;
+  gap:2px!important;
+  padding:2px!important;
+  border:1px solid #d8ccb5!important;
+  border-radius:8px!important;
+  background:rgba(255,252,244,.72)!important;
+  box-shadow:inset 0 1px 0 #fff,0 3px 10px rgba(61,52,34,.04)!important;
 }
 .nav::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:.2;
   background-image:radial-gradient(circle,rgba(61,90,61,.18) 1px,transparent 1.1px);background-size:10px 10px;
