@@ -102,7 +102,7 @@
               <circle cx="11" cy="11" r="7"/>
               <path d="m21 21-4.3-4.3"/>
             </svg>
-            <input type="search" placeholder="جست‌وجوی مکان، شهید، رویداد یا مسیر…" aria-label="جست‌وجو">
+            <input id="homeSearchInput" type="search" placeholder="جست‌وجوی مکان، شهید، رویداد یا مسیر…" aria-label="جست‌وجو">
           </label>
 
           <div class="home-search-filters" role="group" aria-label="فیلتر سریع">
@@ -112,7 +112,7 @@
             <button class="home-filter-chip" type="button"><i style="background:#1E6B72" aria-hidden="true"></i>یادمان</button>
           </div>
 
-          <button class="home-search-submit" type="button">
+          <button class="home-search-submit" id="homeSearchSubmit" type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
@@ -280,26 +280,11 @@
         <div class="home-cta-content">
           <h2>هر مکان، یک پرونده زنده و قابل استناد</h2>
           <p>اگر پژوهشگر، خانواده شهید یا علاقه‌مند به جغرافیای شهدا هستید، به اطلس بپیوندید و در ساختن این مرجع سهیم شوید.</p>
-          <div class="home-cta-actions">
-            <a href="pages/contribute.html" class="btn btn-primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
-              مشارکت در اطلس
-            </a>
-            <a href="pages/plan.html" class="btn btn-secondary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <path d="M14 2v6h6"/>
-              </svg>
-              مطالعه سند جامع
-            </a>
-          </div>
+          <div class="home-cta-actions"><a href="pages/search.html" class="btn btn-primary">جست‌وجوی پیشرفته اطلس</a><a href="pages/map.html" class="btn btn-secondary">ورود به نقشه</a></div>
         </div>
       </div>
     </div>
   </section>
-
 </main>
 
 <!-- ═══════ FOOTER (از components.js) ═══════ -->
@@ -492,6 +477,13 @@
       .replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
   }
 
+  function bindHomeSearch() {
+    var input=document.getElementById('homeSearchInput'), btn=document.getElementById('homeSearchSubmit');
+    function go(){var q=(input&&input.value||'').trim();window.location.href='pages/search.html'+(q?'?q='+encodeURIComponent(q):'');}
+    if(btn)btn.addEventListener('click',go);
+    if(input)input.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go();}});
+  }
+
   /* ─────── اجرا ─────── */
   function run() {
     renderLayers();
@@ -500,6 +492,7 @@
     renderEvents();
     renderPersons();
     renderRoutes();
+    bindHomeSearch();
   }
 
   if (document.readyState === 'loading') {
