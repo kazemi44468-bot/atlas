@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
-   ATLAS — Design Tokens
-   هویت بصری «اطلس کهن» + توکن‌های اکوسیستم و محتوای مکمل
+   ATLAS — Design Tokens v3
+   هویت بصری «اطلس کهن» + اکوسیستم + محتوای مکمل + رنگ‌های شاد
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -37,6 +37,27 @@
   --saffron-d:    #9A6E22;
   --saffron-soft: #F5E6C8;
 
+  /* ─────────── FRESH (رنگ‌های شاد و طراوت‌بخش) ─────────── */
+  --fresh:        #E8A33D;
+  --fresh-d:      #C4842A;
+  --fresh-soft:   #FBEBD1;
+
+  --mint:         #6FA687;
+  --mint-d:       #4F8567;
+  --mint-soft:    #E4F0E8;
+
+  --rose:         #C77B7B;
+  --rose-d:       #A85E5E;
+  --rose-soft:    #F5E2E2;
+
+  --sky:          #6B95B5;
+  --sky-d:        #4A7797;
+  --sky-soft:     #E0EBF2;
+
+  --lavender:     #9B8BB4;
+  --lavender-d:   #7A6A94;
+  --lavender-soft:#EEE8F3;
+
   /* ─────────── STATUS (وضعیت‌ها) ─────────── */
   --ok:           #3D6B3D;
   --ok-soft:      #E1EBDC;
@@ -59,6 +80,16 @@
   --l-farhang:    #6B4A7A;
   --l-tarikhi:    #5C4A2E;
 
+  /* ─────────── GRADIENTS (گرادیان‌های آماده) ─────────── */
+  --grad-brand:   linear-gradient(135deg, var(--brand) 0%, var(--brand-l) 100%);
+  --grad-saffron: linear-gradient(135deg, var(--saffron) 0%, var(--fresh) 100%);
+  --grad-warm:    linear-gradient(135deg, var(--clay) 0%, var(--saffron) 100%);
+  --grad-cool:    linear-gradient(135deg, var(--indigo) 0%, var(--sky) 100%);
+  --grad-mint:    linear-gradient(135deg, var(--mint) 0%, var(--brand-l) 100%);
+  --grad-sunset:  linear-gradient(135deg, var(--rose) 0%, var(--fresh) 50%, var(--saffron) 100%);
+  --grad-footer:  linear-gradient(165deg, #1B2A22 0%, #16241E 45%, #101A15 100%);
+  --grad-rainbow: linear-gradient(90deg, var(--brand) 0%, var(--mint) 25%, var(--saffron) 50%, var(--fresh) 75%, var(--clay) 100%);
+
   /* ─────────── LINES (خطوط و مرزها) ─────────── */
   --line:         #D4C8B0;
   --line-2:       #E0D6C2;
@@ -72,7 +103,6 @@
   --glass-dark:   rgba(42, 36, 25, .75);
 
   /* ─────────── GUEST CONTENT (محتوای مکمل) ─────────── */
-  /* داده‌ای که موقتاً در اطلس میزبانی می‌شود و بعداً به مرجع خودش می‌رود */
   --guest-bg:      #FBF7EC;
   --guest-bg-2:    #F7F1E0;
   --guest-border:  #E5D9B8;
@@ -82,13 +112,12 @@
   --guest-soft:    #F0E5C9;
 
   /* ─────────── ECOSYSTEM (رنگ‌های اکوسیستم) ─────────── */
-  /* برای نشان‌گذاری عمومی — بدون اشاره به نام پروژه خاص */
-  --eco-1:        #2C3E5C;   /* نیلی */
-  --eco-2:        #8A5A2E;   /* قهوه‌ای گرم */
-  --eco-3:        #5A4A7A;   /* بنفش خاکی */
-  --eco-4:        #3D5A3D;   /* زیتونی */
+  --eco-1:        #2C3E5C;
+  --eco-2:        #8A5A2E;
+  --eco-3:        #5A4A7A;
+  --eco-4:        #3D5A3D;
 
-  /* ─────────── EXTERNAL LINK (لینک خروجی) ─────────── */
+  /* ─────────── EXTERNAL LINK ─────────── */
   --link-ext:         #7A3620;
   --link-ext-hover:   #9C4A2E;
   --link-ext-soft:    #F2E0D8;
@@ -102,7 +131,7 @@
   --r-2xl:  36px;
   --r-full: 999px;
 
-  /* ─────────── SHADOW (سایه‌های کاغذی) ─────────── */
+  /* ─────────── SHADOW ─────────── */
   --shadow-xs:  0 1px 2px rgba(42,36,25,.04);
   --shadow-sm:  0 1px 3px rgba(42,36,25,.05), 0 1px 2px rgba(42,36,25,.04);
   --shadow:     0 2px 6px rgba(42,36,25,.06), 0 4px 14px rgba(42,36,25,.05);
@@ -201,9 +230,12 @@
   --texture-grid:
     repeating-linear-gradient(0deg, transparent 0px, transparent 23px, rgba(42,36,25,.04) 23px, rgba(42,36,25,.04) 24px),
     repeating-linear-gradient(90deg, transparent 0px, transparent 23px, rgba(42,36,25,.04) 23px, rgba(42,36,25,.04) 24px);
+
+  --texture-dots:
+    radial-gradient(circle, rgba(42,36,25,.06) 1px, transparent 1px);
 }
 
-/* ─────────── DARK MODE (خودکار) ─────────── */
+/* ─────────── DARK MODE ─────────── */
 @media (prefers-color-scheme: dark) {
   :root {
     --paper:      #1A1611;
@@ -228,6 +260,11 @@
     --clay-soft:  rgba(156,74,46,.18);
     --indigo-soft: rgba(44,62,92,.22);
     --saffron-soft: rgba(196,144,58,.18);
+    --fresh-soft:  rgba(232,163,61,.18);
+    --mint-soft:   rgba(111,166,135,.18);
+    --rose-soft:   rgba(199,123,123,.18);
+    --sky-soft:    rgba(107,149,181,.18);
+    --lavender-soft: rgba(155,139,180,.18);
     --ok-soft:    rgba(61,107,61,.18);
     --warn-soft:  rgba(176,120,32,.18);
     --danger-soft: rgba(156,52,40,.18);
@@ -251,5 +288,7 @@
     --shadow-lg:  0 8px 24px rgba(0,0,0,.5), 0 24px 56px rgba(0,0,0,.4);
     --shadow-xl:  0 16px 48px rgba(0,0,0,.55), 0 40px 80px rgba(0,0,0,.45);
     --shadow-in:  inset 0 1px 0 rgba(255,255,255,.06);
+
+    --grad-footer:  linear-gradient(165deg, #0F1A14 0%, #0A130E 45%, #060B08 100%);
   }
 }
