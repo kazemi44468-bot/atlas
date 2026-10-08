@@ -80,7 +80,7 @@
     return '<header class="header"><div class="container"><div class="header-in">'
       +'<a href="'+ROOT+'" class="brand" aria-label="اطلس شهدا"><span class="brand-mark"><img src="'+LOGO+'" alt="لوگوی اطلس شهدا"><span class="brand-glow"></span></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی جغرافیا</small></span></a>'
       +'<nav class="nav" aria-label="ناوبری اصلی">'+desktop+'</nav>'
-      +'<div class="header-actions"><a href="'+ROOT+'pages/about.html#search'+'" class="icon-btn" aria-label="جست‌وجو">'+svg('search',18)+'</a><a href="'+ROOT+'pages/contribute.html" class="cta-btn">'+svg('plus',15)+'<span>مشارکت</span></a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
+      +'<div class="header-actions"><a href="'+ROOT+'pages/search.html" class="icon-btn" aria-label="جست‌وجو">'+svg('search',18)+'</a><button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">'+svg('menu',20)+'</button></div>'
       +'</div></div></header>'
       +'<div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-in"><div class="mobile-menu-header"><a href="'+ROOT+'" class="brand brand-sm"><span class="brand-mark"><img src="'+LOGO+'" alt=""></span><span class="brand-text"><strong>اطلس شهدا</strong><small>مرجع مکانی</small></span></a><button class="mobile-menu-close" id="menuClose" aria-label="بستن">'+svg('close',18)+'</button></div><nav class="mobile-menu-nav">'+mobile+'</nav></div></div>'
       +'<nav class="mobile-bottom-nav" aria-label="ناوبری سریع موبایل">'
