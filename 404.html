@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#f7f4ed">
 <meta name="description" content="صفحه موردنظر در اطلس شهدا پیدا نشد.">
 <title>صفحه پیدا نشد | اطلس شهدا</title>
-<link rel="stylesheet" href="assets/css/tokens.css">
-<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="/atlas/assets/css/tokens.css">
+<link rel="stylesheet" href="/atlas/assets/css/base.css">
 <style>
 :root{--atlas-green:#2f6b4a;--atlas-ink:#26352e;--atlas-muted:#6d776f;--atlas-paper:#f7f4ed;--atlas-line:#ddd8cc}
 *{box-sizing:border-box}
@@ -18,7 +18,9 @@ body{background:var(--atlas-paper);color:var(--atlas-ink)}
 .page:before{width:520px;height:520px;top:-280px;left:-180px}
 .page:after{width:430px;height:430px;bottom:-260px;right:-170px}
 .card{width:min(620px,100%);text-align:center;position:relative;z-index:1}
-.logo{width:104px;height:104px;object-fit:contain;display:block;margin:0 auto 24px;filter:drop-shadow(0 10px 22px rgba(31,48,39,.09))}
+.logo-link{display:inline-block;line-height:0;border-radius:24px}
+.logo{width:104px;height:104px;object-fit:contain;display:block;margin:0 auto 24px;filter:drop-shadow(0 10px 22px rgba(31,48,39,.09));transition:transform .2s ease}
+.logo-link:hover .logo{transform:translateY(-3px)}
 .code{font-size:clamp(58px,12vw,92px);line-height:1;font-weight:800;letter-spacing:-4px;color:var(--atlas-green);margin:0 0 12px}
 h1{font-size:clamp(24px,5vw,34px);line-height:1.6;margin:0 0 12px;font-weight:800}
 p{max-width:500px;margin:0 auto;color:var(--atlas-muted);font-size:16px;line-height:2}
@@ -32,25 +34,27 @@ p{max-width:500px;margin:0 auto;color:var(--atlas-muted);font-size:16px;line-hei
 .home-link:hover{color:var(--atlas-green)}
 .home-link svg{width:16px;height:16px}
 @media(max-width:520px){.page{padding:24px 16px}.logo{width:86px;height:86px;margin-bottom:20px}.code{letter-spacing:-2px}.actions{flex-direction:column}.btn{width:100%}}
-@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+@media(prefers-reduced-motion:reduce){.btn,.logo{transition:none}}
 </style>
 </head>
 <body>
 <main class="page">
-  <section class="card" aria-labelledby="title">
-    <img class="logo" src="assets/images/logo.png" alt="لوگوی اطلس شهدا">
-    <div class="code" aria-hidden="true">۴۰۴</div>
-    <h1 id="title">این صفحه در اطلس شهدا پیدا نشد</h1>
-    <p>ممکن است نشانی صفحه تغییر کرده باشد یا این بخش هنوز در اطلس ایجاد نشده باشد.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="index.html">بازگشت به صفحه نخست</a>
-      <a class="btn btn-secondary" href="pages/plan.html">مشاهده طرح اطلس</a>
-    </div>
-    <a class="home-link" href="index.html" aria-label="بازگشت به اطلس شهدا">
-      اطلس شهدا
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </section>
+<section class="card" aria-labelledby="title">
+<a class="logo-link" href="/atlas/" aria-label="بازگشت به صفحه نخست اطلس شهدا">
+<img class="logo" src="/atlas/assets/images/logo.png" alt="لوگوی اطلس شهدا">
+</a>
+<div class="code" aria-hidden="true">۴۰۴</div>
+<h1 id="title">این صفحه در اطلس شهدا پیدا نشد</h1>
+<p>ممکن است نشانی صفحه تغییر کرده باشد یا این بخش هنوز در اطلس ایجاد نشده باشد.</p>
+<div class="actions">
+<a class="btn btn-primary" href="/atlas/">بازگشت به صفحه نخست</a>
+<a class="btn btn-secondary" href="/atlas/pages/plan.html">مشاهده طرح اطلس</a>
+</div>
+<a class="home-link" href="/atlas/" aria-label="بازگشت به اطلس شهدا">
+اطلس شهدا
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</section>
 </main>
 </body>
 </html>
