@@ -108,6 +108,7 @@
         cooperativeGestures: true
       });
 
+      if (maplibregl.setRTLTextPlugin) maplibregl.setRTLTextPlugin('https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/mapbox-gl-rtl-text.js', null, true);
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
 
       var markers = D.mapMarkers || [];
