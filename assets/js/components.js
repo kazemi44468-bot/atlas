@@ -121,6 +121,11 @@
     });
     document.addEventListener('click',function(e){if(!e.target.closest('.nav-group'))document.querySelectorAll('.nav-group.open').forEach(function(x){x.classList.remove('open');});});
     var top=document.getElementById('footerTopBtn');if(top)top.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+    var backTop=document.getElementById('atlasBackTop');
+    if(!backTop){backTop=document.createElement('button');backTop.id='atlasBackTop';backTop.type='button';backTop.className='atlas-back-top';backTop.setAttribute('aria-label','بازگشت به بالای صفحه');backTop.innerHTML=svg('up',18)+'<span>بازگشت به بالا</span>';document.body.appendChild(backTop);}
+    function updateBackTop(){backTop.classList.toggle('show',window.scrollY>420);}
+    window.addEventListener('scroll',updateBackTop,{passive:true});
+    backTop.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};updateBackTop();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
   window.ATLAS_COMPONENTS={svg:svg,toFa:toFa};
