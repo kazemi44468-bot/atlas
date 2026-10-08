@@ -2781,3 +2781,321 @@
   line-height: 1.7;
   margin: 0;
 }
+/* ═══════════════════════════════════════════════════════════════
+   LOCATIONS (pages/locations.html) — فهرست مکان‌ها
+   ═══════════════════════════════════════════════════════════════ */
+
+.loc-wrap { padding: 32px 0 64px; }
+
+/* ─────── سرصفحه ─────── */
+.loc-page-head {
+  margin-bottom: 28px;
+}
+.loc-page-head h1 {
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.loc-page-head p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 720px;
+}
+
+/* ─────── نوار ابزار ─────── */
+.loc-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.loc-search {
+  flex: 1;
+  min-width: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.loc-search svg {
+  position: absolute;
+  inset-inline-start: 14px;
+  width: 17px;
+  height: 17px;
+  color: var(--muted-2);
+  pointer-events: none;
+}
+.loc-search input {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  border: 1.5px solid var(--line-2);
+  background: var(--surface-2);
+  border-radius: 10px;
+  font-size: 13.5px;
+  min-height: auto;
+}
+.loc-search input:focus { border-color: var(--brand); background: var(--surface); }
+
+.loc-select {
+  padding: 10px 14px;
+  border: 1.5px solid var(--line-2);
+  background: var(--surface-2);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  min-height: auto;
+  min-width: 140px;
+}
+.loc-select:focus { border-color: var(--brand); background: var(--surface); }
+
+.loc-count {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ─────── چیپ‌های لایه ─────── */
+.loc-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-xs);
+}
+.loc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: var(--r-full);
+  background: var(--surface-2);
+  border: 1.5px solid var(--line-2);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--dur-sm) var(--ease);
+  font-family: inherit;
+}
+.loc-chip:hover { border-color: var(--brand); color: var(--brand-d); }
+.loc-chip.on {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--surface);
+}
+.loc-chip i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+  flex-shrink: 0;
+}
+.loc-chip.on i { background: var(--surface-hi) !important; }
+
+/* ─────── گرید مکان‌ها ─────── */
+.loc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* ─────── کارت (بازاستفاده از home-place-card) ─────── */
+.loc-card {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: all var(--dur) var(--ease);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+}
+.loc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--line-strong);
+  color: inherit;
+}
+
+.loc-card-thumb {
+  height: 150px;
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--lc) 20%, transparent), transparent 55%),
+    radial-gradient(circle at 70% 60%, rgba(196,144,58,.14), transparent 50%),
+    linear-gradient(135deg, #E4DBC6, #D9CEB4);
+  position: relative;
+  overflow: hidden;
+}
+.loc-card-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(42,36,25,.06) 0, rgba(42,36,25,.06) 1px, transparent 1px, transparent 14px);
+}
+.loc-card-thumb::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  transform: translate(50%, -50%);
+  width: 36px;
+  height: 36px;
+  border: 2.5px solid var(--lc, var(--brand));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--lc) 20%, var(--surface));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--lc) 14%, transparent);
+}
+.loc-card-thumb .pin {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  transform: translate(50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lc, var(--brand));
+  z-index: 1;
+}
+
+.loc-card-badge {
+  position: absolute;
+  top: 12px;
+  inset-inline-start: 12px;
+  padding: 5px 11px;
+  border-radius: var(--r-full);
+  background: rgba(245,239,226,.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 10.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line-2);
+  z-index: 2;
+}
+.loc-card-badge i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+
+.loc-card-id {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 12px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(42,36,25,.75);
+  color: var(--surface);
+  font-family: var(--ff-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  direction: ltr;
+  z-index: 2;
+}
+
+.loc-card-body {
+  padding: 16px 18px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.loc-card-tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.loc-card h3 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.45;
+  margin-bottom: 8px;
+  letter-spacing: -.2px;
+}
+.loc-card .desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+.loc-card-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-2);
+  font-size: 11.5px;
+  color: var(--muted-2);
+  font-weight: 600;
+}
+.loc-card-foot svg { width: 13px; height: 13px; }
+
+/* ─────── حالت خالی ─────── */
+.loc-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+}
+.loc-empty svg { width: 48px; height: 48px; margin: 0 auto 16px; color: var(--muted-3); }
+.loc-empty h3 { font-size: 18px; margin-bottom: 8px; color: var(--ink); }
+.loc-empty p { font-size: 13.5px; line-height: 1.8; max-width: 380px; margin: 0 auto; }
+
+/* ─────── صفحه‌بندی ─────── */
+.loc-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+.loc-page-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all var(--dur-sm) var(--ease);
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.loc-page-btn:hover { border-color: var(--brand); color: var(--brand-d); }
+.loc-page-btn.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--surface);
+}
+.loc-page-btn:disabled { opacity: .4; cursor: not-allowed; }
