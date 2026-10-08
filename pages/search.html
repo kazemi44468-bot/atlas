@@ -106,7 +106,7 @@
 (function(){
 'use strict';
 var D=window.ATLAS||{}, layers=D.layers||[], locations=D.locations||[], state={q:'',type:'all',province:'',city:'',layer:'',confidence:'',verified:false,coords:false,page:1,sort:'relevance'},perPage=10;
-function fa(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[+d]).replace(/\B(?=(\d{3})+(?!\d))/g,'٬')}
+function fa(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[+d]}).replace(/\B(?=(\d{3})+(?!\d))/g,'٬');}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function norm(s){return String(s||'').toLowerCase().replace(/[يى]/g,'ی').replace(/[ك]/g,'ک').replace(/ـ/g,'').replace(/\s+/g,' ').trim()}
 function layerName(slug){var x=layers.find(function(l){return l.slug===slug});return x?x.name:'مکان'}
