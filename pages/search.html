@@ -3,54 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="جست‌وجوی حرفه‌ای در مکان‌ها، شهدا، رویدادها و مسیرهای اطلس شهدا.">
-<title>جست‌وجوی اطلس | اطلس شهدا</title>
+<meta name="description" content="جست‌وجوی پیشرفته در مکان‌ها، شهدا، رویدادها، مسیرها و لایه‌های اطلس شهدا.">
+<title>جست‌وجوی پیشرفته | اطلس شهدا</title>
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/pages.css">
 <style>
-.search-page{padding:28px 0 70px}
-.search-hero{padding:34px 0 24px}
-.search-hero h1{font-size:clamp(28px,4vw,44px);margin:12px 0 8px}
-.search-hero p{max-width:700px;color:var(--muted);font-size:14px;line-height:1.9}
-.search-box{margin-top:24px;display:flex;gap:10px;padding:9px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-md)}
-.search-box input{min-height:52px;border:0!important;box-shadow:none!important;background:transparent}
-.search-submit{min-width:118px;padding:0 20px;border-radius:11px;background:var(--brand);color:#fff;font-weight:800}
-.search-layout{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:start;margin-top:22px}
-.search-filters{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;position:sticky;top:100px}
-.search-filters h3{font-size:14px;margin-bottom:12px}
-.search-filter{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 10px;border-radius:9px;color:var(--muted);font-size:12px;font-weight:700}
-.search-filter:hover,.search-filter.on{background:var(--brand-soft);color:var(--brand-d)}
-.search-filter span:last-child{font-size:10px;color:var(--muted-2)}
+.search-page{padding:26px 0 70px}
+.search-hero{padding:24px 0 20px}
+.search-hero h1{font-size:clamp(28px,4vw,44px);margin:12px 0 7px}
+.search-hero p{max-width:760px;color:var(--muted);font-size:13px;line-height:2}
+.search-box{margin-top:20px;display:flex;gap:8px;padding:7px;background:var(--surface);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow-md)}
+.search-box input{min-height:50px;border:0!important;box-shadow:none!important;background:transparent}
+.search-submit{min-width:112px;padding:0 18px;border-radius:10px;background:var(--brand);color:#fff;font-weight:800}
+.search-layout{display:grid;grid-template-columns:255px minmax(0,1fr);gap:20px;align-items:start;margin-top:16px}
+.search-filters{position:sticky;top:92px;background:rgba(255,252,244,.94);border:1px solid var(--line);border-radius:15px;padding:14px;box-shadow:var(--shadow-sm)}
+.filter-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.filter-head h3{font-size:14px}
+.clear-filters{font-size:10px;color:var(--brand);font-weight:800}
+.filter-block{padding:12px 0;border-top:1px solid var(--line-2)}
+.filter-block:first-of-type{border-top:0;padding-top:0}
+.filter-label{display:block;font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:7px}
+.filter-select{min-height:38px!important;padding:6px 10px!important;font-size:11px!important;background:#fffdf8!important}
+.type-list{display:grid;gap:3px}
+.type-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 9px;border-radius:8px;color:var(--muted);font-size:11px;font-weight:800}
+.type-btn:hover,.type-btn.on{background:var(--brand-soft);color:var(--brand-d)}
+.type-count{font-size:9px;color:var(--muted-2)}
+.check-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);padding:5px 0}
+.check-row input{width:15px;height:15px;min-height:15px;accent-color:var(--brand)}
 .search-results{min-width:0}
-.search-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;color:var(--muted);font-size:12px}
-.search-sort{width:auto;min-height:36px;padding:6px 10px;font-size:11px}
-.result-list{display:grid;gap:10px}
-.result-card{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:15px 16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;transition:.2s}
+.result-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.summary{font-size:11px;color:var(--muted)}
+.summary strong{color:var(--ink)}
+.sort-select{width:auto;min-height:35px!important;padding:5px 9px!important;font-size:10.5px!important}
+.active-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.active-filter{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid var(--line);background:var(--paper-2);border-radius:7px;color:var(--muted);font-size:9.5px}
+.active-filter button{color:var(--muted);font-size:12px}
+.result-list{display:grid;gap:9px}
+.result-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:13px;transition:.18s}
 .result-card:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
-.result-icon{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--paper-2);color:var(--brand);font-size:17px;font-weight:900}
-.result-card h3{font-size:14px;margin-bottom:4px}
-.result-card p{font-size:11.5px;color:var(--muted);line-height:1.7;margin:0}
-.result-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
-.result-meta span{font-size:9.5px;color:var(--muted-2);padding:3px 7px;background:var(--paper-2);border-radius:6px}
-.result-arrow{color:var(--muted-2)}
-.search-empty{padding:50px 20px;text-align:center;background:var(--surface);border:1px dashed var(--line-strong);border-radius:16px}
+.result-icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--paper-2);color:var(--brand);font-size:17px;font-weight:900}
+.result-type{font-size:9px;color:var(--brand);font-weight:900;margin-bottom:3px}
+.result-card h3{font-size:13.5px;margin-bottom:3px}
+.result-card p{font-size:11px;color:var(--muted);line-height:1.7;margin:0}
+.result-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.result-meta span{font-size:9px;color:var(--muted-2);padding:3px 6px;background:var(--paper-2);border-radius:5px}
+.result-arrow{color:var(--muted-2);font-size:17px}
+.search-empty{padding:55px 20px;text-align:center;background:var(--surface);border:1px dashed var(--line-strong);border-radius:15px}
 .search-empty h3{font-size:18px;margin-bottom:6px}
-.search-empty p{font-size:12px;color:var(--muted)}
+.search-empty p{font-size:11px;color:var(--muted);line-height:1.9}
 .pagination{display:flex;justify-content:center;align-items:center;gap:5px;margin-top:18px;flex-wrap:wrap}
-.page-btn{min-width:34px;height:34px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--muted);font:inherit;font-size:11px;font-weight:800}
+.page-btn{min-width:34px;height:34px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--muted);font:inherit;font-size:10.5px;font-weight:800}
 .page-btn:hover,.page-btn.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .page-btn:disabled{opacity:.35}
-@media(max-width:760px){
- .search-layout{grid-template-columns:1fr}
- .search-filters{position:static;display:flex;gap:6px;overflow:auto;padding:8px}
- .search-filters h3{display:none}
- .search-filter{min-width:105px;justify-content:center}
- .search-filter span:last-child{display:none}
- .result-card{grid-template-columns:auto 1fr}
- .result-arrow{display:none}
- .search-box{border-radius:13px}
-}
+.search-statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.search-stat{padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.search-stat b{display:block;font-size:17px;color:var(--brand-d)}
+.search-stat span{font-size:9px;color:var(--muted)}
+@media(max-width:850px){.search-layout{grid-template-columns:1fr}.search-filters{position:static}.search-statbar{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.search-box{border-radius:12px}.search-submit{min-width:82px;padding:0 10px}.result-card{grid-template-columns:38px minmax(0,1fr)}.result-icon{width:38px;height:38px}.result-arrow{display:none}.search-filters{padding:10px}.type-list{display:flex;overflow:auto}.type-btn{min-width:92px;justify-content:center}.type-count{display:none}}
 </style>
 </head>
 <body>
@@ -59,13 +70,32 @@
 <main id="main"><div class="container search-page">
 <section class="search-hero">
 <nav class="place-breadcrumb" aria-label="مسیر"><a href="../index.html">خانه</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="current">جست‌وجوی اطلس</span></nav>
-<h1>جست‌وجوی اطلس</h1>
-<p>در مکان‌ها، اطلاعات هویتی، رویدادهای مرتبط و مسیرهای ثبت‌شده جست‌وجو کنید. نتایج بر اساس میزان ارتباط مرتب می‌شوند و در صفحات جداگانه نمایش داده می‌شوند.</p>
-<div class="search-box"><input id="searchInput" type="search" placeholder="نام مکان، شهید، رویداد، استان یا مسیر…" autocomplete="off"><button id="searchSubmit" class="search-submit" type="button">جست‌وجو</button></div>
+<h1>جست‌وجوی پیشرفته اطلس</h1>
+<p>در هویت‌های مکانی، لایه‌های جغرافیایی، شهدا، رویدادها و مسیرها جست‌وجو کنید و با فیلترهای مکانی و وضعیت داده، نتیجه دقیق‌تری بگیرید.</p>
+<div class="search-box"><input id="searchInput" type="search" placeholder="نام مکان، شهید، خیابان، میدان، استان، شهر، رویداد یا شناسه…" autocomplete="off"><button id="searchSubmit" class="search-submit" type="button">جست‌وجو</button></div>
+<div class="search-statbar"><div class="search-stat"><b id="statAll">۰</b><span>کل رکوردهای قابل جست‌وجو</span></div><div class="search-stat"><b id="statLocations">۰</b><span>مکان</span></div><div class="search-stat"><b id="statProvinces">۰</b><span>استان</span></div><div class="search-stat"><b id="statLayers">۰</b><span>لایه اطلاعاتی</span></div></div>
 </section>
 <div class="search-layout">
-<aside class="search-filters"><h3>نوع نتیجه</h3><button class="search-filter on" data-type="all" type="button"><span>همه</span><span id="count-all">۰</span></button><button class="search-filter" data-type="location" type="button"><span>مکان‌ها</span><span id="count-location">۰</span></button><button class="search-filter" data-type="person" type="button"><span>شهدا</span><span id="count-person">۰</span></button><button class="search-filter" data-type="event" type="button"><span>رویدادها</span><span id="count-event">۰</span></button><button class="search-filter" data-type="route" type="button"><span>مسیرها</span><span id="count-route">۰</span></button></aside>
-<section class="search-results" aria-live="polite"><div class="search-summary"><span id="summary"></span><select id="sort" class="search-sort" aria-label="مرتب‌سازی"><option value="relevance">ارتباط بیشتر</option><option value="name">نام</option></select></div><div id="resultList" class="result-list"></div><div id="pagination" class="pagination"></div></section>
+<aside class="search-filters" aria-label="فیلترهای جست‌وجو">
+<div class="filter-head"><h3>فیلترهای جست‌وجو</h3><button class="clear-filters" id="clearFilters" type="button">پاک‌کردن همه</button></div>
+<div class="filter-block"><span class="filter-label">نوع نتیجه</span><div class="type-list" id="typeList">
+<button class="type-btn on" data-type="all" type="button"><span>همه</span><span class="type-count" id="count-all">۰</span></button>
+<button class="type-btn" data-type="location" type="button"><span>مکان‌ها</span><span class="type-count" id="count-location">۰</span></button>
+<button class="type-btn" data-type="person" type="button"><span>شهدا</span><span class="type-count" id="count-person">۰</span></button>
+<button class="type-btn" data-type="event" type="button"><span>رویدادها</span><span class="type-count" id="count-event">۰</span></button>
+<button class="type-btn" data-type="route" type="button"><span>مسیرها</span><span class="type-count" id="count-route">۰</span></button>
+</div></div>
+<div class="filter-block"><label class="filter-label" for="provinceFilter">استان</label><select class="filter-select" id="provinceFilter"><option value="">همه استان‌ها</option></select></div>
+<div class="filter-block"><label class="filter-label" for="cityFilter">شهر / محدوده</label><select class="filter-select" id="cityFilter"><option value="">همه شهرها</option></select></div>
+<div class="filter-block"><label class="filter-label" for="layerFilter">لایه اطلاعاتی</label><select class="filter-select" id="layerFilter"><option value="">همه لایه‌ها</option></select></div>
+<div class="filter-block"><label class="filter-label" for="confidenceFilter">وضعیت مکانی</label><select class="filter-select" id="confidenceFilter"><option value="">همه</option><option value="exact">مختصات دقیق</option><option value="approx">مختصات تقریبی</option><option value="area">محدوده</option><option value="unknown">نامعلوم</option></select></div>
+<div class="filter-block"><span class="filter-label">وضعیت داده</span><label class="check-row"><input id="verifiedOnly" type="checkbox"> فقط داده‌های مرجع</label><label class="check-row"><input id="withCoords" type="checkbox"> فقط دارای مختصات</label></div>
+</aside>
+<section class="search-results" aria-live="polite">
+<div id="activeFilters" class="active-filters"></div>
+<div class="result-toolbar"><span id="summary" class="summary"></span><select id="sort" class="sort-select" aria-label="مرتب‌سازی"><option value="relevance">بیشترین ارتباط</option><option value="name">نام</option><option value="province">استان</option><option value="new">شناسه / رکورد</option></select></div>
+<div id="resultList" class="result-list"></div><div id="pagination" class="pagination"></div>
+</section>
 </div>
 </div></main>
 <div id="site-footer"></div>
@@ -75,47 +105,56 @@
 <script>
 (function(){
 'use strict';
-var D=window.ATLAS||{}, state={q:'',type:'all',page:1,sort:'relevance'}, perPage=10;
-function fa(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[+d]})}
+var D=window.ATLAS||{}, layers=D.layers||[], locations=D.locations||[], state={q:'',type:'all',province:'',city:'',layer:'',confidence:'',verified:false,coords:false,page:1,sort:'relevance'},perPage=10;
+function fa(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[+d]).replace(/\B(?=(\d{3})+(?!\d))/g,'٬')}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function normalize(s){return String(s||'').toLowerCase().replace(/[يى]/g,'ی').replace(/[ك]/g,'ک')}
+function norm(s){return String(s||'').toLowerCase().replace(/[يى]/g,'ی').replace(/[ك]/g,'ک').replace(/ـ/g,'').replace(/\s+/g,' ').trim()}
+function layerName(slug){var x=layers.find(function(l){return l.slug===slug});return x?x.name:'مکان'}
+function typeName(t){return {location:'مکان',person:'شهید',event:'رویداد',route:'مسیر'}[t]||'رکورد'}
+function icon(t){return {location:'⌖',person:'ش',event:'◷',route:'↝'}[t]||'•'}
 function build(){
- var a=[];
- (D.locations||[]).forEach(function(x){a.push({type:'location',name:x.name,desc:x.desc,meta:[x.province,x.city,(D.layers||[]).find(function(l){return l.slug===x.layer;})?.name||'مکان'],icon:'⌖',score:0})});
- (D.persons||[]).forEach(function(x){a.push({type:'person',name:x.name,desc:x.desc,meta:['شهید'],icon:x.initial||'ش',score:0})});
- (D.events||[]).forEach(function(x){a.push({type:'event',name:x.title,desc:x.desc,meta:[x.province,x.type],icon:'◷',score:0})});
- (D.routes||[]).forEach(function(x){a.push({type:'route',name:x.title,desc:x.desc,meta:[x.type,fa(x.points)+' نقطه'],icon:'↝',score:0})});
- return a;
+var a=[];
+locations.forEach(function(x){a.push({type:'location',id:x.id,name:x.name,desc:x.desc,province:x.province||'',city:x.city||'',layer:x.layer||'',confidence:x.confidence||'unknown',reference:x.generated!==true,coords:Array.isArray(x.coord),meta:[x.province,x.city,layerName(x.layer)],href:'place.html?id='+encodeURIComponent(x.id)})});
+(D.persons||[]).forEach(function(x){a.push({type:'person',id:x.id,name:x.name,desc:x.desc,province:'',city:'',layer:'',confidence:'',reference:false,coords:false,meta:['شهید'],href:''})});
+(D.events||[]).forEach(function(x){a.push({type:'event',id:x.id,name:x.title,desc:x.desc,province:x.province||'',city:'',layer:'',confidence:'',reference:false,coords:false,meta:[x.province,x.type],href:''})});
+(D.routes||[]).forEach(function(x){a.push({type:'route',id:x.id,name:x.title,desc:x.desc,province:x.province||'',city:'',layer:'',confidence:'',reference:false,coords:false,meta:[x.type,fa(x.points)+' نقطه'],href:''})});
+return a
 }
 var all=build();
-function score(x,q){if(!q)return 1;var n=normalize(x.name+' '+x.desc+' '+x.meta.join(' ')),qq=normalize(q);if(!n.includes(qq))return 0;var s=n.indexOf(qq)===0?100:50;if(normalize(x.name).includes(qq))s+=30;return s}
-function filtered(){
- var q=state.q.trim(), arr=all.filter(function(x){return state.type==='all'||x.type===state.type}).map(function(x){x.score=score(x,q);return x}).filter(function(x){return !q||x.score>0});
- arr.sort(function(a,b){return state.sort==='name'?a.name.localeCompare(b.name,'fa'):b.score-a.score});
- return arr;
+function score(x,q){if(!q)return 1;var text=norm([x.name,x.id,x.desc,x.province,x.city,layerName(x.layer)].join(' ')),qq=norm(q);if(!text.includes(qq))return 0;var s=text.indexOf(qq)===0?100:50;if(norm(x.name).includes(qq))s+=40;if(norm(x.province).includes(qq))s+=15;return s}
+function matches(x){if(state.type!=='all'&&x.type!==state.type)return false;if(state.province&&x.province!==state.province)return false;if(state.city&&x.city!==state.city)return false;if(state.layer&&x.layer!==state.layer)return false;if(state.confidence&&x.confidence!==state.confidence)return false;if(state.verified&&!x.reference)return false;if(state.coords&&!x.coords)return false;return true}
+function filtered(){var q=state.q.trim(),a=all.filter(matches).map(function(x){x.score=score(x,q);return x}).filter(function(x){return !q||x.score>0});a.sort(function(x,y){if(state.sort==='name')return x.name.localeCompare(y.name,'fa');if(state.sort==='province')return (x.province||'').localeCompare(y.province||'','fa')||x.name.localeCompare(y.name,'fa');if(state.sort==='new')return y.id.localeCompare(x.id);return y.score-x.score});return a}
+function populate(){
+var ps=[],cs=[];locations.forEach(function(x){if(x.province&&ps.indexOf(x.province)<0)ps.push(x.province);if(x.city&&cs.indexOf(x.city)<0)cs.push(x.city)});ps.sort(function(a,b){return a.localeCompare(b,'fa')});cs.sort(function(a,b){return a.localeCompare(b,'fa')});
+var p=document.getElementById('provinceFilter'),c=document.getElementById('cityFilter'),l=document.getElementById('layerFilter');
+ps.forEach(function(x){p.insertAdjacentHTML('beforeend','<option value="'+esc(x)+'">'+esc(x)+'</option>')});cs.forEach(function(x){c.insertAdjacentHTML('beforeend','<option value="'+esc(x)+'">'+esc(x)+'</option>')});layers.forEach(function(x){l.insertAdjacentHTML('beforeend','<option value="'+esc(x.slug)+'">'+esc(x.name)+'</option>')})
 }
-function renderCounts(){
- var types=['all','location','person','event','route'];types.forEach(function(t){var n=t==='all'?all.length:all.filter(function(x){return x.type===t}).length;document.getElementById('count-'+t).textContent=fa(n)});
+function counts(){
+var by={all:all.length,location:0,person:0,event:0,route:0};all.forEach(function(x){if(by[x.type]!==undefined)by[x.type]++});Object.keys(by).forEach(function(k){document.getElementById('count-'+k).textContent=fa(by[k])});
+document.getElementById('statAll').textContent=fa(all.length);document.getElementById('statLocations').textContent=fa(locations.length);document.getElementById('statProvinces').textContent=fa(new Set(locations.map(function(x){return x.province})).size);document.getElementById('statLayers').textContent=fa(layers.length)
+}
+function renderActive(){
+var root=document.getElementById('activeFilters'),a=[];if(state.q)a.push(['عبارت',state.q,'q']);if(state.type!=='all')a.push(['نوع',typeName(state.type),'type']);if(state.province)a.push(['استان',state.province,'province']);if(state.city)a.push(['شهر',state.city,'city']);if(state.layer)a.push(['لایه',layerName(state.layer),'layer']);if(state.confidence)a.push(['موقعیت',document.getElementById('confidenceFilter').selectedOptions[0].text,'confidence']);if(state.verified)a.push(['مرجع','داده مرجع','verified']);if(state.coords)a.push(['مکان‌یابی','دارای مختصات','coords']);
+root.innerHTML=a.map(function(x){return '<span class="active-filter">'+esc(x[0])+': '+esc(x[1])+' <button type="button" data-clear="'+x[2]+'" aria-label="حذف فیلتر">×</button></span>'}).join('');
+root.querySelectorAll('[data-clear]').forEach(function(b){b.onclick=function(){clearOne(b.dataset.clear)}})
 }
 function render(){
- var arr=filtered(), pages=Math.max(1,Math.ceil(arr.length/perPage));if(state.page>pages)state.page=pages;
- var start=(state.page-1)*perPage, items=arr.slice(start,start+perPage);
- document.getElementById('summary').textContent=arr.length?fa(arr.length)+' نتیجه · صفحه '+fa(state.page)+' از '+fa(pages):'نتیجه‌ای پیدا نشد';
- document.getElementById('resultList').innerHTML=items.length?items.map(function(x){return '<article class="result-card"><div class="result-icon">'+esc(x.icon)+'</div><div><h3>'+esc(x.name)+'</h3><p>'+esc(x.desc)+'</p><div class="result-meta">'+x.meta.map(function(m){return '<span>'+esc(m)+'</span>'}).join('')+'</div></div><span class="result-arrow">←</span></article>'}).join(''):'<div class="search-empty"><h3>نتیجه‌ای پیدا نشد</h3><p>عبارت دیگری را امتحان کنید یا فیلتر را روی «همه» بگذارید.</p></div>';
- var pg=document.getElementById('pagination');if(pages<=1){pg.innerHTML='';return}
- var h='<button class="page-btn" type="button" '+(state.page===1?'disabled':'')+' data-page="'+(state.page-1)+'">قبلی</button>';
- var from=Math.max(1,state.page-2),to=Math.min(pages,from+4);if(to-from<4)from=Math.max(1,to-4);
- for(var i=from;i<=to;i++)h+='<button class="page-btn '+(i===state.page?'on':'')+'" type="button" data-page="'+i+'">'+fa(i)+'</button>';
- h+='<button class="page-btn" type="button" '+(state.page===pages?'disabled':'')+' data-page="'+(state.page+1)+'">بعدی</button>';pg.innerHTML=h;
- pg.querySelectorAll('[data-page]').forEach(function(b){b.addEventListener('click',function(){if(!b.disabled){state.page=+b.dataset.page;render();window.scrollTo({top:300,behavior:'smooth'})}})});
+var a=filtered(),pages=Math.max(1,Math.ceil(a.length/perPage));if(state.page>pages)state.page=pages;var start=(state.page-1)*perPage,items=a.slice(start,start+perPage);
+document.getElementById('summary').innerHTML='<strong>'+fa(a.length)+'</strong> نتیجه · صفحه '+fa(state.page)+' از '+fa(pages);
+document.getElementById('resultList').innerHTML=items.length?items.map(function(x){var body='<div class="result-icon">'+esc(icon(x.type))+'</div><div><div class="result-type">'+typeName(x.type)+(x.reference?' · مرجع':'')+'</div><h3>'+esc(x.name)+'</h3><p>'+esc(x.desc||'بدون توضیح ثبت‌شده')+'</p><div class="result-meta">'+x.meta.filter(Boolean).map(function(m){return '<span>'+esc(m)+'</span>'}).join('')+'</div></div>';return x.href?'<a class="result-card" href="'+x.href+'">'+body+'<span class="result-arrow">←</span></a>':'<article class="result-card">'+body+'<span class="result-arrow">•</span></article>'}).join(''):'<div class="search-empty"><h3>نتیجه‌ای پیدا نشد</h3><p>فیلترها را کاهش دهید یا عبارت جست‌وجو را تغییر دهید. اطلس در آینده می‌تواند داده‌های رسمی معابر، نامگذاری‌های شهری و منابع محلی را نیز به همین موتور جست‌وجو متصل کند.</p></div>';
+var pg=document.getElementById('pagination');if(pages<=1){pg.innerHTML='';return}var h='<button class="page-btn" type="button" '+(state.page===1?'disabled':'')+' data-page="'+(state.page-1)+'">قبلی</button>',from=Math.max(1,state.page-2),to=Math.min(pages,from+4);if(to-from<4)from=Math.max(1,to-4);for(var i=from;i<=to;i++)h+='<button class="page-btn '+(i===state.page?'on':'')+'" type="button" data-page="'+i+'">'+fa(i)+'</button>';h+='<button class="page-btn" type="button" '+(state.page===pages?'disabled':'')+' data-page="'+(state.page+1)+'">بعدی</button>';pg.innerHTML=h;pg.querySelectorAll('[data-page]').forEach(function(b){b.onclick=function(){if(!b.disabled){state.page=+b.dataset.page;render();window.scrollTo({top:300,behavior:'smooth'})}}})
 }
-function syncUrl(){var u=new URL(window.location.href);u.searchParams.set('q',state.q);history.replaceState(null,'',u)}
+function clearOne(k){if(k==='q'){state.q='';document.getElementById('searchInput').value=''}else if(k==='type')state.type='all';else if(k==='verified')state.verified=false;else if(k==='coords')state.coords=false;else state[k]='';state.page=1;syncControls();renderActive();render()}
+function clearAll(){state={q:'',type:'all',province:'',city:'',layer:'',confidence:'',verified:false,coords:false,page:1,sort:state.sort};document.getElementById('searchInput').value='';syncControls();renderActive();render()}
+function syncControls(){document.getElementById('provinceFilter').value=state.province;document.getElementById('cityFilter').value=state.city;document.getElementById('layerFilter').value=state.layer;document.getElementById('confidenceFilter').value=state.confidence;document.getElementById('verifiedOnly').checked=state.verified;document.getElementById('withCoords').checked=state.coords;document.getElementById('sort').value=state.sort;document.querySelectorAll('.type-btn').forEach(function(b){b.classList.toggle('on',b.dataset.type===state.type)})}
+function syncUrl(){var u=new URL(location.href);if(state.q)u.searchParams.set('q',state.q);else u.searchParams.delete('q');history.replaceState(null,'',u)}
 function run(){
- var p=new URLSearchParams(location.search);state.q=p.get('q')||'';document.getElementById('searchInput').value=state.q;renderCounts();render();
- document.querySelectorAll('.search-filter').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.search-filter').forEach(function(x){x.classList.remove('on')});b.classList.add('on');state.type=b.dataset.type;state.page=1;render()})});
- document.getElementById('sort').addEventListener('change',function(e){state.sort=e.target.value;state.page=1;render()});
- function submit(){state.q=document.getElementById('searchInput').value.trim();state.page=1;syncUrl();render()}
- document.getElementById('searchSubmit').addEventListener('click',submit);document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter')submit()});
+populate();counts();var p=new URLSearchParams(location.search);state.q=p.get('q')||'';document.getElementById('searchInput').value=state.q;renderActive();render();
+document.querySelectorAll('.type-btn').forEach(function(b){b.onclick=function(){state.type=b.dataset.type;state.page=1;syncControls();renderActive();render()}});
+['province','city','layer','confidence'].forEach(function(k){document.getElementById(k==='province'?'provinceFilter':k==='city'?'cityFilter':k==='layer'?'layerFilter':'confidenceFilter').onchange=function(e){state[k]=e.target.value;state.page=1;renderActive();render()}});
+document.getElementById('verifiedOnly').onchange=function(e){state.verified=e.target.checked;state.page=1;renderActive();render()};document.getElementById('withCoords').onchange=function(e){state.coords=e.target.checked;state.page=1;renderActive();render()};
+document.getElementById('sort').onchange=function(e){state.sort=e.target.value;state.page=1;render()};
+function submit(){state.q=document.getElementById('searchInput').value.trim();state.page=1;syncUrl();renderActive();render()}document.getElementById('searchSubmit').onclick=submit;document.getElementById('searchInput').onkeydown=function(e){if(e.key==='Enter')submit()};document.getElementById('clearFilters').onclick=clearAll
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
 })();
