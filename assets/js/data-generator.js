@@ -392,14 +392,42 @@
   /* ═══════════════════════════════════════════════════════════════
      اتصال به ATLAS
      ═══════════════════════════════════════════════════════════════ */
+  /* نرمال‌سازی مدل جغرافیایی: کشور → استان → شهر → مکان */
+  function geoSlug(value) {
+    return String(value || '').trim().replace(/[يى]/g,'ی').replace(/[ك]/g,'ک').replace(/\s+/g,'-').replace(/[^\u0600-\u06FF\w-]/g,'').toLowerCase();
+  }
+  var canonicalProvinces = {};
+  PROVINCES.forEach(function (prov) {
+    var key = String(prov.name).trim();
+    if (!canonicalProvinces[key]) canonicalProvinces[key] = { id:'IR-' + prov.code, code:prov.code, name:prov.name, center:prov.center };
+  });
+  function normalizeLocation(location) {
+    var province = canonicalProvinces[String(location.province || '').trim()];
+    var provinceCode = province ? province.code : 'IR';
+    var cityName = String(location.city || location.short || '').trim();
+    location.provinceCode = provinceCode;
+    location.cityId = 'CITY-' + provinceCode + '-' + geoSlug(cityName);
+    location.hierarchy = { country:'IR', province:provinceCode, city:location.cityId, place:location.id };
+    location.dataState = location.generated ? 'generated' : 'reference';
+    return location;
+  }
+  var seenGeneratedCities = {};
+  allGenerated = allGenerated.filter(function (location) {
+    var key = String(location.province || '') + '|' + String(location.city || '');
+    if (seenGeneratedCities[key]) return false;
+    seenGeneratedCities[key] = true;
+    return true;
+  }).map(normalizeLocation);
+
   window.ATLAS = window.ATLAS || {};
 
-  var realLocations = (window.ATLAS.locations || []).filter(function (l) { return !l.generated; });
+  var realLocations = (window.ATLAS.locations || []).filter(function (l) { return !l.generated; }).map(normalizeLocation);
   window.ATLAS.locations = realLocations.concat(allGenerated);
 
   window.ATLAS.stats = window.ATLAS.stats || {};
   window.ATLAS.stats.locations = window.ATLAS.locations.length;
-  window.ATLAS.stats.provinces = PROVINCES.length;
+  window.ATLAS.stats.provinces = Object.keys(canonicalProvinces).length;
+  window.ATLAS.geo = { country:{id:'IR',name:'ایران'}, provinces:Object.keys(canonicalProvinces).map(function(key){return canonicalProvinces[key];}), hierarchy:'country.province.city.place', generatedDataPolicy:'generated records are examples and require verification before publication' };
   window.ATLAS.stats.villages = VILLAGES.length;
 
   // نقشه مارکرها
