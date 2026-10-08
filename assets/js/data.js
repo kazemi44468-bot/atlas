@@ -9,7 +9,7 @@ window.ATLAS = window.ATLAS || {};
 window.ATLAS.stats = {
   locations: 1247,
   persons: 386,
-  layers: 10,
+  layers: 11,
   provinces: 24,
   routes: 42,
   sources: 892
@@ -37,6 +37,8 @@ window.ATLAS.layers = [
     desc: 'مراسم، یادواره، فعالیت فرهنگی و اجتماعات محلی.' },
   { slug: 'tarikhi',  name: 'تاریخی و نامگذاری',   icon: '◷', color: '#5C4A2E', count: 33,
     desc: 'وضعیت‌های پیشین مکان، بافت تاریخی و نام‌گذاری‌ها.' }
+  ,{ slug: 'maabar', name: 'معابر و نامگذاری شهری', icon: '⌁', color: '#4B6070', count: 0,
+    desc: 'خیابان، بلوار، میدان، کوچه، گذر، پل و دیگر معابر رسمی که به نام شهدا یا رویدادهای مرتبط نام‌گذاری شده‌اند.' }
 ];
 
 /* ─────── مکان‌ها ─────── */
